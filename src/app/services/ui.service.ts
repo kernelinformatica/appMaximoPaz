@@ -24,8 +24,8 @@ export class UiService {
   async presentLoading() {
     const loading = await this._loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Please wait...',
+      message: 'Comprobando sus datos',
     });
     await loading.present();
-  }  
+  }
 }

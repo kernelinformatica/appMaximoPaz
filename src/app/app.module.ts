@@ -9,14 +9,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
+//------------ PIPES DE LA APLICACION ------------//
+import { CurrencyFormat} from './pipes/currencyformat';
+import { NumeroFormat } from './pipes/numeroformat';
+import { KilosFormat } from './pipes/kilosformat';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CurrencyFormat,
+    KilosFormat,
+    NumeroFormat
   ],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
+    BrowserModule,
+    IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
   ],

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
-import { Login } from 'src/app/interfaces/login.interface';
+import { Login } from 'src/app/modelo/login';
 import { LoginService } from 'src/app/services/login.service';
 import { UiService } from 'src/app/services/ui.service';
 
@@ -30,8 +30,8 @@ export class LoginPage {
   ) {
     this.testError = this.activateRoute.snapshot.queryParamMap.get("refreshToken");
     this.loginForm = this.formBuilder.group({
-      numOperador: ["", [Validators.required]],
-      claveOperador: ["", [Validators.required]]
+      usuario: ["", [Validators.required]],
+      clave: ["", [Validators.required]]
     });
 
   }
@@ -60,7 +60,7 @@ export class LoginPage {
         async resp => {
           await this.loadingController.dismiss();
           if (resp) {
-            this.navController.navigateRoot('/home', { animated: true })
+            this.navController.navigateRoot('/resumen', { animated: true })
           }
         }
       ).catch(
@@ -84,13 +84,13 @@ export class LoginPage {
   }
 
   getClasificados() {
-    
+
   }
 
   private buildInterfaceLogin(loginFrom: any): Login {
     const login: Login = {
-      numOperador: loginFrom.numOperador,
-      claveOperador: loginFrom.claveOperador,
+      usuario: loginFrom.usuario,
+      clave: loginFrom.clave,
     };
     return login;
   }

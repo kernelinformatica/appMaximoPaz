@@ -2,20 +2,27 @@ import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import * as CryptoJS from 'crypto-js';
-
+import { Configuraciones } from '../../configuraciones/configuraciones';
 import { environment } from '../../environments/environment';
-
+import { Usuario } from 'src/app/modelo/usuario';
+import { Cuenta } from 'src/app/modelo/cuenta';
 // INTERFACES
-import { Login } from '../interfaces/login.interface';
+import { Login } from 'src/app/modelo/login';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
 
-    private get urlAuthentication() {
-        return `${environment.urlBase}/usuarios`;
-    }
+  public usuarioActual: Usuario | any;
+  public logueado: boolean = false;
+  public static instancia: LoginService;
+  public servicioDisponible = true;
+  public static conexion: any;
+  public cuenta: Cuenta | any;
+  public versionServicio: string | any;
+  public versionGestagro: string | any;
+  public configuraciones = Configuraciones;
 
     constructor(private http: HTTP) { }
 
@@ -23,26 +30,35 @@ export class LoginService {
         return new Promise(async (resolve, reject) => {
 
             try {
+              debugger
+              const hash = CryptoJS.MD5(login.usuario);
+              const url = `${this.configuraciones.authUrl}${login.clave}`;
+              const params = {};
+              const headers = { clave: hash.toString() };
 
-                const hash = CryptoJS.MD5(login.claveOperador);
-                const url = `${this.urlAuthentication}/${login.numOperador}`;
-                const params = {};
-                const headers = { clave: hash.toString() };
+              //Centraliza llamadas a los métodos
+              const response = await this.http.post(url, params, headers);
 
-                //Centraliza llamadas a los métodos
-                const response = await this.http.post(url, params, headers);
-                const data = JSON.parse(response.data)
-                console.log(data);
-
+              const data = JSON.parse(response.data)
+              console.log(data);
                 //Agregar otros casos al realizar login
 
                 if (data.control.codigo == "OK") {
-                    resolve(true);
+                      let control = data.control;
+                      this.usuarioActual = new Usuario(data.datos);
+                      //Seteo como logueado.
+                      this.logueado = true;
+                      //Guardos las versiones de la lib y de gestagro.
+                      this.versionGestagro = control.versionLib;
+                      this.versionServicio = control.version;
+
+
                 } else {
                     reject(data.control?.descripcion ?? "Error al autenticar.");
                 }
 
             } catch (error: any) {
+                alert("Error: Ocurrio un error general, intente nuevamente más tarde.")
                 const dataError = JSON.parse(error.error)
                 reject(dataError.control.descripcion);
             }
@@ -53,6 +69,9 @@ export class LoginService {
     private async clearStorage() {
         await Preferences.clear();
     }
-
+    public static getInstance(): LoginService {
+      // Sucio, por ahora.
+      return LoginService.instancia;
+    }
 
 }

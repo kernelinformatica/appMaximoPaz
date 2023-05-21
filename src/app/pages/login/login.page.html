@@ -1,6 +1,6 @@
 <ion-content class="login-content" padding>
   <ion-col>
-    <div class="slogan_bienvenido_box">Bienvenidos a </div>
+    <div class="slogan_bienvenido_box"></div>
   </ion-col>
   <ion-row class="logo-row">
     <ion-col>
@@ -8,7 +8,7 @@
     </ion-col>
   </ion-row>
   <ion-col>
-    <div class="slogan_cooperativa_box">COOPERATIVA AGRICOLA GANADERA Y DE SERVICIOS PUBLICOS DE ARANGUREN LTDA</div>
+    <div class="slogan_cooperativa_box">GESTION INTELIGENTE PARA EL SECTOR AGROPECUARIO</div>
   </ion-col>
 
   <div class="login-box">
@@ -17,27 +17,27 @@
         <ion-col>
           <ion-list>
             <ion-item>
-              <ion-input 
-                type="text" 
-                autocomplete="off" 
-                autocorrect="off" 
-                autocapitalize="off" 
+              <ion-input
+                type="text"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
                 spellcheck="false"
-                name="numOperador" 
+                name="numOperador"
                 placeholder="CUENTA CORRIENTE"
-                formControlName="numOperador"
+                formControlName="usuario"
                 required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input 
-                type="password" 
-                autocomplete="off" 
-                autocorrect="off" 
-                autocapitalize="off" 
+              <ion-input
+                type="password"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
                 spellcheck="false"
                 name="clave"
                 placeholder="CLAVE DE ACCESO"
-                formControlName="claveOperador"
+                formControlName="clave"
                 required></ion-input>
             </ion-item>
           </ion-list>
@@ -46,17 +46,17 @@
 
       <!-- <ion-row>
         <ion-label class="txtRecordarme">RECORDARME</ion-label>
-        <ion-checkbox 
-          dark class="chkRecordarme" 
-          name="rememberMe" 
+        <ion-checkbox
+          dark class="chkRecordarme"
+          name="rememberMe"
           [(ngModel)]="rememberMe"
           ngControl="rememberMe"></ion-checkbox>
       </ion-row> -->
 
       <ion-row>
         <ion-col class="signup-col">
-          <ion-button 
-            id="submit-btn" 
+          <ion-button
+            id="submit-btn"
             type="submit"
             expand="block"
             class="btn-login"
@@ -67,38 +67,39 @@
     </form>
     <ion-row>
       <ion-col class="signup-col">
-        <ion-button 
-          class="recuperacion-btn" 
+        <ion-button
+          class="recuperacion-btn"
           expand="block"
           class="btn-login"
           (click)="recuperarClave()">¿ OLVIDO SU CLAVE ?</ion-button>
       </ion-col>
     </ion-row>
     <br>
-    <br>
 
+    <br>
+<!--
     <ion-row class="flex-properties">
       <ion-col>
-        <ion-button 
+        <ion-button
             class="small leftmost btn-login"
             (click)="getNovedades()">
             <ion-icon slot="start" name="book"></ion-icon>Novedades
           </ion-button>
       </ion-col>
       <ion-col>
-        <ion-button 
-            class="small middle btn-login" 
-            ion-button 
+        <ion-button
+            class="small middle btn-login"
+            ion-button
             (click)="getMercado()">
             <ion-icon slot="start" name="stats-chart"></ion-icon>Pizarra</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button 
-            class="small rightmost btn-login" 
-            ion-button 
+        <ion-button
+            class="small rightmost btn-login"
+            ion-button
             (click)="getClasificados()">
             <ion-icon slot="start" name="newspaper"></ion-icon>Clasificados</ion-button>
       </ion-col>
-    </ion-row>
+    </ion-row>-->
   </div>
 </ion-content>
