@@ -1,0 +1,96 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Resumen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Resumen</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <p>&nbsp;</p>
+  <ion-row>
+    <ion-col width-80>
+      <h2>Sus Servicios</h2>
+      <h2>{{ resumenService.resumen.cuenta.nombre | uppercase }} </h2>
+      <h3>{{ resumenService.resumen.empresa.nombreCompleto | uppercase }} </h3>
+    </ion-col>
+
+    <!--<ion-col width-20>
+      <img src="{{ getLogoEmpresa() }}" height="64px;" width="64px;" />
+    </ion-col>-->
+  </ion-row>
+
+   <ion-list *ngIf="tieneFuncion('resumenCtaCte')">
+    <ion-list-header class="headerList" (click)="toggleDetalleCuentas()">
+      Resumen Cta. Cte.
+      <ion-icon color="primary" item-right [name]="iconoCuentas"></ion-icon>
+    </ion-list-header>
+    <div *ngIf="mostrarDetalleCuentas">
+      <button ion-item *ngFor="let item of resumenService.resumen.resumenesCtaCte; let i = index;" (click)="ctacteTapped($event, item)"
+        class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+        CUENTA CORRIENTE <strong> {{  item.saldo  }} </strong>
+        <ion-icon name="ios-arrow-forward" item-right></ion-icon>
+      </button>
+
+    </div>
+  </ion-list>
+
+      <ion-list *ngIf="tieneFuncion('resumenCereal')">
+        <ion-list-header class="headerList" (click)="toggleDetalleCereales()">
+          Resumen Cereales
+          <ion-icon color="primary" item-right [name]="iconoCereales"></ion-icon>
+        </ion-list-header>
+        <div *ngIf="mostrarDetalleCereales">
+          <button ion-item *ngFor="let item of resumenService.resumen.resumenCereal; let i = index;" (click)="cerealTapped($event, item)"
+            class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+            {{ item.cereal }} {{ item.clase }} {{ item.cosecha }}  <strong> {{ item.kilosTotales  }}  </strong>
+            <ion-icon name="ios-arrow-forward" item-right></ion-icon>
+          </button>
+        </div>
+      </ion-list>
+<!--
+      <ion-list *ngIf="tieneFuncion('fichaRemitos') && contieneRemitos">
+        <ion-list-header class="headerList" (click)="toggleDetalleFichaRemitos()">
+          Remitos Pendientes a Facturar
+          <ion-icon color="primary" item-right [name]="iconoFichaRemitos"></ion-icon>
+        </ion-list-header>
+        <div *ngIf="mostrarDetalleFichaRemitos">
+            <div *ngFor="let item of resumenService.resumen.fichaRemito; let i = index;">
+              <div  *ngIf="item.idRubroCtacte.idRubroCtacte == 1 || item.idRubroCtacte.idRubroCtacte == 2 ">
+              <button ion-item (click)="fichaRemitosTapped($event, item)"
+                class="{{ ( i % 2 == 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+                {{  item.idRubroCtacte.nombre }} <strong> {{  item.fecha }} </strong>
+                <ion-icon name="ios-arrow-forward" item-right></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+
+      <ion-list *ngIf="tieneFuncion('fichaCombustibles') && contieneCombustibles">
+          <ion-list-header class="headerList" (click)="toggleDetalleFichaCombustibles()">
+            Combustibles
+            <ion-icon color="primary" item-right [name]="iconoFichaCombustibles"></ion-icon>
+          </ion-list-header>
+          <div *ngIf="mostrarDetalleFichaCombustibles">
+              <div *ngFor="let item of resumenService.resumen.fichaRemito; let i = index;">
+                <div  *ngIf="item.idRubroCtacte.idRubroCtacte == 3 ">
+                <button ion-item (click)="fichaCombustiblesTapped($event, item)"
+                  class="{{ ( i % 2 == 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+                  {{  item.idRubroCtacte.nombre }} <strong> {{  item.fecha }} </strong>
+                  <ion-icon name="ios-arrow-forward" item-right></ion-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </ion-list>
+
+      <div style="padding-top: 0.5em;font-size: .8em">
+        <p>Ult. actualización {{ resumenService.resumen.fechaActualizacion }} - S.E.U.O. </p>
+      </div>-->
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+    "/api/*" : {
+        "target" : "http://www.gestagro.com.ar/gestagroex/ws",
+        "secure" : false,
+        "logLevel": "debug"
+    }
+}
