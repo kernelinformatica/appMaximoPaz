@@ -30,17 +30,17 @@ export class LoginService {
         return new Promise(async (resolve, reject) => {
 
             try {
-              debugger
-              const hash = CryptoJS.MD5(login.usuario);
-              const url = `${this.configuraciones.authUrl}${login.clave}`;
-              const params = {};
-              const headers = { clave: hash.toString() };
+                
+                const hash = CryptoJS.MD5(login.clave);
+                const url = `${this.configuraciones.authUrl}${login.usuario}`;
+                const params = {};
+                const headers = { clave: hash.toString() };
 
               //Centraliza llamadas a los métodos
               const response = await this.http.post(url, params, headers);
 
               const data = JSON.parse(response.data)
-              console.log(data);
+
                 //Agregar otros casos al realizar login
 
                 if (data.control.codigo == "OK") {
@@ -52,6 +52,7 @@ export class LoginService {
                       this.versionGestagro = control.versionLib;
                       this.versionServicio = control.version;
 
+                      resolve(true);
 
                 } else {
                     reject(data.control?.descripcion ?? "Error al autenticar.");
