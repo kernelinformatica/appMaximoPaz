@@ -30,7 +30,7 @@ export class LoginService {
         return new Promise(async (resolve, reject) => {
 
             try {
-                
+
                 const hash = CryptoJS.MD5(login.clave);
                 const url = `${this.configuraciones.authUrl}${login.usuario}`;
                 const params = {};
@@ -51,7 +51,6 @@ export class LoginService {
                       //Guardos las versiones de la lib y de gestagro.
                       this.versionGestagro = control.versionLib;
                       this.versionServicio = control.version;
-
                       resolve(true);
 
                 } else {

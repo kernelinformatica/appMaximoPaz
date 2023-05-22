@@ -12,5 +12,5 @@ export class Configuraciones
     public static detalleCerUrl : string = `${Configuraciones.urlBase}/detallecer/`;
     public static detalleCtaCteUrl : string = `${Configuraciones.urlBase}/detallecc/`;
     public static resumenUrl : string = `${Configuraciones.urlBase}/resumen/`;
-    public static version : string = "0.01a";
+    public static version : string = "0.01B";
 }
