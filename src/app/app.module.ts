@@ -13,20 +13,19 @@ import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { CurrencyFormat} from './pipes/currencyformat';
 import { NumeroFormat } from './pipes/numeroformat';
 import { KilosFormat } from './pipes/kilosformat';
+import { PipesModule } from './pipes/pipes.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CurrencyFormat,
-    KilosFormat,
-    NumeroFormat
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    PipesModule,
   ],
   providers: [
     HTTP,
