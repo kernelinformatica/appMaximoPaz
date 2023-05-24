@@ -6,11 +6,11 @@ import { AlertController, LoadingController } from '@ionic/angular';
 })
 export class UiService {
 
-  constructor( private _alertCrontroller  : AlertController,
-               private _loadingController : LoadingController ) { }
+  constructor(private _alertCrontroller: AlertController,
+    private _loadingController: LoadingController) { }
 
 
-  async presentAlertInfo( message: string ) {
+  async presentAlertInfo(message: string) {
     const alert = await this._alertCrontroller.create({
       backdropDismiss: false,
       message: message,
@@ -24,7 +24,7 @@ export class UiService {
   async presentLoading() {
     const loading = await this._loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Comprobando sus datos',
+      message: 'Por favor, espere...',
     });
     await loading.present();
   }

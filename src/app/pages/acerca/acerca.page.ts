@@ -9,11 +9,11 @@ import { Configuraciones } from 'src/configuraciones/configuraciones';
   styleUrls: ['./acerca.page.scss'],
 })
 export class AcercaPage implements OnInit {
-  private loginService :  LoginService ;
+ // private loginService :  LoginService ;
   private version : string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.loginService = LoginService.getInstance();
+    //this.loginService = LoginService.getInstance();
     this.version = Configuraciones.version;
    }
    ionViewDidLoad() {
@@ -21,7 +21,8 @@ export class AcercaPage implements OnInit {
   }
 
   public getLogoEmpresa() : string {
-    return "http://www.gestagro.com.ar/clientes/movil/logos/" + this.loginService.cuenta.id.substring(0,2) + ".png";
+
+    return "http://www.gestagro.com.ar/clientes/movil/logos/"/* + this..cuenta.id.substring(0,2) + ".png"*/ ;
   }
 
   public getVersionApp():string{
@@ -29,11 +30,13 @@ export class AcercaPage implements OnInit {
   }
 
   public getVersionServicio() : string {
-    return this.loginService.versionServicio;
+    return '1';
+    // return this.loginService.versionServicio;
   }
 
   public getVersionLib():string{
-    return this.loginService.versionGestagro;
+    return '1'
+    //return this.loginService.versionGestagro;
   }
 
   public openKernelPage():void{

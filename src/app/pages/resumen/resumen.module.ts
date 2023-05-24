@@ -14,7 +14,6 @@ import { ResumenPage } from './resumen.page';
     FormsModule,
     IonicModule,
     ResumenPageRoutingModule,
-
   ],
   declarations: [ResumenPage]
 })

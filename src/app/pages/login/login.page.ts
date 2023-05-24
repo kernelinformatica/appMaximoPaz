@@ -71,15 +71,15 @@ export class LoginPage {
       );
   }
 
-  recuperarClave(){
+  recuperarClave() {
 
   }
 
-  getNovedades(){
+  getNovedades() {
 
   }
 
-  getMercado(){
+  getMercado() {
 
   }
 

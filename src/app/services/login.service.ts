@@ -14,15 +14,15 @@ import { Login } from 'src/app/modelo/login';
 })
 export class LoginService {
 
-  public usuarioActual: Usuario | any;
-  public logueado: boolean = false;
-  public static instancia: LoginService;
-  public servicioDisponible = true;
-  public static conexion: any;
-  public cuenta: Cuenta | any;
-  public versionServicio: string | any;
-  public versionGestagro: string | any;
-  public configuraciones = Configuraciones;
+    public usuarioActual: Usuario | any;
+    public logueado: boolean = false;
+    public static instancia: LoginService;
+    public servicioDisponible = true;
+    public static conexion: any;
+    public cuenta: Cuenta | any;
+    public versionServicio: string | any;
+    public versionGestagro: string | any;
+    public configuraciones = Configuraciones;
 
     constructor(private http: HTTP) { }
 
@@ -36,22 +36,24 @@ export class LoginService {
                 const params = {};
                 const headers = { clave: hash.toString() };
 
-              //Centraliza llamadas a los métodos
-              const response = await this.http.post(url, params, headers);
-
-              const data = JSON.parse(response.data)
+                //Centraliza llamadas a los métodos
+                const response = await this.http.post(url, params, headers);
+                const data = JSON.parse(response.data);
 
                 //Agregar otros casos al realizar login
 
                 if (data.control.codigo == "OK") {
-                      let control = data.control;
-                      this.usuarioActual = new Usuario(data.datos);
-                      //Seteo como logueado.
-                      this.logueado = true;
-                      //Guardos las versiones de la lib y de gestagro.
-                      this.versionGestagro = control.versionLib;
-                      this.versionServicio = control.version;
-                      resolve(true);
+                    let control = data.control;
+                    this.usuarioActual = new Usuario(data.datos);
+                    //Seteo como logueado.
+                    this.logueado = true;
+                    //Guardos las versiones de la lib y de gestagro.
+                    this.versionGestagro = control.versionLib;
+                    this.versionServicio = control.version;
+
+                    this.saveStorage(control);
+
+                    resolve(true);
 
                 } else {
                     reject(data.control?.descripcion ?? "Error al autenticar.");
@@ -66,12 +68,8 @@ export class LoginService {
 
     }
 
-    private async clearStorage() {
-        await Preferences.clear();
+    saveStorage(control: any){
+        localStorage.setItem('control', JSON.stringify(control));
+        localStorage.setItem('usuarioActual', JSON.stringify(this.usuarioActual));
     }
-    public static getInstance(): LoginService {
-      // Sucio, por ahora.
-      return LoginService.instancia;
-    }
-
 }

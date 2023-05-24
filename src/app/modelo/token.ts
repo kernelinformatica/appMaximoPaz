@@ -1,4 +1,4 @@
-export class Token{
+export class Token {
     public hashId : string;
     public fechaDesde : string;
     public fechaHasta : string;

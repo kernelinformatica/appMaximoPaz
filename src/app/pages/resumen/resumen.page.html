@@ -11,48 +11,61 @@
     </ion-toolbar>
   </ion-header>
 
-  <p>&nbsp;</p>
   <ion-row>
-    <ion-col width-80>
+    <ion-col>
       <h2>Sus Servicios</h2>
-      <h2>{{ resumenService.resumen.cuenta.nombre | uppercase }} </h2>
-      <h3>{{ resumenService.resumen.empresa.nombreCompleto | uppercase }} </h3>
+      <h2>{{ resumen?.cuenta.nombre ?? "" | uppercase }} </h2>
+      <h3>{{ resumen?.empresa.nombreCompleto ?? "" | uppercase }} </h3>
     </ion-col>
 
-    <!--<ion-col width-20>
+    <ion-col *ngIf="resumen" class="ionCol">
       <img src="{{ getLogoEmpresa() }}" height="64px;" width="64px;" />
-    </ion-col>-->
+    </ion-col>
   </ion-row>
 
-   <ion-list *ngIf="tieneFuncion('resumenCtaCte')">
+  <ion-list *ngIf="tieneFuncion('resumenCtaCte')">
     <ion-list-header class="headerList" (click)="toggleDetalleCuentas()">
-      Resumen Cta. Cte.
-      <ion-icon color="primary" item-right [name]="iconoCuentas"></ion-icon>
+      <ion-label>Resumen Cta. Cte.</ion-label>
+      <ion-button>
+        <ion-icon *ngIf="mostrarDetalleCuentas" name="remove-circle-outline" slot="end"></ion-icon>
+        <ion-icon *ngIf="!mostrarDetalleCuentas" name="add-circle-outline" slot="end"></ion-icon>
+      </ion-button>
     </ion-list-header>
     <div *ngIf="mostrarDetalleCuentas">
-      <button ion-item *ngFor="let item of resumenService.resumen.resumenesCtaCte; let i = index;" (click)="ctacteTapped($event, item)"
-        class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
-        CUENTA CORRIENTE <strong> {{  item.saldo  }} </strong>
-        <ion-icon name="ios-arrow-forward" item-right></ion-icon>
-      </button>
-
+      <ion-item 
+          *ngFor="let item of resumen.resumenesCtaCte; let i = index;"
+          class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
+          (click)="ctacteTapped($event, item)">
+        <ion-label>
+          <span class="ion-label-span">CUENTA CORRIENTE</span> <strong> {{ item.saldo | currency }} </strong>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
     </div>
   </ion-list>
 
-      <ion-list *ngIf="tieneFuncion('resumenCereal')">
-        <ion-list-header class="headerList" (click)="toggleDetalleCereales()">
-          Resumen Cereales
-          <ion-icon color="primary" item-right [name]="iconoCereales"></ion-icon>
-        </ion-list-header>
-        <div *ngIf="mostrarDetalleCereales">
-          <button ion-item *ngFor="let item of resumenService.resumen.resumenCereal; let i = index;" (click)="cerealTapped($event, item)"
-            class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
-            {{ item.cereal }} {{ item.clase }} {{ item.cosecha }}  <strong> {{ item.kilosTotales  }}  </strong>
-            <ion-icon name="ios-arrow-forward" item-right></ion-icon>
-          </button>
-        </div>
-      </ion-list>
-<!--
+  <ion-list *ngIf="tieneFuncion('resumenCereal')">
+    <ion-list-header class="headerList" (click)="toggleDetalleCereales()">
+        <ion-label>Resumen Cereales</ion-label>
+        <ion-button>
+          <ion-icon *ngIf="mostrarDetalleCereales" name="remove-circle-outline" slot="end"></ion-icon>
+          <ion-icon *ngIf="!mostrarDetalleCereales" name="add-circle-outline" slot="end"></ion-icon>
+        </ion-button>
+      </ion-list-header>
+    <div *ngIf="mostrarDetalleCereales">
+      <ion-item 
+          *ngFor="let item of resumen.resumenCereal; let i = index;"
+          class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
+          (click)="cerealTapped($event, item)">
+        <ion-label>
+          {{ item.cereal }} {{ item.clase }} {{ item.cosecha }} <strong> {{ item.kilosTotales }} </strong>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+    </div>
+  </ion-list>
+
+  <!--
       <ion-list *ngIf="tieneFuncion('fichaRemitos') && contieneRemitos">
         <ion-list-header class="headerList" (click)="toggleDetalleFichaRemitos()">
           Remitos Pendientes a Facturar

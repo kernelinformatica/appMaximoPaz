@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 //------------ IMPORTO LAS LIBRERIAS QUE NECESITO ------------//
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
-import { Resumen } from 'src/app/modelo/resumen';
+import { DetalleCereal } from 'src/app/modelo/detallecereal';
 
 
 //------------IMPORTO LAS CLASES QUE NECESITO ------------//
@@ -21,13 +21,13 @@ import { Preferences } from '@capacitor/preferences';
 @Injectable({
   providedIn: 'root'
 })
-export class ResumenService {
+export class DetalleCerealService {
 
   //---------------------------------------------//
   // DECLARACION DE LAS PROPIEDADES QUE NECESITO //
   //---------------------------------------------//
-  public static URLSERVICIO: string = Configuraciones.resumenUrl;
-  public resumen: Resumen | any;
+  public static URLSERVICIO: string = Configuraciones.detalleCerUrl;
+  public detalleCereal: DetalleCereal | any;
   public flag: boolean = false;
   //private loginService: LoginService | any;
   //---------------------------------------------//
@@ -53,11 +53,11 @@ export class ResumenService {
         const data = JSON.parse(response.data);
 
         if (data.control.codigo == "OK") {
-          this.resumen = new Resumen(data.datos);
+          this.detalleCereal = new DetalleCereal(data.datos);
           resolve(
-            { 
-              resumen: this.resumen,
-              funciones: this.usuarioActual.funciones
+            {
+              detalleCereal: this.detalleCereal,
+
             });
         }
       } catch (error: any) {
@@ -72,7 +72,7 @@ export class ResumenService {
   */
   private getURLServicio() {
     // Por ahora devuelvo el string como esta, despues hay que usar el token
-    return ResumenService.URLSERVICIO + `${this.usuarioActual.cuenta.id}`;
+    return DetalleCerealService.URLSERVICIO + `${this.usuarioActual.cuenta.id}`;
   }
 
 }
