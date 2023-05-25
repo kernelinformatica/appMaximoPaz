@@ -22,11 +22,11 @@ export class LoginPage {
   rememberMe = false;
 
   constructor(private uiService: UiService,
-    private formBuilder: FormBuilder,
-    private loginService: LoginService,
-    private navController: NavController,
-    private activateRoute: ActivatedRoute,
-    private loadingController: LoadingController
+              private formBuilder: FormBuilder,
+              private loginService: LoginService,
+              private navController: NavController,
+              private activateRoute: ActivatedRoute,
+              private loadingController: LoadingController
   ) {
     this.testError = this.activateRoute.snapshot.queryParamMap.get("refreshToken");
     this.loginForm = this.formBuilder.group({

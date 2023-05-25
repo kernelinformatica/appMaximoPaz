@@ -4,19 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ResumenPageRoutingModule } from './resumen-routing.module';
+import { DetalleCtactePageRoutingModule } from './detalle-ctacte-routing.module';
 
-import { ResumenPage } from './resumen.page';
+import { DetalleCtactePage } from './detalle-ctacte.page';
 import { PipesModule } from "../../pipes/pipes.module";
 
 @NgModule({
-    declarations: [ResumenPage],
+    declarations: [DetalleCtactePage],
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        ResumenPageRoutingModule,
+        DetalleCtactePageRoutingModule,
         PipesModule
     ]
 })
-export class ResumenPageModule {}
+export class DetalleCtactePageModule {}

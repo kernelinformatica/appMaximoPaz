@@ -1,11 +1,9 @@
-import { LoginService } from 'src/app/services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { ResumenService } from 'src/app/services/resumen.service';
 
-import { CurrencyFormat } from 'src/app/pipes/currencyformat';
-import { NumeroFormat } from 'src/app//pipes/numeroformat';
-import { KilosFormat } from 'src/app//pipes/kilosformat';
 import { Funciones } from 'src/app/modelo/funciones';
+import { LoadingController, NavController } from '@ionic/angular';
+import { UiService } from 'src/app/services/ui.service';
 @Component({
   selector: 'app-resumen',
   templateUrl: './resumen.page.html',
@@ -15,73 +13,63 @@ export class ResumenPage implements OnInit {
   //---------------------------------------------//
   // DECLARACION DE LAS PROPIEDADES QUE NECESITO //
   //---------------------------------------------//
-  private loader: any;                              // Usado para un mensaje de espere
   public mostrarDetalleCuentas = false;
   public mostrarDetalleFichaRemitos = false;
-  public mostrarDetalleFichaCombustibles = false;                // Usado para ocultar el detalle de las cuentas
-  public mostrarDetalleCereales = false;               // Usado para ocultar el detalle de los cereales
-  public iconoFichaRemitos = 'ios-add-circle-outline';
-  public iconoFichaCombustibles = 'ios-add-circle-outline'; // Usado para mostrar el icono que corresponde
-  //public loginService: LoginService | any;
+  public mostrarDetalleFichaCombustibles = false; // Usado para ocultar el detalle de las cuentas
+  public mostrarDetalleCereales = false;          // Usado para ocultar el detalle de los cereales
+  
   public contieneRemitos: boolean | any;
   public contieneCombustibles: boolean | any;
-  loadingCtrl: any;
-  navCtrl: any;
-
+  
+  istodoCargado = false;
   data: any;
   resumen: any;
   funciones: Funciones = new Funciones([""]);
-  //---------------------------------------------//
-  constructor(public resumenService: ResumenService) {
 
-    // Invoco el servicio para traerme el usuario
+  constructor(public resumenService: ResumenService,
+              private uiService: UiService,
+              private navController: NavController,
+              private loadingController: LoadingController) {
+  }
+
+  async ngOnInit() {
+    await this.uiService.presentLoading();
+
     this.resumenService.load().then(
-      resp => {
+      async resp => {
         this.data = resp;
         this.resumen = this.data.resumen;
         this.funciones = new Funciones(this.data.funciones.listaFunciones);
-      }
-    );
+        this.istodoCargado = true;
 
-    // // Creo un mensaje de espere
-    // this.loader = this.loadingCtrl.create({
-    //   content: "Por favor espere..."
-    // });
-
-    // // Muestro el mensaje de espere por favor
-    // this.loader.present();
-
+        //this.cargarDatos();
+        await this.loadingController.dismiss();
+      });
   }
+
 
   /**
-    * Esta funcion se usa para saber si se puede renderizar la pagina o no
+    * Esta funcion se usa para cargar los datos restantes
     */
-  public istodoCargado(): boolean {
-
-    // Pregunto si ya se obtuvo una respuesta del serivicio
-    if (this.resumenService.flag) {
+  public cargarDatos() {
       this.tieneCombustibles();
       this.tieneRemitos();
-      // Oculto el loader
-      this.loader.dismiss();
-
-      // Devuelvo true para que renderice la vista
-      return true;
-    }
-
-    // Devuelvo false para que no redenderice la vista
-    return false;
   }
+
+
   /**
     * Este metodo se ejecuta cuando se selecciona una cuenta
     */
   public ctacteTapped(event: any, item: any) {
     if (this.tieneFuncion("detalleCtaCte")) {
-      // Elias: cuando se cree esta pagina hay que habilitar el vínculo siguiente. (Dario)
-      //this.navCtrl.push(DetalleCtaCtePage, { item: item });
-      console.log(item);
+      this.navController.navigateRoot('/detalle-ctacte', 
+      { 
+        animated: true,
+        queryParams: { cuenta: item}
+      });
     }
   }
+
 
   /**
     * Este metodo se ejecuta cuando se selecciona un cereal
@@ -93,15 +81,13 @@ export class ResumenPage implements OnInit {
       console.log(item);
     }
   }
+
+
   /**
   * Este metodo se utiliza para mostrar/ocultar el detalle de cereales
   */
   public toggleDetalleCereales() {
-    if (this.mostrarDetalleCereales) {
-      this.mostrarDetalleCereales = false;
-    } else {
-      this.mostrarDetalleCereales = true;
-    }
+    this.mostrarDetalleCereales = !this.mostrarDetalleCereales;
   }
 
 
@@ -109,14 +95,8 @@ export class ResumenPage implements OnInit {
     * Este metodo se utiliza para mostrar/ocultar el detalle de las cta. cte.
     */
   public toggleDetalleCuentas() {
-    if (this.mostrarDetalleCuentas) {
-      this.mostrarDetalleCuentas = false;
-    } else {
-      this.mostrarDetalleCuentas = true;
-    }
+    this.mostrarDetalleCuentas = !this.mostrarDetalleCuentas;
   }
-
-
 
 
   /**
@@ -127,7 +107,7 @@ export class ResumenPage implements OnInit {
   }
 
   public getFechaActualizacion(): string {
-    return this.resumenService.resumen.fechaActualizacion;
+    return this.resumen.fechaActualizacion;
   }
 
   public tieneFuncion(funcion: string): boolean {
@@ -137,7 +117,7 @@ export class ResumenPage implements OnInit {
     return this.funciones.tieneFuncion(funcion);
   }
   public tieneRemitos() {
-    let element = this.resumenService.resumen.fichaRemito;
+    let element = this.resumen.fichaRemito;
     for (var i = 0, len = element.length; i < len; i++)
       if (element[i].idRubroCtacte.idRubroCtacte == 1 || element[i].idRubroCtacte.idRubroCtacte == 2) {
         this.contieneRemitos = true;
@@ -148,7 +128,7 @@ export class ResumenPage implements OnInit {
   }
 
   public tieneCombustibles() {
-    let element = this.resumenService.resumen.fichaRemito;
+    let element = this.resumen.fichaRemito;
     for (var i = 0, len = element.length; i < len; i++)
       if (element[i].idRubroCtacte.idRubroCtacte == 3) {
         this.contieneCombustibles = true;
@@ -163,7 +143,5 @@ export class ResumenPage implements OnInit {
       //this.navCtrl.push(DetalleCtaCtePage, { item: item });
     }
   }
-  ngOnInit() {
-  }
-
+  
 }
