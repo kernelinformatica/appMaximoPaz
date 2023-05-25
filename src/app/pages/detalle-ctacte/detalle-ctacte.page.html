@@ -35,11 +35,11 @@
   <h4>Movimientos</h4>
   <ion-list>
     <ion-item *ngFor="let item of detalleCtaCte.movimientos; let i = index;"
-      class="{{ ( i % 2 == 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
-      <ng-container *ngIf="item.historico == historico">
+      class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+      <ng-container *ngIf="item.historico === historico">
         <ion-label>
-          {{ item.detalle }} 
-          <strong> {{ cuenta?.moneda ?? "" }} {{ ( item.importeDebe != 0  ? item.importeDebe : (item.importeHaber != 0 ? item.importeHaber : item.importeSaldo) ) | numeroFormat }} </strong>
+          {{ item.detalle }}
+          <strong> {{ cuenta?.moneda ?? "" }} {{ ( item.importeDebe !== 0  ? item.importeDebe : (item.importeHaber !== 0 ? item.importeHaber : item.importeSaldo) ) | numeroFormat }} </strong>
         </ion-label>
         <ion-label style="font-size: 1.1rem !important; text-align: right;">
           {{item.vencimiento}} {{item.historico}}

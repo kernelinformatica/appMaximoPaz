@@ -1,19 +1,19 @@
+
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Resumen</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true" *ngIf="istodoCargado">
-  <ion-header collapse="condense">
+ <ion-header [translucent]="true" collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Resumen</ion-title>
+      <ion-title size="large">Bienvenido</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-row>
     <ion-col>
-      <h2>Sus Servicios</h2>
+
       <h2>{{ resumen?.cuenta.nombre ?? "" | uppercase }} </h2>
       <h3>{{ resumen?.empresa.nombreCompleto ?? "" | uppercase }} </h3>
     </ion-col>
@@ -32,7 +32,7 @@
       </ion-button>
     </ion-list-header>
     <div *ngIf="mostrarDetalleCuentas">
-      <ion-item 
+      <ion-item
           *ngFor="let item of resumen.resumenesCtaCte; let i = index;"
           class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
           (click)="ctacteTapped($event, item)">
@@ -53,11 +53,10 @@
         </ion-button>
       </ion-list-header>
     <div *ngIf="mostrarDetalleCereales">
-      <ion-item 
-          *ngFor="let item of resumen.resumenCereal; let i = index;"
+    <ion-item *ngFor="let item of resumen.resumenCereal; let i = index;"
           class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
           (click)="cerealTapped($event, item)">
-        <ion-label>
+        <ion-label >
           {{ item.cereal }} {{ item.clase }} {{ item.cosecha }} <strong> {{ item.kilosTotales | kilosFormat }} </strong>
         </ion-label>
         <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>

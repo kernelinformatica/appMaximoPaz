@@ -1,3 +1,4 @@
+// DARIO
 import { Cuenta } from 'src/app/modelo/cuenta';
 import { Usuario } from 'src/app/modelo/usuario';
 import { Injectable } from '@angular/core';
@@ -14,6 +15,7 @@ import { LoginService } from 'src/app/services/login.service';
 //Agrego las configuraciones
 import { Configuraciones } from 'src/configuraciones/configuraciones'
 import { Preferences } from '@capacitor/preferences';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 /**
 * Esta clase se creo para invocar el recurso del servicio web que devuelve el
 * resumen de la cuenta
@@ -33,34 +35,57 @@ export class DetalleCerealService {
   //---------------------------------------------//
 
   usuarioActual: any;
-
+  detalleCerealSocio: any
   // Metodo constructor
-  constructor(public http: HTTP) { }
+  constructor(public http: HttpClient) { }
   public configuraciones = Configuraciones;
   // Este metodo invoca el servicio y parsea la respuesta
-  public async load() {
+  public async load(cerealId? : string, claseId?: string, cosecha?: string) {
+    debugger
     const usuarioActualStr = localStorage.getItem('usuarioActual');
     if (usuarioActualStr) {
       this.usuarioActual = JSON.parse(usuarioActualStr);
     }
+    // Doy los valores por defecto, para que el codigo actual siga andando. Luego habría que forzar los argumentos.
+    let cerealParam:string = cerealId?cerealId:'19';
+    let claseParam:string = claseId?claseId:'001';
+    let cosechaParam:string = cosecha?cosecha:'15-16';
+
+    //Inicializo los parametros de GET
+    let parametros:URLSearchParams = new URLSearchParams();
+    parametros.set("cereal", cerealParam);
+    parametros.set("clase", claseParam);
+    parametros.set("cosecha", cosechaParam);
 
     return new Promise(async (resolve, reject) => {
       try {
         const url = `${this.getURLServicio()}`;
         const params = { };
-        const headers = { token: '' + this.usuarioActual.token.hashId };
-        const response = await this.http.get(url, params, headers);
-        const data = JSON.parse(response.data);
+        const httpOptions = {
+          headers: new HttpHeaders({
+            token: this.usuarioActual.token.hashId,
+          }),
+        };
 
-        if (data.control.codigo == "OK") {
-          this.detalleCereal = new DetalleCereal(data.datos);
-          resolve(
-            {
-              detalleCereal: this.detalleCereal,
+        this.http.get(url,  httpOptions).subscribe((data : any)   => {
+          // data is already a JSON object
+          this.detalleCereal = data;
+          let control = this.detalleCerealSocio.control;
 
-            });
-        }
+          if (control.codigo == "OK"){
+            this.detalleCereal = new DetalleCereal(this.detalleCereal.datos);
+            resolve(
+              {
+                detalleCereal: this.detalleCereal,
+                funciones: this.usuarioActual.funciones
+              });
+          }
+        });
+
       } catch (error: any) {
+        //this.flag = false;
+        alert("Ocurrio un error inesperado: "+error)
+
         const dataError = JSON.parse(error.error)
         reject(dataError.control.descripcion);
       }

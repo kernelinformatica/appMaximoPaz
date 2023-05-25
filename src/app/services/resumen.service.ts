@@ -1,11 +1,20 @@
+import { Cuenta } from 'src/app/modelo/cuenta';
+import { Usuario } from 'src/app/modelo/usuario';
 import { Injectable } from '@angular/core';
-import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 
-//------------IMPORTO LAS CLASES QUE NECESITO ------------//
-import { Configuraciones } from 'src/configuraciones/configuraciones'
+//------------ IMPORTO LAS LIBRERIAS QUE NECESITO ------------//
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { Resumen } from 'src/app/modelo/resumen';
 
 
+//------------IMPORTO LAS CLASES QUE NECESITO ------------//
+//Le agrego el authService. Para que use el token.
+import { LoginService } from 'src/app/services/login.service';
+
+//Agrego las configuraciones
+import { Configuraciones } from 'src/configuraciones/configuraciones'
+import { Preferences } from '@capacitor/preferences';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 /**
 * Esta clase se creo para invocar el recurso del servicio web que devuelve el
 * resumen de la cuenta
@@ -20,16 +29,19 @@ export class ResumenService {
   //---------------------------------------------//
   public static URLSERVICIO: string = Configuraciones.resumenUrl;
   public resumen: Resumen | any;
+  public flag: boolean = false;
+  //private loginService: LoginService | any;
   //---------------------------------------------//
 
   usuarioActual: any;
-
+  resumenSocio: any;
   // Metodo constructor
-  constructor(public http: HTTP) { }
-  
+  constructor(public http: HttpClient) { }
+  public configuraciones = Configuraciones;
   // Este metodo invoca el servicio y parsea la respuesta
   public async load() {
     const usuarioActualStr = localStorage.getItem('usuarioActual');
+
     if (usuarioActualStr) {
       this.usuarioActual = JSON.parse(usuarioActualStr);
     }
@@ -38,19 +50,32 @@ export class ResumenService {
       try {
         const url = `${this.getURLServicio()}`;
         const params = { };
-        const headers = { token: '' + this.usuarioActual.token.hashId };
-        const response = await this.http.get(url, params, headers);
-        const data = JSON.parse(response.data);
+        const httpOptions = {
+          headers: new HttpHeaders({
+            token: this.usuarioActual.token.hashId,
+          }),
+        };
 
-        if (data.control.codigo == "OK") {
-          this.resumen = new Resumen(data.datos);
-          resolve(
-            { 
-              resumen: this.resumen,
-              funciones: this.usuarioActual.funciones
-            });
-        }
+        this.http.get(url,  httpOptions).subscribe((data : any)   => {
+          // data is already a JSON object
+          this.resumenSocio = data;
+          let control = this.resumenSocio.control;
+
+          if (control.codigo == "OK"){
+            this.resumen = new Resumen(this.resumenSocio.datos);
+            resolve(
+              {
+                resumen: this.resumen,
+                funciones: this.usuarioActual.funciones
+              });
+          }
+
+
+        });
+
+
       } catch (error: any) {
+        debugger
         const dataError = JSON.parse(error.error)
         reject(dataError.control.descripcion);
       }

@@ -9,13 +9,18 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },  {
+  },
+  {
     path: 'resumen',
     loadChildren: () => import('./pages/resumen/resumen.module').then( m => m.ResumenPageModule)
   },
   {
     path: 'detalle-ctacte',
     loadChildren: () => import('./pages/detalle-ctacte/detalle-ctacte.module').then( m => m.DetalleCtactePageModule)
+  },
+  {
+    path: 'detalle-cereal',
+    loadChildren: () => import('./pages/detalle-cereal/detalle-cereal.module').then( m => m.DetalleCerealPageModule)
   },
 
 ];

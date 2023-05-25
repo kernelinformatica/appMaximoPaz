@@ -17,10 +17,10 @@ export class ResumenPage implements OnInit {
   public mostrarDetalleFichaRemitos = false;
   public mostrarDetalleFichaCombustibles = false; // Usado para ocultar el detalle de las cuentas
   public mostrarDetalleCereales = false;          // Usado para ocultar el detalle de los cereales
-  
+
   public contieneRemitos: boolean | any;
   public contieneCombustibles: boolean | any;
-  
+
   istodoCargado = false;
   data: any;
   resumen: any;
@@ -34,7 +34,7 @@ export class ResumenPage implements OnInit {
 
   async ngOnInit() {
     await this.uiService.presentLoading();
-
+    debugger
     this.resumenService.load().then(
       async resp => {
         this.data = resp;
@@ -62,8 +62,8 @@ export class ResumenPage implements OnInit {
     */
   public ctacteTapped(event: any, item: any) {
     if (this.tieneFuncion("detalleCtaCte")) {
-      this.navController.navigateRoot('/detalle-ctacte', 
-      { 
+      this.navController.navigateRoot('/detalle-ctacte',
+      {
         animated: true,
         queryParams: { cuenta: item}
       });
@@ -76,9 +76,12 @@ export class ResumenPage implements OnInit {
     */
   public cerealTapped(event: any, item: any) {
     if (this.tieneFuncion("detalleCereal")) {
-      // Elias: cuando se cree esta pagina hay que habilitar el vínculo siguiente. (Dario)
-      //this.navCtrl.push(DetalleCerealPage, { item: item });
-      console.log(item);
+      debugger
+      this.navController.navigateRoot('/detalle-cereal',
+      {
+        animated: true,
+        queryParams: { cereal: item}
+      });
     }
   }
 
@@ -143,5 +146,5 @@ export class ResumenPage implements OnInit {
       //this.navCtrl.push(DetalleCtaCtePage, { item: item });
     }
   }
-  
+
 }

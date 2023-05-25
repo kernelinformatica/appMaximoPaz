@@ -1,9 +1,8 @@
-import { DetalleRomaneosPage } from 'src/app/pages/detalle-romaneos/detalle-romaneos.page';
-import { Romaneos } from './romaneos';
+//import { Romaneos } from './romaneos';
 import { Cuenta } from './cuenta';
 import { MovimientoCereal } from './movimientocereal';
 import { Empresa } from './empresa';
-import { NavController } from "ionic-angular";
+
 /**
 * Esta clase se creo para poder parsear el mensaje que se recibe del serivio web
 * con el detalle de los movimientos de cereales de la cuenta
@@ -17,7 +16,7 @@ export class DetalleCereal {
   public empresa : Empresa = new Empresa({});
   public cantidadRegistros : number;
   public movimientos : MovimientoCereal[];
-  public romaneos : Romaneos[];
+  //public romaneos : Romaneos[];
   //---------------------------------------------//
 
   // Parseo el mensaje
@@ -29,16 +28,16 @@ export class DetalleCereal {
 
     // Inicio el arreglo
     this.movimientos = [];
-    this.romaneos = [];
+//    this.romaneos = [];
 
     // Lo relleno
     detalle.movimiento.forEach((variable: MovimientoCereal) => {
         this.movimientos.push(variable);
     });
 
-    detalle.romaneo.forEach((element: Romaneos) => {
+  /*  detalle.romaneo.forEach((element: Romaneos) => {
       this.romaneos.push(element);
     });
-
+*/
   }
 }

@@ -13,7 +13,7 @@ export class DetalleCtactePage implements OnInit {
   //---------------------------------------------//
   // DECLARACION DE LAS PROPIEDADES QUE NECESITO //
   //---------------------------------------------//
-  public cuenta: any;         // Usado para almacenar los datos de la cuenta  
+  public cuenta: any;         // Usado para almacenar los datos de la cuenta
   public detalleCtaCte: any;  // Usado para almacenar respuesta del servicio
   public historico: any;      // Usado para filtrar por historico
 
@@ -31,6 +31,7 @@ export class DetalleCtactePage implements OnInit {
     await this.uiService.presentLoading();
 
     const cuenta = this.route.snapshot.queryParamMap.get("cuenta");
+
     if(cuenta){
       this.cuenta = cuenta;
     }
@@ -45,7 +46,7 @@ export class DetalleCtactePage implements OnInit {
   }
 
   public mostrarHistorico() {
-    this.historico = 'S';          
+    this.historico = 'S';
   }
 
 }

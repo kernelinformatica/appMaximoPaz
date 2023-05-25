@@ -4,7 +4,7 @@
 /** Ionic CSS Variables **/
 :root {
   --primary: #3171e0;
-  
+
   /** primary **/
   --ion-color-primary: #1b1d1be8;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -126,4 +126,7 @@ $colors: (
   light:      #f4f4f4,
   dark:       #666
 );
-
+// spinner //
+ion-spinner.sc-ion-loading-md {
+  color: #F87D00;
+}

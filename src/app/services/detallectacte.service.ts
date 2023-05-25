@@ -4,6 +4,7 @@ import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 //------------IMPORTO LAS CLASES QUE NECESITO ------------//
 import { Configuraciones } from 'src/configuraciones/configuraciones'
 import { DetalleCtaCte } from '../modelo/detallectacte';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 /**
@@ -23,9 +24,9 @@ import { DetalleCtaCte } from '../modelo/detallectacte';
   //---------------------------------------------//
 
   usuarioActual: any;
-
+  detalleCtateSocio: any;
   // Metodo constructor
-  constructor(public http: HTTP) { }
+  constructor(public http: HttpClient) { }
 
   // Este metodo invoca el servicio y parsea la respuesta
   public async load() {
@@ -37,19 +38,45 @@ import { DetalleCtaCte } from '../modelo/detallectacte';
 
     return new Promise(async (resolve, reject) => {
         try {
-          const url = `${this.getURLServicio()}`;
+          /*const url = `${this.getURLServicio()}`;
           const params = { };
           const headers = { token: '' + this.usuarioActual.token.hashId };
           const response = await this.http.get(url, params, headers);
           const data = JSON.parse(response.data);
-  
+
           if (data.control.codigo == "OK") {
             this.detalleCtaCte = new DetalleCtaCte(data.datos);
             resolve(
-              { 
+              {
                 detalleCtaCte: this.detalleCtaCte,
               });
+          }*/
+
+
+        const url = `${this.getURLServicio()}`;
+        const params = { };
+        const httpOptions = {
+          headers: new HttpHeaders({
+            token: this.usuarioActual.token.hashId,
+          }),
+        };
+
+        this.http.get(url,  httpOptions).subscribe((data : any)   => {
+          // data is already a JSON object
+          this.detalleCtateSocio = data;
+          let control = this.detalleCtateSocio.control;
+
+          if (control.codigo == "OK"){
+            this.detalleCtaCte = new DetalleCtaCte(this.detalleCtateSocio.datos);
+            resolve(
+              {
+                detalleCtaCte: this.detalleCtaCte,
+                funciones: this.usuarioActual.funciones
+              });
           }
+
+
+        });
         } catch (error: any) {
           const dataError = JSON.parse(error.error)
           reject(dataError.control.descripcion);
