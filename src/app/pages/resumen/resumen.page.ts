@@ -34,7 +34,7 @@ export class ResumenPage implements OnInit {
 
   async ngOnInit() {
     await this.uiService.presentLoading();
-    debugger
+
     this.resumenService.load().then(
       async resp => {
         this.data = resp;
@@ -76,7 +76,6 @@ export class ResumenPage implements OnInit {
     */
   public cerealTapped(event: any, item: any) {
     if (this.tieneFuncion("detalleCereal")) {
-      debugger
       this.navController.navigateRoot('/detalle-cereal',
       {
         animated: true,

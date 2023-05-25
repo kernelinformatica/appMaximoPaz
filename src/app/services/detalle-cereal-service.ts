@@ -15,7 +15,7 @@ import { LoginService } from 'src/app/services/login.service';
 //Agrego las configuraciones
 import { Configuraciones } from 'src/configuraciones/configuraciones'
 import { Preferences } from '@capacitor/preferences';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 /**
 * Esta clase se creo para invocar el recurso del servicio web que devuelve el
 * resumen de la cuenta
@@ -41,39 +41,46 @@ export class DetalleCerealService {
   public configuraciones = Configuraciones;
   // Este metodo invoca el servicio y parsea la respuesta
   public async load(cerealId? : string, claseId?: string, cosecha?: string) {
-    debugger
+
     const usuarioActualStr = localStorage.getItem('usuarioActual');
     if (usuarioActualStr) {
       this.usuarioActual = JSON.parse(usuarioActualStr);
     }
-    // Doy los valores por defecto, para que el codigo actual siga andando. Luego habría que forzar los argumentos.
-    let cerealParam:string = cerealId?cerealId:'19';
-    let claseParam:string = claseId?claseId:'001';
-    let cosechaParam:string = cosecha?cosecha:'15-16';
 
-    //Inicializo los parametros de GET
-    let parametros:URLSearchParams = new URLSearchParams();
-    parametros.set("cereal", cerealParam);
-    parametros.set("clase", claseParam);
-    parametros.set("cosecha", cosechaParam);
+
+
 
     return new Promise(async (resolve, reject) => {
       try {
-        const url = `${this.getURLServicio()}`;
-        const params = { };
+
+       // Doy los valores por defecto, para que el codigo actual siga andando. Luego habría que forzar los argumentos.
+        let cerealParam:string = cerealId?cerealId:'19';
+        let claseParam:string = claseId?claseId:'001';
+        let cosechaParam:string = cosecha?cosecha:'1516';
+        ///Inicializo los parametros de GET
+        let parameters:URLSearchParams = new URLSearchParams();
+        parameters.set("cereal", cerealParam);
+        parameters.set("clase", claseParam);
+        parameters.set("cosecha", cosechaParam);
+
+        const url = `${this.getURLServicio()}?`+parameters;
         const httpOptions = {
+          body: null,
           headers: new HttpHeaders({
             token: this.usuarioActual.token.hashId,
           }),
+
         };
 
         this.http.get(url,  httpOptions).subscribe((data : any)   => {
           // data is already a JSON object
-          this.detalleCereal = data;
+
+          this.detalleCerealSocio = data;
           let control = this.detalleCerealSocio.control;
 
           if (control.codigo == "OK"){
-            this.detalleCereal = new DetalleCereal(this.detalleCereal.datos);
+            this.detalleCereal = new DetalleCereal(this.detalleCerealSocio.datos);
+            debugger
             resolve(
               {
                 detalleCereal: this.detalleCereal,

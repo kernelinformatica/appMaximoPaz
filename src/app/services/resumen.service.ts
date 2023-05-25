@@ -75,7 +75,7 @@ export class ResumenService {
 
 
       } catch (error: any) {
-        debugger
+
         const dataError = JSON.parse(error.error)
         reject(dataError.control.descripcion);
       }

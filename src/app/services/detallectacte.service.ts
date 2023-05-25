@@ -38,26 +38,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
     return new Promise(async (resolve, reject) => {
         try {
-          /*const url = `${this.getURLServicio()}`;
-          const params = { };
-          const headers = { token: '' + this.usuarioActual.token.hashId };
-          const response = await this.http.get(url, params, headers);
-          const data = JSON.parse(response.data);
-
-          if (data.control.codigo == "OK") {
-            this.detalleCtaCte = new DetalleCtaCte(data.datos);
-            resolve(
-              {
-                detalleCtaCte: this.detalleCtaCte,
-              });
-          }*/
-
-
         const url = `${this.getURLServicio()}`;
         const params = { };
         const httpOptions = {
           headers: new HttpHeaders({
             token: this.usuarioActual.token.hashId,
+
           }),
         };
 

@@ -19,13 +19,13 @@ export class DetalleCerealPage implements OnInit {
   public cuenta: any;
   data: any;
   istodoCargado = false;
-  public detalleCerealSocio: any;
-  public detalleCereal: any;
+  public detalleCerealSocio: any | undefined;
+  public detalleCereal: any | undefined;
 
   //---------------------------------------------//
   constructor(public navCtrl: NavController,
 
-    public detallaCerealService: DetalleCerealService,
+    public detalleCerealService: DetalleCerealService,
     private route: ActivatedRoute,
     private uiService: UiService,
     public loadingCtrl: LoadingController,
@@ -37,7 +37,7 @@ export class DetalleCerealPage implements OnInit {
   public estatodoCargado(): boolean {
 
     // Pregunto si ya se obtuvo una respuesta del serivicio
-    if (this.detallaCerealService.flag) {
+    if (this.detalleCerealService.flag) {
 
       // Oculto el loader
       //this.loader.dismiss();
@@ -54,14 +54,14 @@ export class DetalleCerealPage implements OnInit {
     await this.uiService.presentLoading();
 
     const cereal = this.route.snapshot.queryParamMap.get("cereal");
-    debugger
+
     if (cereal) {
       this.cereal = cereal;
     }
     if (this.cereal != null){
-      this.detallaCerealService.load(this.cereal.cerealId, this.cereal.claseId, this.cereal.cosecha).then(
+      this.detalleCerealService.load(this.cereal.cerealId, this.cereal.claseId, this.cereal.cosecha).then(
         async resp => {
-          debugger
+
           this.data = resp;
           this.detalleCerealSocio = this.data.detalleCereal;
           this.detalleCereal = this.detalleCerealSocio

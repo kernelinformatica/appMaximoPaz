@@ -1,8 +1,8 @@
 {
   "name": "appMovilCoopar-v2",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Kernel infomática",
+  "homepage": "https://www.kernelinformatica.com.ar/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
