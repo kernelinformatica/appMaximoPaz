@@ -1,9 +1,4 @@
 ion-content {
-  //background: #f2f6f8 !important; /* Old browsers */
-  //background: -moz-linear-gradient(top,  #f2f6f8 0%, #d8e1e7 50%, #b5c6d0 51%, #e0eff9 100%) !important; /* FF3.6-15 */
-  //background: -webkit-linear-gradient(top,  #f2f6f8 0%,#d8e1e7 50%,#b5c6d0 51%,#e0eff9 100%) !important; /* Chrome10-25,Safari5.1-6 */
-  //background: linear-gradient(to bottom,  #f2f6f8 0%,#d8e1e7 50%,#b5c6d0 51%,#e0eff9 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9',GradientType=0 ) !important; /* IE6-9 */
 
 
   background: rgb(235, 241, 246) !important;
@@ -35,6 +30,7 @@ ion-list {
   ion-icon {
     color: var(--ion-color-primary);
   }
+
 }
 
 h2 {
@@ -45,7 +41,7 @@ h2 {
   line-height: 1em;
   letter-spacing: -1px;
   color: var(--ion-color-primary);
-  margin: 0 0 0 0;
+  margin: 10px 10px 10px 10px;
   padding: 0 0 0 0;
   //font-weight: 100;
 }
@@ -89,11 +85,11 @@ strong {
 
 .headerList ion-icon {
   font-size: 2rem;
-  color: var(--primary);
+  color: var(--secondary);
 }
 
 .headerList ion-label {
-  color: var(--primary);
+  color: var(--secondary);
 }
 
 .ionCol {
@@ -108,10 +104,17 @@ strong {
 
 .par {
   --background: #FFFFFF;
+  opacity: 0.8;
+  font-size: 12px;
+  padding-bottom: 5px;
   color: var(--ion-color-primary);
 }
 
 .impar {
   --background: #F9F9F9;
+  opacity: 0.8;
+  font-size: 12px;
+  padding-bottom: 5px;
   color: var(--ion-color-primary);
 }
+

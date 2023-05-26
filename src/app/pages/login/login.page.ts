@@ -16,9 +16,13 @@ export class LoginPage {
   showPassword: boolean = false;
   passwordToggleIcon: string = 'eye';
   loginForm: FormGroup;
-
+  isAlertOpen = false;
+  public alertButtons = ['OK'];
   testError: string | null = "";
-
+  errorLoginMsg: string | null = "";
+  errorLoginTitle: string | null = "";
+  errorLoginSubTitle: string | null = "";
+  
   rememberMe = false;
 
   constructor(private uiService: UiService,
@@ -46,7 +50,9 @@ export class LoginPage {
       this.passwordToggleIcon = 'eye';
     }
   }
-
+  setOpen(isOpen: boolean) {
+    this.isAlertOpen = isOpen;
+  }
   async loginUser() {
 
     if (this.loginForm.invalid) { return; }
@@ -54,21 +60,27 @@ export class LoginPage {
     const login = this.buildInterfaceLogin(this.loginForm.value);
 
     await this.uiService.presentLoading();
-
-    this.loginService.loginUser(login)
-      .then(
-        async resp => {
-          await this.loadingController.dismiss();
+    
+    this.loginService.loginUser(login).then(
+         async resp => {
+          
           if (resp) {
+            await this.loadingController.dismiss();
             this.navController.navigateRoot('/resumen', { animated: true })
+          
+          }else{
+            await this.loadingController.dismiss();
+            this.uiService.presentAlertInfo("El datos de autentificación suministrados son inválidos.");
           }
         }
-      ).catch(
+        ).catch(
         async error => {
-          await this.loadingController.dismiss();
+          
           this.uiService.presentAlertInfo(error);
+          await this.loadingController.dismiss();
         }
       );
+      
   }
 
   recuperarClave() {

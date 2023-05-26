@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ResumenService } from 'src/app/services/resumen.service';
-
+import { ActivatedRoute } from '@angular/router';
 import { Funciones } from 'src/app/modelo/funciones';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, MenuController, NavController } from '@ionic/angular';
 import { UiService } from 'src/app/services/ui.service';
 @Component({
   selector: 'app-resumen',
@@ -17,7 +17,7 @@ export class ResumenPage implements OnInit {
   public mostrarDetalleFichaRemitos = false;
   public mostrarDetalleFichaCombustibles = false; // Usado para ocultar el detalle de las cuentas
   public mostrarDetalleCereales = false;          // Usado para ocultar el detalle de los cereales
-
+  public seccion !: string;
   public contieneRemitos: boolean | any;
   public contieneCombustibles: boolean | any;
 
@@ -25,24 +25,26 @@ export class ResumenPage implements OnInit {
   data: any;
   resumen: any;
   funciones: Funciones = new Funciones([""]);
-
+  private activatedRoute = inject(ActivatedRoute);
   constructor(public resumenService: ResumenService,
               private uiService: UiService,
               private navController: NavController,
-              private loadingController: LoadingController) {
+              private loadingController: LoadingController,
+              private  menuController: MenuController) {
   }
 
   async ngOnInit() {
-    await this.uiService.presentLoading();
 
+    await this.uiService.presentLoading();
+    this.seccion = this.activatedRoute.snapshot.paramMap.get('id') as string;
+    
     this.resumenService.load().then(
       async resp => {
         this.data = resp;
         this.resumen = this.data.resumen;
         this.funciones = new Funciones(this.data.funciones.listaFunciones);
         this.istodoCargado = true;
-
-        //this.cargarDatos();
+       this.cargarDatos();
         await this.loadingController.dismiss();
       });
   }
@@ -104,9 +106,7 @@ export class ResumenPage implements OnInit {
   /**
   * Este metodo devuelve el path al logo de la empresa
   */
-  public getLogoEmpresa() {
-    return "http://www.gestagro.com.ar/clientes/movil/logos/" + this.resumen.cuenta.id.substring(0, 2) + ".png";
-  }
+
 
   public getFechaActualizacion(): string {
     return this.resumen.fechaActualizacion;
@@ -144,6 +144,10 @@ export class ResumenPage implements OnInit {
     if (this.tieneFuncion("detalleCtaCte")) {
       //this.navCtrl.push(DetalleCtaCtePage, { item: item });
     }
+  }
+
+  public getLogoEmpresa() {
+    return "http://www.gestagro.com.ar/clientes/movil/logos/11.png";
   }
 
 }

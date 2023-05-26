@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
+
+  
   {
     path: '',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
@@ -21,6 +19,10 @@ const routes: Routes = [
   {
     path: 'detalle-cereal',
     loadChildren: () => import('./pages/detalle-cereal/detalle-cereal.module').then( m => m.DetalleCerealPageModule)
+  },
+  {
+    path: 'acerca',
+    loadChildren: () => import('./pages/acerca/acerca.module').then( m => m.AcercaPageModule)
   },
 
 ];

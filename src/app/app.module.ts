@@ -16,9 +16,10 @@ import { KilosFormat } from './pipes/kilosformat';
 import { PipesModule } from './pipes/pipes.module';
 
 
+
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -31,5 +32,6 @@ import { PipesModule } from './pipes/pipes.module';
     HTTP,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
+ 
 })
 export class AppModule { }

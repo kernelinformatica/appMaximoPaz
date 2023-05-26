@@ -11,13 +11,14 @@ export class UiService {
 
 
   async presentAlertInfo(message: string) {
-    const alert = await this._alertCrontroller.create({
-      backdropDismiss: false,
-      message: message,
-      buttons: ['OK']
-    });
+   const alert = document.createElement('ion-alert');
+   alert.header = 'Atención !!!';
+   alert.subHeader = 'Ocurrió un error inesperado';
+   alert.message = message;
+   alert.buttons = ['OK'];
 
-    await alert.present();
+   document.body.appendChild(alert);
+   await alert.present();
   }
 
 

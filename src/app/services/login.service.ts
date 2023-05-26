@@ -38,10 +38,10 @@ export class LoginService {
             clave: hash.toString(),
           }),
         };
-
         this.http.post(url, params, httpOptions).subscribe((data : any)   => {
           // data is already a JSON object
           this.usuarioActual = data;
+          
           //let data = JSON.parse(resp.toString());
           if (this.usuarioActual.control.codigo == 'OK') {
             let control = this.usuarioActual.control;
@@ -55,13 +55,18 @@ export class LoginService {
             this.saveStorage(control);
             resolve(true);
           } else {
-            reject(this.usuarioActual.control?.descripcion ?? 'Error al autenticar.');
+            resolve(false);
+            //reject(this.usuarioActual.control?.descripcion ?? 'Error al autenticar.');
           }
-        });
+        
+        }, (error) => {
+          //reject(this.usuarioActual.control?.descripcion ?? 'Error al autenticar.');
+          resolve(false);
+       });
 
 
       } catch (error: any) {
-        debugger
+        
         alert('Error: Ocurrio un error general, intente nuevamente más tarde.');
         const dataError = JSON.parse(error.error);
         reject(dataError.control.descripcion);

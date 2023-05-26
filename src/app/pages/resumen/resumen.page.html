@@ -1,43 +1,51 @@
-
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Resumen</ion-title>
+    <ion-buttons slort="start">
+      <ion-menu-button menu="menuPrincipal"></ion-menu-button>
+   </ion-buttons>
+
+
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" *ngIf="istodoCargado">
- <ion-header [translucent]="true" collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Bienvenido</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <ion-row>
-    <ion-col>
-
-      <h2>{{ resumen?.cuenta.nombre ?? "" | uppercase }} </h2>
-      <h3>{{ resumen?.empresa.nombreCompleto ?? "" | uppercase }} </h3>
-    </ion-col>
-
-    <ion-col *ngIf="resumen" class="ionCol">
-      <img src="{{ getLogoEmpresa() }}" height="64px;" width="64px;" />
-    </ion-col>
-  </ion-row>
-
+  <ion-card color="light">
+    <ion-card-header>
+      <ion-card-title>{{ resumen?.cuenta.nombre ?? "" | uppercase }}</ion-card-title>
+      <ion-card-subtitle>Cuenta Número: {{ resumen?.cuenta.id }}</ion-card-subtitle>
+      <p>Email: {{ resumen?.cuenta.email }}</p>
+    </ion-card-header>
+  
+   <!--  <ion-card-content> Card Content </ion-card-content> -->
+  </ion-card>
   <ion-list *ngIf="tieneFuncion('resumenCtaCte')">
-    <ion-list-header class="headerList" (click)="toggleDetalleCuentas()">
-      <ion-label>Resumen Cta. Cte.</ion-label>
+    <ion-list-header class="headerList"  (click)="toggleDetalleCuentas()">
+      <ion-label>Cuenta Corriente</ion-label>
       <ion-button>
-        <ion-icon *ngIf="mostrarDetalleCuentas" name="remove-circle-outline" slot="end"></ion-icon>
-        <ion-icon *ngIf="!mostrarDetalleCuentas" name="add-circle-outline" slot="end"></ion-icon>
+        <ion-icon
+          *ngIf="mostrarDetalleCuentas"
+          name="remove-circle-outline"
+          slot="end"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!mostrarDetalleCuentas"
+          name="add-circle-outline"
+          slot="end"
+        ></ion-icon>
       </ion-button>
     </ion-list-header>
-    <div *ngIf="mostrarDetalleCuentas">
+
+  
+
+  <div *ngIf="mostrarDetalleCuentas">
       <ion-item
-          *ngFor="let item of resumen.resumenesCtaCte; let i = index;"
-          class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
-          (click)="ctacteTapped($event, item)">
+        *ngFor="let item of resumen.resumenesCtaCte; let i = index;"
+        class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
+        (click)="ctacteTapped($event, item)"
+      >
         <ion-label>
-          <span class="ion-label-span">CUENTA CORRIENTE</span> <strong> {{ item.saldo | currencyFormat }} </strong>
+          <span class="ion-label-span">SALDO EN CUENTA</span>
+          <strong> {{ item.saldo | currencyFormat }} </strong>
         </ion-label>
         <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
       </ion-item>
@@ -46,18 +54,29 @@
 
   <ion-list *ngIf="tieneFuncion('resumenCereal')">
     <ion-list-header class="headerList" (click)="toggleDetalleCereales()">
-        <ion-label>Resumen Cereales</ion-label>
-        <ion-button>
-          <ion-icon *ngIf="mostrarDetalleCereales" name="remove-circle-outline" slot="end"></ion-icon>
-          <ion-icon *ngIf="!mostrarDetalleCereales" name="add-circle-outline" slot="end"></ion-icon>
-        </ion-button>
-      </ion-list-header>
+      <ion-label>Resumen Cereales</ion-label>
+      <ion-button>
+        <ion-icon
+          *ngIf="mostrarDetalleCereales"
+          name="remove-circle-outline"
+          slot="end"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!mostrarDetalleCereales"
+          name="add-circle-outline"
+          slot="end"
+        ></ion-icon>
+      </ion-button>
+    </ion-list-header>
     <div *ngIf="mostrarDetalleCereales">
-    <ion-item *ngFor="let item of resumen.resumenCereal; let i = index;"
-          class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
-          (click)="cerealTapped($event, item)">
-        <ion-label >
-          {{ item.cereal }} {{ item.clase }} {{ item.cosecha }} <strong> {{ item.kilosTotales | kilosFormat }} </strong>
+      <ion-item
+        *ngFor="let item of resumen.resumenCereal; let i = index;"
+        class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
+        (click)="cerealTapped($event, item)"
+      >
+        <ion-label>
+          {{ item.cereal }} {{ item.clase }} {{ item.cosecha }}
+          <strong> {{ item.kilosTotales | kilosFormat }} </strong>
         </ion-label>
         <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
       </ion-item>
@@ -102,8 +121,7 @@
         </ion-list>
       -->
 
-      <!-- <div style="padding-top: 0.5em;font-size: .8em">
+  <!-- <div style="padding-top: 0.5em;font-size: .8em">
         <p>Ult. actualización {{ resumen?.ultimaActualizacion ?? "" }} - S.E.U.O. </p>
       </div> -->
-
 </ion-content>
