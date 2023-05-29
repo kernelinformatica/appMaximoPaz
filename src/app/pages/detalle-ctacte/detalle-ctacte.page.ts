@@ -33,11 +33,7 @@ export class DetalleCtactePage implements OnInit {
 
     const cuenta = this.route.snapshot.queryParamMap.get("cuenta");
 
-    if(cuenta){
-      this.cuenta = cuenta;
-    } else {
-      this.navController.navigateRoot('', { animated: true });
-    }
+    this.cuenta = cuenta;
 
     this.detallaCtaCteService.load().then(
       async resp => {

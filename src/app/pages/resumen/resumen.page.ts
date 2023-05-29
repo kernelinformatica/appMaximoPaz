@@ -37,23 +37,15 @@ export class ResumenPage implements OnInit {
 
     await this.uiService.presentLoading();
     this.seccion = this.activatedRoute.snapshot.paramMap.get('id') as string;
-
-    if (this.seccion) {
-
-      this.resumenService.load().then(
-        async resp => {
-          this.data = resp;
-          this.resumen = this.data.resumen;
-          this.funciones = new Funciones(this.data.funciones.listaFunciones);
-          this.istodoCargado = true;
-          this.cargarDatos();
-          await this.loadingController.dismiss();
-        });
-    } else {
-      await this.loadingController.dismiss();
-      
-      this.navController.navigateRoot('', { animated: true });
-    }
+    this.resumenService.load().then(
+      async resp => {
+        this.data = resp;
+        this.resumen = this.data.resumen;
+        this.funciones = new Funciones(this.data.funciones.listaFunciones);
+        this.istodoCargado = true;
+        this.cargarDatos();
+        await this.loadingController.dismiss();
+      });
   }
 
 
