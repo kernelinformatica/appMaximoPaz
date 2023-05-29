@@ -11,7 +11,7 @@ import { UiService } from 'src/app/services/ui.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
 
   showPassword: boolean = false;
   passwordToggleIcon: string = 'eye';
@@ -22,15 +22,15 @@ export class LoginPage {
   errorLoginMsg: string | null = "";
   errorLoginTitle: string | null = "";
   errorLoginSubTitle: string | null = "";
-  
+
   rememberMe = false;
 
   constructor(private uiService: UiService,
-              private formBuilder: FormBuilder,
-              private loginService: LoginService,
-              private navController: NavController,
-              private activateRoute: ActivatedRoute,
-              private loadingController: LoadingController
+    private formBuilder: FormBuilder,
+    private loginService: LoginService,
+    private navController: NavController,
+    private activateRoute: ActivatedRoute,
+    private loadingController: LoadingController
   ) {
     this.testError = this.activateRoute.snapshot.queryParamMap.get("refreshToken");
     this.loginForm = this.formBuilder.group({
@@ -38,6 +38,11 @@ export class LoginPage {
       clave: ["", [Validators.required]]
     });
 
+  }
+
+  ngOnInit(): void {
+    localStorage.removeItem('control');
+    localStorage.removeItem('usuarioActual');
   }
 
   get isValidForm() { return true; }
@@ -50,53 +55,71 @@ export class LoginPage {
       this.passwordToggleIcon = 'eye';
     }
   }
+
   setOpen(isOpen: boolean) {
     this.isAlertOpen = isOpen;
   }
+
+  /**
+   * Login de usuario
+   */
   async loginUser() {
 
-    if (this.loginForm.invalid) { return; }
-
     const login = this.buildInterfaceLogin(this.loginForm.value);
+    if (login.usuario == '') {
+      this.uiService.presentAlertInfo('Por favor ingrese Cuenta Corriente y Clave de Acceso para acceder al sistema');
+      return;
+    }
 
     await this.uiService.presentLoading();
-    
+
     this.loginService.loginUser(login).then(
-         async resp => {
-          
+      async resp => {
+
+        if (resp) {
+          await this.loadingController.dismiss();
+          this.navController.navigateRoot('/resumen', { animated: true });
+        } else {
+          await this.loadingController.dismiss();
+          this.uiService.presentAlertInfo("El datos de autentificación suministrados son inválidos.");
+        }
+      }
+    ).catch(
+      async error => {
+        this.uiService.presentAlertInfo(error);
+        await this.loadingController.dismiss();
+      }
+    );
+
+  }
+
+  /**
+  * Este metodo se usa para la recuperacion de contraseñas
+  */
+  async recuperarClave() {
+
+    const login = this.buildInterfaceLogin(this.loginForm.value);
+    if (login.usuario == '') {
+      this.uiService.presentAlertInfo('Por favor ingrese su usuario para la recuperación de clave');
+      return;
+    }
+
+    await this.uiService.presentLoading();
+    this.loginService.recuperarClave(login)
+      .then(
+        async (resp: any) => {
+          await this.loadingController.dismiss();
           if (resp) {
-            await this.loadingController.dismiss();
-            this.navController.navigateRoot('/resumen', { animated: true })
-          
-          }else{
-            await this.loadingController.dismiss();
-            this.uiService.presentAlertInfo("El datos de autentificación suministrados son inválidos.");
+            console.log(resp.email);
+            this.uiService.presentAlertInfo(`Recuperación realizada con éxito. Un email fue enviado a: ${ resp.email }`);
           }
         }
-        ).catch(
+      ).catch(
         async error => {
-          
-          this.uiService.presentAlertInfo(error);
           await this.loadingController.dismiss();
+          this.uiService.presentAlertInfo(error);
         }
       );
-      
-  }
-
-  recuperarClave() {
-
-  }
-
-  getNovedades() {
-
-  }
-
-  getMercado() {
-
-  }
-
-  getClasificados() {
-
   }
 
   private buildInterfaceLogin(loginFrom: any): Login {

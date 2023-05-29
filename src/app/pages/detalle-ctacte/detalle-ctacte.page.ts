@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { DetalleCtaCteService } from 'src/app/services/detallectacte.service';
 import { UiService } from 'src/app/services/ui.service';
 
@@ -23,6 +23,7 @@ export class DetalleCtactePage implements OnInit {
   constructor(public detallaCtaCteService: DetalleCtaCteService,
               private route: ActivatedRoute,
               private uiService: UiService,
+              private navController: NavController,
               private loadingController: LoadingController) {
     this.historico = 'N';
   }
@@ -34,6 +35,8 @@ export class DetalleCtactePage implements OnInit {
 
     if(cuenta){
       this.cuenta = cuenta;
+    } else {
+      this.navController.navigateRoot('', { animated: true });
     }
 
     this.detallaCtaCteService.load().then(

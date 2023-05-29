@@ -13,7 +13,6 @@ export class UiService {
   async presentAlertInfo(message: string) {
    const alert = document.createElement('ion-alert');
    alert.header = 'Atención !!!';
-   alert.subHeader = 'Ocurrió un error inesperado';
    alert.message = message;
    alert.buttons = ['OK'];
 

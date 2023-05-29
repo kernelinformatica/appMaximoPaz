@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Acerca de Gestagro</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/resumen"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -9,13 +12,13 @@
     <ion-row style="min-height: 99%">
       <ion-col col-12 col-sm style="min-height:40%;max-height: 99%;padding-top:6%; height:auto">
         <div class="centrado">
-          <img class="logo" src="assets/images/logo.png"/>
+          <img class="logo" src="../../../assets/images/logo.png"/>
             <p class="kernelInfo">Versión {{getVersionApp()}}</p>
         </div>
       </ion-col>
       <ion-col col-12 col-sm style="min-height:40%; max-height: 99%;padding-top:6%; height:auto;">
         <ion-col (click)="openKernelPage()">
-          <img class="kernelLogo" src="assets/images/kernel.png"/>
+          <img class="kernelLogo" src="../../../assets/images/kernel.png"/>
           <p class="kernelInfo">Desarrollado por Kernel Informatica</p>
         </ion-col>
       </ion-col>

@@ -27,26 +27,33 @@ export class ResumenPage implements OnInit {
   funciones: Funciones = new Funciones([""]);
   private activatedRoute = inject(ActivatedRoute);
   constructor(public resumenService: ResumenService,
-              private uiService: UiService,
-              private navController: NavController,
-              private loadingController: LoadingController,
-              private  menuController: MenuController) {
+    private uiService: UiService,
+    private navController: NavController,
+    private loadingController: LoadingController,
+    private menuController: MenuController) {
   }
 
   async ngOnInit() {
 
     await this.uiService.presentLoading();
     this.seccion = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    
-    this.resumenService.load().then(
-      async resp => {
-        this.data = resp;
-        this.resumen = this.data.resumen;
-        this.funciones = new Funciones(this.data.funciones.listaFunciones);
-        this.istodoCargado = true;
-       this.cargarDatos();
-        await this.loadingController.dismiss();
-      });
+
+    if (this.seccion) {
+
+      this.resumenService.load().then(
+        async resp => {
+          this.data = resp;
+          this.resumen = this.data.resumen;
+          this.funciones = new Funciones(this.data.funciones.listaFunciones);
+          this.istodoCargado = true;
+          this.cargarDatos();
+          await this.loadingController.dismiss();
+        });
+    } else {
+      await this.loadingController.dismiss();
+      
+      this.navController.navigateRoot('', { animated: true });
+    }
   }
 
 
@@ -54,8 +61,8 @@ export class ResumenPage implements OnInit {
     * Esta funcion se usa para cargar los datos restantes
     */
   public cargarDatos() {
-      this.tieneCombustibles();
-      this.tieneRemitos();
+    this.tieneCombustibles();
+    this.tieneRemitos();
   }
 
 
@@ -65,10 +72,10 @@ export class ResumenPage implements OnInit {
   public ctacteTapped(event: any, item: any) {
     if (this.tieneFuncion("detalleCtaCte")) {
       this.navController.navigateRoot('/detalle-ctacte',
-      {
-        animated: true,
-        queryParams: { cuenta: item}
-      });
+        {
+          animated: true,
+          queryParams: { cuenta: item }
+        });
     }
   }
 
@@ -79,10 +86,10 @@ export class ResumenPage implements OnInit {
   public cerealTapped(event: any, item: any) {
     if (this.tieneFuncion("detalleCereal")) {
       this.navController.navigateRoot('/detalle-cereal',
-      {
-        animated: true,
-        queryParams: { cereal: item}
-      });
+        {
+          animated: true,
+          queryParams: { cereal: item }
+        });
     }
   }
 

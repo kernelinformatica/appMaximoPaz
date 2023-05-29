@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { LoginService } from 'src/app/services/login.service';
 import { Configuraciones } from 'src/configuraciones/configuraciones';
 
@@ -12,7 +12,7 @@ export class AcercaPage implements OnInit {
  // private loginService :  LoginService ;
   private version : string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController) {
     //this.loginService = LoginService.getInstance();
     this.version = Configuraciones.version;
    }

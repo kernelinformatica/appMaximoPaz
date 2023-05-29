@@ -15,7 +15,7 @@ export class AppComponent {
     { title: 'Resumen Cereales', url: '/detalle-ctacte', icon: 'receipt' },
     { title: 'Mi Cuenta', url: '/resumen', icon: 'person' },
     { title: 'Acerca de', url: '/acerca', icon: 'business' },
-    { title: 'Cerrar Sesión', url: '/logout', icon: 'log-out' },
+    { title: 'Cerrar Sesión', url: '', icon: 'log-out' },
 
   ];
   
