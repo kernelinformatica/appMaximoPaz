@@ -19,26 +19,41 @@ ion-content {
 }
 
 ion-card {
-  margin: 0; width: 100%; font-size: 1.0rem;
+  width: 95%; font-size: 11px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
+ion-item {
+//background-color: transparent;
+//padding-bottom: 5px;
+margin-left: 10px;
+margin-right: 10px;
 
+}
+.list-md {
+  background-color: transparent;
+}
 ion-grid {
   padding: 0px 0px;
   background-color: transparent;
 
   ion-row {
-      background-color: white;
+
+    background-color: white;
   }
 
   ion-label{
     color: var(--ion-color-primary);
     font-weight: bold;
     text-align: left;
-    margin-left: 1%;
+    margin-left: 2%;
   }
 
   ion-icon {
     color: var(--ion-color-primary);
+  }
+  .inner-scroll {
+    right: 10px;
   }
 }
 
@@ -48,12 +63,13 @@ h4 {
   background-color: transparent;
   border: none !important;
   color: var(--primary);
-  font-size: 1em;
-  padding-left: 5px;
+  font-size: 11px;
+  font-weight: bold;
+  padding-left: 2%;
 }
 
 label {
-  font-size: 0.9em;
+  font-size: 11px;
   letter-spacing: -0.5px;
 }
 
@@ -67,9 +83,14 @@ strong {
 .par {
   --background: #FFFFFF;
   color: var(--ion-color-primary);
+  font-size: 11px;
+  padding-bottom: 5px;
 }
 
 .impar {
   --background: #F9F9F9;
   color: var(--ion-color-primary);
+  font-size: 11px;
+  padding-bottom: 5px;
+
 }

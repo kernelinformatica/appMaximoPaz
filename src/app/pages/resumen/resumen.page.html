@@ -14,6 +14,7 @@
   <ion-card color="light">
     <ion-card-header>
       <ion-card-title><ion-icon name="person"></ion-icon> {{ resumen?.cuenta.nombre ?? "" | uppercase }}</ion-card-title>
+      <hr>
       <p><ion-icon name="mail"></ion-icon> Email: {{ resumen?.cuenta.email }}</p>
       <p><ion-icon name="ribbon"></ion-icon> Cuenta: {{ resumen?.cuenta.id }}</p>
     </ion-card-header>
@@ -52,21 +53,6 @@
       </ion-item>
     </div>
   </ion-list>
-<!--
-  <div *ngIf="mostrarDetalleCuentas">
-      <ion-item
-        *ngFor="let item of resumen.resumenesCtaCte; let i = index;"
-        class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
-        (click)="ctacteTapped($event, item)"
-      >
-        <ion-label>
-          <span class="ion-label-span">SALDO EN CUENTA</span>
-          <strong> {{ item.saldo | currencyFormat }} </strong>
-        </ion-label>
-        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-      </ion-item>
-    </div>
-  </ion-list>-->
 
   <ion-list *ngIf="tieneFuncion('resumenCereal')">
     <ion-list-header class="headerList" (click)="toggleDetalleCereales()">

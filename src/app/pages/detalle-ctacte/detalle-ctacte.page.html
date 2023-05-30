@@ -41,11 +41,12 @@
           {{ item.detalle }}
           <strong> {{ cuenta?.moneda ?? "" }} {{ ( item.importeDebe !== 0  ? item.importeDebe : (item.importeHaber !== 0 ? item.importeHaber : item.importeSaldo) ) | numeroFormat }} </strong>
         </ion-label>
-        <ion-label style="font-size: 1.1rem !important; text-align: right;">
-          {{item.vencimiento}} {{item.historico}}
+        <ion-label style="font-size: 11px !important; text-align: right;">
+          {{item.vencimiento}}
         </ion-label>
       </ng-container>
     </ion-item>
   </ion-list>
+
 
 </ion-content>
