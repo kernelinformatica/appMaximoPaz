@@ -1,7 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+
     <ion-buttons slort="start">
       <ion-menu-button menu="menuPrincipal"></ion-menu-button>
+      <ion-title>Resumen de cuenta</ion-title>
    </ion-buttons>
 
 
@@ -11,11 +13,11 @@
 
   <ion-card color="light">
     <ion-card-header>
-      <ion-card-title>{{ resumen?.cuenta.nombre ?? "" | uppercase }}</ion-card-title>
-      <ion-card-subtitle>Cuenta Número: {{ resumen?.cuenta.id }}</ion-card-subtitle>
-      <p>Email: {{ resumen?.cuenta.email }}</p>
+      <ion-card-title><ion-icon name="person"></ion-icon> {{ resumen?.cuenta.nombre ?? "" | uppercase }}</ion-card-title>
+      <p><ion-icon name="mail"></ion-icon> Email: {{ resumen?.cuenta.email }}</p>
+      <p><ion-icon name="ribbon"></ion-icon> Cuenta: {{ resumen?.cuenta.id }}</p>
     </ion-card-header>
-  
+
    <!--  <ion-card-content> Card Content </ion-card-content> -->
   </ion-card>
   <ion-list *ngIf="tieneFuncion('resumenCtaCte')">
@@ -35,9 +37,8 @@
       </ion-button>
     </ion-list-header>
 
-  
 
-  <div *ngIf="mostrarDetalleCuentas">
+    <div *ngIf="mostrarDetalleCuentas">
       <ion-item
         *ngFor="let item of resumen.resumenesCtaCte; let i = index;"
         class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
@@ -51,6 +52,21 @@
       </ion-item>
     </div>
   </ion-list>
+<!--
+  <div *ngIf="mostrarDetalleCuentas">
+      <ion-item
+        *ngFor="let item of resumen.resumenesCtaCte; let i = index;"
+        class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
+        (click)="ctacteTapped($event, item)"
+      >
+        <ion-label>
+          <span class="ion-label-span">SALDO EN CUENTA</span>
+          <strong> {{ item.saldo | currencyFormat }} </strong>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+    </div>
+  </ion-list>-->
 
   <ion-list *ngIf="tieneFuncion('resumenCereal')">
     <ion-list-header class="headerList" (click)="toggleDetalleCereales()">
