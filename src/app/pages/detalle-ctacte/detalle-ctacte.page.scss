@@ -19,7 +19,7 @@ ion-content {
 }
 
 ion-card {
-  width: 95%; font-size: 11px;
+  width: 95%; font-size: 12px;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -51,10 +51,12 @@ ion-grid {
 
   ion-icon {
     color: var(--ion-color-primary);
+
   }
   .inner-scroll {
     right: 10px;
   }
+
 }
 
 h4 {

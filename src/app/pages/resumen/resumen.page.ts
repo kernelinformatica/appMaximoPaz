@@ -62,14 +62,17 @@ export class ResumenPage implements OnInit {
     * Este metodo se ejecuta cuando se selecciona una cuenta
     */
   public ctacteTapped(event: any, item: any) {
-    this.navController.navigateRoot('/detalle-ctacte')
-   /* if (this.tieneFuncion("detalleCtaCte")) {
+
+    if (this.tieneFuncion("detalleCtaCte")) {
+      debugger
+
       this.navController.navigateRoot('/detalle-ctacte',
         {
           animated: true,
-          queryParams: { cuenta: item }
+          queryParams: { cuenta: item, socio: this.resumen.cuenta }
+
         });
-    }*/
+    }
   }
 
 

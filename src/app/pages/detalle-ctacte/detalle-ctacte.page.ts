@@ -16,7 +16,7 @@ export class DetalleCtactePage implements OnInit {
   public cuenta: any;         // Usado para almacenar los datos de la cuenta
   public detalleCtaCte: any;  // Usado para almacenar respuesta del servicio
   public historico: any;      // Usado para filtrar por historico
-
+  public socio: any;
   data: any;
   istodoCargado = false;
 
@@ -32,9 +32,10 @@ export class DetalleCtactePage implements OnInit {
     await this.uiService.presentLoading();
 
     const cuenta = this.route.snapshot.queryParamMap.get("cuenta");
-
+    const socio = this.route.snapshot.queryParamMap.get("socio");
+    debugger
     this.cuenta = cuenta;
-
+    this.socio = socio;
     this.detallaCtaCteService.load().then(
       async resp => {
         this.data = resp;

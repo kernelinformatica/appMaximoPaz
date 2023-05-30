@@ -73,7 +73,7 @@ export class LoginService {
     return new Promise(async (resolve, reject) => {
 
       try {
-        
+
         const url = this.getURLRecuperarClave(login.usuario);
         const params = {};
         const httpOptions = {};

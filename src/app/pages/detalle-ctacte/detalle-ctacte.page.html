@@ -1,6 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Detalle de la cuenta</ion-title>
+    <ion-title>{{ socio?.nombre ?? "Resumen de cuenta"  }}</ion-title>
+
     <ion-buttons slot="end">
       <ion-back-button defaultHref="/resumen"></ion-back-button>
     </ion-buttons>
@@ -23,7 +24,7 @@
       </ion-row>
       <ion-row>
         <ion-col col-7>
-          <label>A FECHA:</label>
+          <label>A FECHA: </label>
         </ion-col>
         <ion-col col-4>
           <strong> {{ cuenta?.aFecha ?? "" }} </strong>
