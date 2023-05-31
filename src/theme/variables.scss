@@ -86,7 +86,7 @@
   --ion-text-color: #000000;
   --ion-text-color-rgb: 255,255,255;
 
-  --ion-border-color: #222222;
+  --ion-border-color: transparent;
 
   --ion-color-step-50: #1e1e1e;
   --ion-color-step-100: #2a2a2a;
@@ -120,7 +120,7 @@
 
 
 $colors: (
-  
+
   primary:    #387ef5,
   secondary:  #DF7000,
   danger:     #f53d3d,

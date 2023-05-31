@@ -1,3 +1,4 @@
+import { Empresa } from './../../modelo/empresa';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { LoginService } from 'src/app/services/login.service';
@@ -11,6 +12,11 @@ import { Configuraciones } from 'src/configuraciones/configuraciones';
 export class AcercaPage implements OnInit {
  // private loginService :  LoginService ;
   private version : string;
+ public usuarioActual: any;
+
+public empresa : any;
+
+
 
   constructor(public navCtrl: NavController) {
     //this.loginService = LoginService.getInstance();
@@ -44,6 +50,15 @@ export class AcercaPage implements OnInit {
     //kernelBrowser.show();
   }
   ngOnInit() {
+
+    const objUsuarioActual = localStorage.getItem('usuarioActual');
+    if (objUsuarioActual) {
+      this.usuarioActual = JSON.parse(objUsuarioActual);
+      this.empresa = this.usuarioActual.empresa
+
+
+    }
   }
+
 
 }

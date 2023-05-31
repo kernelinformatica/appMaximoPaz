@@ -1,19 +1,16 @@
-acerca {
+ion-content {
+  background: rgb(168,198,237);
+background: linear-gradient(0deg, rgba(168,198,237,1) 0%, rgba(63,136,236,1) 100%);
+background-image: url("../../../../resources/bg.fw.png");
   .logo{
-      padding-left:15%;
-      padding-right:15%;
-      width:100%;
       margin-top:auto;
       margin-bottom: auto;
+      margin-left:auto;
+      margin-right: auto;
       display: block;
   }
 
-  .kernelLogo{
-      padding-left:20%;
-      padding-right:20%;
-      width:100%;
-      display: block;
-  }
+
   .version{
       font-size: 1.3em;
       font: 'Helvetica Bold', Helvetica, Arial, sans-serif;
@@ -38,9 +35,9 @@ acerca {
   }
 
   .kernelInfo{
-      margin-left:auto;
-      margin-right: auto;
-      font-size: 1.2em;
+      margin-left:10%;
+      margin-right: 10%;
+      font-size: 11px;
       text-align: center;
   }
   .versionLib{
@@ -55,7 +52,7 @@ acerca {
 
   .info {
       font-family: "Helvetica Bold", Helvetica, Arial, sans-serif;
-      font-size: 1.3em;
+      font-size: 12px;
       margin-left: auto;
       margin-right: auto;
   }

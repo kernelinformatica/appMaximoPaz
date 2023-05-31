@@ -30,12 +30,17 @@ ion-list {
   ion-icon {
     color: var(--ion-color-primary);
   }
-
+  ion-card ion-card-header {
+    font-size: 9px;
 }
 
+}
+.texto_gral{
+  font-size: 12px;
+}
 h2 {
   //font-family: times, Times New Roman, times-roman, georgia, serif;
-  font-family: "Helvetica Bold", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
   font-size: 1.2em;
   font-weight: bold;
   line-height: 1em;
@@ -47,12 +52,12 @@ h2 {
 }
 
 h3 {
-  font-family: "Helvetica Bold", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
   font-size: 1em;
   font-weight: bold;
   line-height: 1em;
   letter-spacing: -1px;
-  color: #444;
+  color: #272727;
   margin: 0 0 0 0;
   padding: 0 0 0 0;
 }
@@ -69,14 +74,24 @@ h4 {
 strong {
   font-weight: normal;
   float: right;
-  margin-right: 5%;
-  color: #555555;
+  //margin-right: 5%;
+  color: black;
+}
+.ctacte_saldo{
+  font-weight: bold;
+  font-size: 12px;
+  color: #3171E2;
+}
+.ion-card-title{
+
+  font-size: 15px;
+
 }
 
 .headerList {
   margin-top: 20px;
   margin-bottom: 0px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   color: var(--primary);
   font-size: 1em;
@@ -116,4 +131,39 @@ strong {
   font-size: 12px;
   padding-bottom: 5px;
   color: var(--ion-color-primary);
+}
+
+.item-inner{
+  border-style: none;
+  border-color: red;
+}
+
+.etiquetaPorFuera{
+  text-align: center;
+  font-family: "Roboto";
+  font-size: 14px;
+  color: black;
+  padding-bottom: 5px;
+}
+
+.headerImporteCtacteResaltadoPositivo {
+  font-weight: bold;
+  font-family: 'Roboto';
+  font-size: 14px;
+  color: red;
+}
+.headerImporteCtacteResaltadoNegativo {
+  vertical-align: middle;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  font-family: 'Roboto';
+  font-size: 13px;
+  color: #3171E2;
+}
+
+.texto {
+  color: grey;
+  font-size: 11px;
+  padding-left: 2%;
+
 }

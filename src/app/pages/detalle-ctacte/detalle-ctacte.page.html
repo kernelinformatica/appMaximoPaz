@@ -11,27 +11,15 @@
 
 <ion-content [fullscreen]="true" *ngIf="istodoCargado">
 
-  <h4>Saldo Cuenta (S.E.U.O.)</h4>
-  <ion-card>
-    <ion-grid>
-      <ion-row>
-        <ion-col col-7>
-          <ion-label>CUENTA: # {{ detalleCtaCte.cuenta.id }}</ion-label>
-        </ion-col>
-        <ion-col col-4>
-          <strong> {{ cuenta?.moneda ?? "" }} {{ cuenta?.saldo ?? 0 }} </strong>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-7>
-          <label>A FECHA: </label>
-        </ion-col>
-        <ion-col col-4>
-          <strong> {{ cuenta?.aFecha ?? "" }} </strong>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
+
+  <h4>
+    <div>SALDO {{saldoDeudorAcreedor}} A FECHA  {{ cuenta?.aFecha ?? "" }}</div>
+  </h4>
+  <div class="texto">Saldo Cuenta (S.E.U.O.)</div><br>
+  <ion-list class="margin-bot" style="background-color: rgba(255,255,255,.5); padding: 10px;">
+     <div style="text-align: center;" class= {{importeEstadoSaldos}}> <div> {{ cuenta.moneda }} {{ getSaldoCtaCteActual() }}</div></div>
+   </ion-list>
+
 
   <h4>Movimientos</h4>
   <ion-list>

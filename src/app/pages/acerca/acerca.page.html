@@ -9,20 +9,30 @@
 
 <ion-content padding>
   <ion-grid>
-    <ion-row style="min-height: 99%">
-      <ion-col col-12 col-sm style="min-height:40%;max-height: 99%;padding-top:6%; height:auto">
+    <ion-row >
+      <ion-col>
         <div class="centrado">
           <img class="logo" src="../../../assets/images/logo.png"/>
-            <p class="kernelInfo">Versión {{getVersionApp()}}</p>
+            <p class="kernelInfo"><strong>GestAgro</strong> Versión {{getVersionApp()}}</p>
+            <p class="kernelInfo"><strong>GestAgro</strong> permite a los socios de <strong>{{this.empresa.nombreCompleto}}</strong> acceder y consultar de modo simple y seguro a la información de cuentas corrientes, cereales y otros servicios brindados por la empresa.
+            <br>
+            <br>
+            GestAgro desarrollado por <strong>Kernel Informatica</strong>  ofrece servicios de gestión administrativa para empresas del agro.
+            </p>
+
+            <br>
+            <img class="logo" src="../../../assets/images/kernel.png"/>
+            <p class="kernelInfo">© Copyright. Todos los derechos reservados</p>
+            <p class="kernelInfo"><a href="http://www.kernelinformatica.com.ar" target="_blank">http://www.kernelinformatica.com.ar</a></p>
         </div>
       </ion-col>
-      <ion-col col-12 col-sm style="min-height:40%; max-height: 99%;padding-top:6%; height:auto;">
-        <ion-col (click)="openKernelPage()">
-          <img class="kernelLogo" src="../../../assets/images/kernel.png"/>
-          <p class="kernelInfo">Desarrollado por Kernel Informatica</p>
-        </ion-col>
-      </ion-col>
+
     </ion-row>
+
+
   </ion-grid>
+
+
+
 
 </ion-content>

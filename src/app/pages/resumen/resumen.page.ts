@@ -20,7 +20,8 @@ export class ResumenPage implements OnInit {
   public seccion !: string;
   public contieneRemitos: boolean | any;
   public contieneCombustibles: boolean | any;
-
+  public saldoDeudorAcreedor: any | undefined;
+  public importeEstadoSaldos: any | undefined;
   istodoCargado = false;
   data: any;
   resumen: any;
@@ -64,7 +65,7 @@ export class ResumenPage implements OnInit {
   public ctacteTapped(event: any, item: any) {
 
     if (this.tieneFuncion("detalleCtaCte")) {
-      debugger
+
 
       this.navController.navigateRoot('/detalle-ctacte',
         {
@@ -72,6 +73,7 @@ export class ResumenPage implements OnInit {
           queryParams: { cuenta: item, socio: this.resumen.cuenta }
 
         });
+
     }
   }
 
@@ -147,6 +149,26 @@ export class ResumenPage implements OnInit {
     if (this.tieneFuncion("detalleCtaCte")) {
       //this.navCtrl.push(DetalleCtaCtePage, { item: item });
     }
+  }
+
+
+
+  public getSaldoCtaCteActual(saldo: any) {
+
+    if (saldo < 0) {
+      // acreedor
+
+      this.saldoDeudorAcreedor = "ACREEDOR";
+      this.importeEstadoSaldos = 'headerImporteCtacteResaltadoNegativo';
+
+    } else {
+      // deudor
+      this.saldoDeudorAcreedor = "DEUDOR";
+      this.importeEstadoSaldos = 'headerImporteCtacteResaltadoPositivo';
+
+    }
+    return saldo;
+
   }
 
   public getLogoEmpresa() {

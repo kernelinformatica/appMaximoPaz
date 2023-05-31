@@ -13,15 +13,42 @@
 
   <ion-card color="light">
     <ion-card-header>
-      <ion-card-title><ion-icon name="person"></ion-icon> {{ resumen?.cuenta.nombre ?? "" | uppercase }}</ion-card-title>
-      <hr>
-      <p><ion-icon name="mail"></ion-icon> Email: {{ resumen?.cuenta.email }}</p>
-      <p><ion-icon name="ribbon"></ion-icon> Cuenta: {{ resumen?.cuenta.id }}</p>
+      <ion-card-title class="ion-card-title"><ion-icon name="person"></ion-icon> {{ resumen?.cuenta.nombre ?? "" | uppercase }}</ion-card-title>
+
+      <p class="texto_gral"><ion-icon name="mail"></ion-icon> {{ resumen?.cuenta.email }}</p>
+
     </ion-card-header>
 
    <!--  <ion-card-content> Card Content </ion-card-content> -->
   </ion-card>
-  <ion-list *ngIf="tieneFuncion('resumenCtaCte')">
+
+  <ion-card color="light">
+    <ion-card-header>
+      <ion-card-title class="ion-card-title">CUENTA CORRIENTE: {{ resumen?.cuenta.id }} </ion-card-title>
+     <!--  <ion-card-subtitle> Cuenta: {{ resumen?.cuenta.id }}</ion-card-subtitle>-->
+    </ion-card-header>
+
+    <ion-card-content  *ngIf="tieneFuncion('resumenCtaCte')">
+      <div>
+        <ion-item
+          *ngFor="let item of resumen.resumenesCtaCte; let i = index;"
+          class = "ctacte_saldo"
+          (click)="ctacteTapped($event, item)" >
+          <ion-label >
+            <span class= {{importeEstadoSaldos}}>SALDO {{saldoDeudorAcreedor}}</span>
+            <strong><div style="text-align: center;" class= {{importeEstadoSaldos}}> <div>{{ getSaldoCtaCteActual(item.saldo) | currencyFormat }}</div></div>
+  </strong>
+          </ion-label>
+          <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+        </ion-item>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+
+
+
+  <!-- <ion-list *ngIf="tieneFuncion('resumenCtaCte')">
     <ion-list-header class="headerList"  (click)="toggleDetalleCuentas()">
       <ion-label>Cuenta Corriente</ion-label>
       <ion-button>
@@ -54,6 +81,19 @@
     </div>
   </ion-list>
 
+
+ <ion-list *ngIf="tieneFuncion('detalleCtaCteDolar')">
+      <ion-list-header *ngFor="let item of resumenService.resumen.resumenesCtaCteUss; let i = index;" class="headerList" (click)="ctacteUssTapped($event, item)">
+        CUENTA CORRIENTE USS
+        <ion-icon
+        color="primary" item-right [name]="iconoCuentas"></ion-icon>
+       </ion-list-header>
+    </ion-list>
+
+
+
+
+-->
   <ion-list *ngIf="tieneFuncion('resumenCereal')">
     <ion-list-header class="headerList" (click)="toggleDetalleCereales()">
       <ion-label>Resumen Cereales</ion-label>

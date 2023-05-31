@@ -11,13 +11,13 @@ export class AppComponent {
 
   public appPages = [
     { title: 'Inicio / Resumen', url: '/resumen', icon: 'home' },
-    { title: 'Resumen Ctacte', url: '/detalle-ctacte', icon: 'receipt' },
-    { title: 'Resumen Cereales', url: '/detalle-cereal', icon: 'receipt' },
     { title: 'Mi Cuenta', url: '/resumen', icon: 'person' },
     { title: 'Acerca de', url: '/acerca', icon: 'business' },
     { title: 'Cerrar Sesión', url: '', icon: 'log-out' },
 
   ];
+
+
 
   public clientJson = localStorage.getItem('usuarioActual')?.toString();
   public labels = ["etiquetas 1", 'etiqueta 2'];

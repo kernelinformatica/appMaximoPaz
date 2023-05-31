@@ -24,8 +24,6 @@ ion-card {
   margin-right: 10px;
 }
 ion-item {
-//background-color: transparent;
-//padding-bottom: 5px;
 margin-left: 10px;
 margin-right: 10px;
 
@@ -53,14 +51,14 @@ ion-grid {
     color: var(--ion-color-primary);
 
   }
-  .inner-scroll {
+  inner-scroll {
     right: 10px;
   }
 
 }
 
 h4 {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   background-color: transparent;
   border: none !important;
@@ -96,3 +94,86 @@ strong {
   padding-bottom: 5px;
 
 }
+
+.etiquetaPorFuera{
+  text-align: center;
+  font-family: "Roboto";
+  font-size: 14px;
+  color: black;
+  padding-bottom: 5px;
+}
+
+.headerImporteCtacteResaltadoPositivo {
+  vertical-align: middle;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  font-family: 'Roboto';
+  font-size: 35px;
+  color: red;
+}
+.headerImporteCtacteResaltadoNegativo {
+  vertical-align: middle;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  font-family: 'Roboto';
+  font-size: 35px;
+  color: black;
+}
+
+.texto {
+  color: grey;
+  font-size: 11px;
+  padding-left: 2%;
+
+}
+.input-wrapper{
+  height: 45px;
+}
+.item-inner {
+  //color: white;
+  font-size: 11px;
+  vertical-align: middle;
+
+}
+@media print {
+  .onprint {
+      display: none;
+   }
+   .list-md {
+     height: 20px;
+   }
+   .item-md {
+     background-color: transparent;
+     color: black;
+   }
+   .margin-bot {
+     margin-bottom: 30px;
+     margin-top: 5px;
+   }
+   .printheader {
+     display: block;
+     width: 100%;
+     align-content: center;
+     text-align: center;
+   }
+   html { overflow: hidden; }
+ }
+ .col {
+   padding: 0px !important;
+ }
+
+ .descarga {
+   max-width: 25px !important;
+ }
+
+/*
+.headerList {
+ text-align: center;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  font-family: 'Roboto';
+  text-transform: uppercase;
+  color: --primary;
+  font-size: 1em;
+
+}*/

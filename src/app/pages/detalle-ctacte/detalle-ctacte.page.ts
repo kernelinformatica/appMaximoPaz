@@ -17,6 +17,8 @@ export class DetalleCtactePage implements OnInit {
   public detalleCtaCte: any;  // Usado para almacenar respuesta del servicio
   public historico: any;      // Usado para filtrar por historico
   public socio: any;
+  public saldoDeudorAcreedor: String | undefined;
+  public importeEstadoSaldos: String | undefined
   data: any;
   istodoCargado = false;
 
@@ -33,18 +35,37 @@ export class DetalleCtactePage implements OnInit {
 
     const cuenta = this.route.snapshot.queryParamMap.get("cuenta");
     const socio = this.route.snapshot.queryParamMap.get("socio");
-    debugger
+
     this.cuenta = cuenta;
     this.socio = socio;
     this.detallaCtaCteService.load().then(
       async resp => {
         this.data = resp;
         this.detalleCtaCte = this.data.detalleCtaCte;
+
         this.istodoCargado = true;
         await this.loadingController.dismiss();
       });
   }
 
+
+  public getSaldoCtaCteActual() {
+
+    if (this.cuenta.saldo < 0) {
+      // acreedor
+
+      this.saldoDeudorAcreedor = "ACREEDOR";
+      this.importeEstadoSaldos = 'headerImporteCtacteResaltadoNegativo';
+
+    } else {
+      // deudor
+      this.saldoDeudorAcreedor = "DEUDOR";
+      this.importeEstadoSaldos = 'headerImporteCtacteResaltadoPositivo';
+
+    }
+    return this.cuenta.saldo;
+
+  }
   public mostrarHistorico() {
     this.historico = 'S';
   }
