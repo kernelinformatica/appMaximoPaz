@@ -1,0 +1,79 @@
+
+
+
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>{{ socio?.nombre ?? "Mi Cuenta"  }}</ion-title>
+
+      <ion-buttons slot="end">
+        <ion-back-button defaultHref="/resumen"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true" *ngIf="istodoCargado">
+
+  <ion-row responsive-sm>
+    <ion-col class="label">
+      Cuenta:
+    </ion-col>
+    <ion-col>
+      <span class="texto">cuenta</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row responsive-sm>
+    <ion-col class="label">
+      Nombre:
+    </ion-col>
+    <ion-col>
+      <span class="texto">nombre</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row responsive-sm>
+    <ion-col class="label">
+      Email:
+    </ion-col>
+    <ion-col>
+      <span class="texto">email</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="label">
+     Cambio Clave:
+   </ion-row>
+
+  <div class="login-box">
+      <form (ngSubmit)="cambiarClave()" #registerForm="ngForm">
+        <ion-row>
+          <ion-col>
+            <ion-list inset>
+              <ion-item>
+                <ion-input type="password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Ingrese la clave actual" name="clave"  [(ngModel)]="claveActual" required></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-input type="password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Ingrese la clave nueva" name="clave"   [(ngModel)]="claveNueva" required></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-input type="password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="repita la clave nueva" name="clave"  [(ngModel)]="claveRepetida" ></ion-input>
+              </ion-item>
+
+            </ion-list>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class="signup-col">
+            <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Cambiar Clave</button>
+          </ion-col>
+        </ion-row>
+
+      </form>
+  </div>
+
+
+
+</ion-content>

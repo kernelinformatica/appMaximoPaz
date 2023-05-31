@@ -1,0 +1,93 @@
+ion-content {
+
+  .label{
+    font-family: "Helvetica Bold", Helvetica, Arial, sans-serif;
+    font-size: 1.1em;
+    color: #666;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+  }
+
+  .texto{
+    font-family: "Helvetica Bold", Helvetica, Arial, sans-serif;
+    font-size: 1.1em;
+    color: #444;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  h2 {
+    font-family: times, Times New Roman, times-roman, georgia, serif;
+    font-size: 1.5em;
+    line-height: 1em;
+    letter-spacing: -1px;
+    color: #444;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    font-weight: 100;
+  }
+
+  .login-content {
+    background: rgb(238,238,238) !important; /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(238,238,238,1) 100%)  !important; /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%)  !important; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(238,238,238,1) 100%)  !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+
+    ion-row {
+       align-items: center;
+       text-align: center;
+     }
+
+     ion-item {
+         border-radius: 30px !important;
+         padding-left: 30px !important;
+         font-size: 0.9em;
+         margin-bottom: 10px;
+         border: 1px solid #ffffff;
+         border-bottom: 0px !important;
+         box-shadow: none !important;
+     }
+
+
+     .signup-col {
+       margin: 0px 16px 0px 16px;
+       padding-bottom: 20px;
+     }
+
+     .item-inner {
+       border-bottom-color: #ffffff !important;
+       box-shadow: none !important;
+     }
+
+     .submit-btn {
+       background:color(--primary);
+       border-radius: 30px !important;
+       border: 1px solid #ffffff;
+     }
+
+     .register-btn {
+       color: #ffffff;
+       font-size: 0.8em;
+     }
+  }
+
+  *::-webkit-input-placeholder {
+    text-align: center !important;
+    color: #AAA !important;
+  }
+
+  *:-moz-placeholder {
+    text-align: center !important;
+    color: #AAA !important;
+  }
+
+  *:-ms-input-placeholder { /* IE10+ */
+    text-align: center !important;
+    color: #AAA !important;
+  }
+
+}

@@ -11,7 +11,7 @@ export class AppComponent {
 
   public appPages = [
     { title: 'Inicio / Resumen', url: '/resumen', icon: 'home' },
-    { title: 'Mi Cuenta', url: '/resumen', icon: 'person' },
+    { title: 'Mi Cuenta', url: '/mi-cuenta', icon: 'person' },
     { title: 'Acerca de', url: '/acerca', icon: 'business' },
     { title: 'Cerrar Sesión', url: '', icon: 'log-out' },
 

@@ -22,6 +22,7 @@ export class ResumenPage implements OnInit {
   public contieneCombustibles: boolean | any;
   public saldoDeudorAcreedor: any | undefined;
   public importeEstadoSaldos: any | undefined;
+
   istodoCargado = false;
   data: any;
   resumen: any;

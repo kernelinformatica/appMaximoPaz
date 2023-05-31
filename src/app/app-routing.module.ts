@@ -25,6 +25,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/acerca/acerca.module').then(m => m.AcercaPageModule)
   },
 
+  {
+    path: 'mi-cuenta',
+    loadChildren: () => import('./pages/mi-cuenta/mi-cuenta.module').then( m => m.MiCuentaPageModule)
+  },
+
+
 ];
 
 @NgModule({

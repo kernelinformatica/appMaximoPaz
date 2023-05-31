@@ -10,9 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 //------------ PIPES DE LA APLICACION ------------//
-import { CurrencyFormat} from './pipes/currencyformat';
-import { NumeroFormat } from './pipes/numeroformat';
-import { KilosFormat } from './pipes/kilosformat';
 import { PipesModule } from './pipes/pipes.module';
 
 
@@ -32,6 +29,6 @@ import { PipesModule } from './pipes/pipes.module';
     HTTP,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
- 
+
 })
 export class AppModule { }
