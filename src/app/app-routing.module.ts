@@ -28,7 +28,11 @@ const routes: Routes = [
   {
     path: 'mi-cuenta',
     loadChildren: () => import('./pages/mi-cuenta/mi-cuenta.module').then( m => m.MiCuentaPageModule)
+  },  {
+    path: 'notificaciones',
+    loadChildren: () => import('./pages/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
   },
+
 
 
 ];
