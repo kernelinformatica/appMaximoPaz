@@ -20,6 +20,7 @@ export class AppComponent {
 
 
   public clientJson = localStorage.getItem('usuarioActual')?.toString();
+
   public labels = ["etiquetas 1", 'etiqueta 2'];
   public getLogoEmpresa() {
     if (typeof this.clientJson === 'string') {
@@ -37,11 +38,10 @@ export class AppComponent {
     if (typeof this.clientJson === 'string') {
       const parsedData = JSON.parse(this.clientJson);
       return parsedData.empresa.nombreCompleto;
-  } else {
-    return "";
+    } else {
+      return "";
+    }
   }
 
-
-  }
 
 }

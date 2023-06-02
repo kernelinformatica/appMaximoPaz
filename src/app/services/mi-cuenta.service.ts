@@ -15,6 +15,8 @@ import { LoginService } from 'src/app/services/login.service';
 import { Configuraciones } from 'src/configuraciones/configuraciones'
 import { Preferences } from '@capacitor/preferences';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Token } from '../modelo/token';
+import * as CryptoJS from 'crypto-js';
 /**
 * Esta clase se creo para invocar el recurso del servicio web que devuelve el
 * resumen de la cuenta
@@ -27,9 +29,12 @@ export class MiCuentaService {
   //---------------------------------------------//
   // DECLARACION DE LAS PROPIEDADES QUE NECESITO //
   //---------------------------------------------//
-  public static URLSERVICIO: string = Configuraciones.resumenUrl;
+  public static URLSERVICIO: string = Configuraciones.miCuentaUrl;
   public miCuenta: any;
   public flag: boolean = false;
+  public control: any;
+  public logueado: boolean = false;
+  public respuesta : any;
   //private loginService: LoginService | any;
   //---------------------------------------------//
 
@@ -41,55 +46,70 @@ export class MiCuentaService {
   // Este metodo invoca el servicio y parsea la respuesta
 
 
-  public cambiarClave(cambioClave : any) {
+  public async cambiarClave(claveActual: any, claveNueva : any) {
 
-    /*return Observable.create(observer => {
+    const usuarioActualStr = localStorage.getItem('usuarioActual');
 
-      // Genero el Header
-      let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded', 'token': this.usuarioActual.token.hashId });
+    if (usuarioActualStr) {
+      this.usuarioActual = JSON.parse(usuarioActualStr);
 
-      // Seteo los parametros
-      let parametros = 'claveAnterior=' + Md5.hashStr(cambioClave.claveActual) + '&claveNueva=' + Md5.hashStr(cambioClave.claveNueva);
+    }
 
-      // Agrego los datos al header
-      let options = new RequestOptions({ headers: headers });
+    return new Promise(async (resolve, reject) => {
+        try {
 
-      // Invoco el metodo de cambio de claves
-      this.http.post(this.getURLCambioClave(this.usuarioActual.cuenta.id), parametros, options).map(res => { return res.json() })
-        .subscribe((respuesta) => {
-          //debugger;
-          let control = respuesta.control;
-          if (control.codigo == "OK") {
+        //const params = 'claveAnterior=' + CryptoJS.MD5(claveActual) + '&claveNueva=' + CryptoJS.MD5(claveNueva);;
 
-            // Intento parsear el usuario
-            this.usuarioActual.token = new Token(respuesta.datos.token);
+       // Doy los valores por defecto, para que el codigo actual siga andando. Luego habría que forzar los argumentos.
+        let claveAnteriorEnviar  = CryptoJS.MD5(claveActual)
+        let claveNuevEnviar = CryptoJS.MD5(claveNueva);
 
-            // Si obtuve un token
-            if (this.usuarioActual.token.hashId != null) {
+        ///Inicializo los parametros de GET
+        let parameters:URLSearchParams = new URLSearchParams();
+        parameters.set("claveAnterior", claveAnteriorEnviar.toString());
+        parameters.set("claveNueva", claveNuevEnviar.toString());
+        parameters.set("token", this.usuarioActual.token.hashId);
+        const url = `${this.getURLServicio()}?`+parameters;;
+        const httpOptions = {
+          body: null,
+        };
 
+        this.http.post(url,  httpOptions).subscribe((data : any)   => {
+          // data is already a JSON object
+          this.control = data.control;
+
+          debugger
+          if (this.control.codigo == "OK"  ){
+             // Intento parsear el usuario
+
+             this.usuarioActual.token = new Token(data.datos.token);
+             if (this.usuarioActual.token.hashId != null) {
+              // COMO DEVUELVO ESTA RESPUESTA HACIA EL mi-cuenta.ts ?
+              this.respuesta = this.control;
               // Pongo la bandera de logue en true
               this.logueado = true;
+             }else{
+              // COMO DEVUELVO ESTA RESPUESTA HACIA EL mi-cuenta.ts ?
+              this.respuesta = this.control;
 
             }
+          }else{
 
-            AuthService.instancia = this;
-            observer.next(this.logueado);
-            observer.complete();
+            this.respuesta = this.control;
+
+            // Pongo la bandera de logue en true
+            this.logueado = true;
+
           }
 
 
-        },
+        });
+        } catch (error: any) {
 
-        error => {
-          this.handleError(error);
-          observer.next(false);
-          observer.complete();
-
-        } // FIN ERROR
-
-        ) // FIN SUSCRIBE
-
-    }); // FIN CREATE OBSERVER*/
+          const dataError = JSON.parse(error.error)
+          reject(dataError.control.descripcion);
+        }
+      });
 
   } // FIN METODO
 
@@ -106,7 +126,8 @@ export class MiCuentaService {
   */
   private getURLServicio() {
     // Por ahora devuelvo el string como esta, despues hay que usar el token
-    return MiCuentaService.URLSERVICIO + `${this.usuarioActual.cuenta.id}`;
+    return MiCuentaService.URLSERVICIO + `${this.usuarioActual.cuenta.id}`+'/cambiarClaveApp';
+
   }
 
 }

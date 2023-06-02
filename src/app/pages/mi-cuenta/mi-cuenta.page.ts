@@ -9,71 +9,92 @@ import { LoadingController, NavController } from '@ionic/angular';
   templateUrl: './mi-cuenta.page.html',
   styleUrls: ['./mi-cuenta.page.scss'],
 })
-
-
 export class MiCuentaPage implements OnInit {
   public claveActual: string | undefined;
   public claveNueva: string | undefined;
-  public claveRepetida : string | undefined;
-  public errorMsg : string | undefined;
+  public claveRepetida: string | undefined;
+  public errorMsg: string | undefined;
   public cuenta: any;
-  public socio : any;
+  public socioNombre: any;
+  public socioEmail: any;
+  public datosUsuario: any;
+  public datos: any;
+  public cambiarClaveDatos : any;
+
   istodoCargado = false;
-  constructor(public miCuentaService: MiCuentaService,
+  constructor(
+    public miCuentaService: MiCuentaService,
     private route: ActivatedRoute,
     private uiService: UiService,
     private navController: NavController,
-    private loadingController: LoadingController) { }
+    private loadingController: LoadingController
+  ) {}
 
-/**
-  * Este metodo se ejecuta cuando el usuario presiona el botón iniciar
-  */
-public async cambiarClave() {
-  await this.uiService.presentLoading();
-  if (this.claveActual === null ) {
-    // Muestro mensaje de error
-    this.errorMsg = "Por favor ingrese la clave Actual";
-    this.uiService.presentAlertInfo(this.errorMsg);
+  /**
+   * Este metodo se ejecuta cuando el usuario presiona el botón iniciar
+   */
+  public async cambiarClave() {
+    await this.uiService.presentLoading();
+    if (this.claveActual === null) {
+      // Muestro mensaje de error
+
+      this.errorMsg = 'Por favor ingrese la clave Actual';
+      this.uiService.presentAlertInfo(this.errorMsg);
+      await this.loadingController.dismiss();
+    } else if (this.claveNueva === null) {
+      // Muestro mensaje de error
+      this.errorMsg = 'Por favor complete el campo clave nueva';
+      this.uiService.presentAlertInfo(this.errorMsg);
+      await this.loadingController.dismiss();
+    } else if (this.claveRepetida === null) {
+      // Muestro mensaje de error
+      this.errorMsg = 'Por favor complete el campo clave repetida';
+      this.uiService.presentAlertInfo(this.errorMsg);
+      await this.loadingController.dismiss();
+    } else if (this.claveNueva != this.claveRepetida) {
+      this.errorMsg = 'Las claves (Nueva y Repetida) deben ser iguales';
+      this.uiService.presentAlertInfo(this.errorMsg);
+      await this.loadingController.dismiss();
+    } else {
+      // todo good ejecto el metodo de cambio de clave
+
+       this.miCuentaService.cambiarClave(this.claveActual, this.claveNueva).then(
+        async resp => {
+         // aca no recibo nada
+          if (resp) {
+            await this.loadingController.dismiss();
+            //this.navController.navigateRoot('/resumen', { animated: true });
+          } else {
+            await this.loadingController.dismiss();
+           // this.uiService.presentAlertInfo("El datos de autentificación suministrados son inválidos.");
+          }
+
+        }
+      ).catch(
+
+        async error => {
+
+          this.uiService.presentAlertInfo(error);
+          await this.loadingController.dismiss();
+        }
+      );
+
+await this.loadingController.dismiss();
 
 
- } else if (this.claveNueva === null) {
-
-   // Muestro mensaje de error
-   this.errorMsg = "Por favor complete el campo clave nueva";
-   this.uiService.presentAlertInfo(this.errorMsg);
-
-
- }  else if (this.claveRepetida === null) {
-
-   // Muestro mensaje de error
-  this.errorMsg = "Por favor complete el campo clave repetida";
-   this.uiService.presentAlertInfo(this.errorMsg);
-
- } else if (this.claveNueva != this.claveRepetida ) {
-
-   // Muestro mensaje de error
-
-   this.errorMsg = "Las claves (Nueva y Repetida) deben ser iguales";
-   this.uiService.presentAlertInfo(this.errorMsg);
- } else {
-
-// todo good ejecto el metodo de cambio de clave
-
-}
-
-}
 
 
 
-
-  ngOnInit() {
-    const cuenta = this.route.snapshot.queryParamMap.get("cuenta");
-    const socio = this.route.snapshot.queryParamMap.get("socio");
-    debugger
-    this.cuenta = cuenta;
-    this.socio = socio;
-    this.istodoCargado = true
+    }
 
   }
 
+  ngOnInit() {
+    this.datos = localStorage.getItem('usuarioActual')?.toString();
+    this.datosUsuario = JSON.parse(this.datos);
+    this.cuenta = this.datosUsuario.cuenta.id;
+    this.socioEmail = this.datosUsuario.cuenta.email;
+    this.socioNombre = this.datosUsuario.cuenta.nombre;
+    this.istodoCargado = true;
+  }
 }

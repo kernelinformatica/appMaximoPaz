@@ -17,6 +17,7 @@ export class DetalleCerealPage implements OnInit {
   private loader: any; // Usado para un mensaje de espere
   public cereal: any;   // Usado para ver los datos del cereal
   public cuenta: any;
+  public socio: any;
   data: any;
   istodoCargado = false;
   public detalleCerealSocio: any | undefined;
@@ -50,7 +51,11 @@ export class DetalleCerealPage implements OnInit {
     return false;
   }
   async ngOnInit() {
+    const cuenta = this.route.snapshot.queryParamMap.get("cuenta");
+    const socio = this.route.snapshot.queryParamMap.get("socio");
 
+    this.cuenta = cuenta;
+    this.socio = socio;
     await this.uiService.presentLoading();
 
     const cereal = this.route.snapshot.queryParamMap.get("cereal");
