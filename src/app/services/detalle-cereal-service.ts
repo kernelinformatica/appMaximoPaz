@@ -80,7 +80,7 @@ export class DetalleCerealService {
 
           if (control.codigo == "OK"){
             this.detalleCereal = new DetalleCereal(this.detalleCerealSocio.datos);
-            debugger
+
             resolve(
               {
                 detalleCereal: this.detalleCereal,

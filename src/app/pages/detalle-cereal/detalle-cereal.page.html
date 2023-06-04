@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Detalle del cereal</ion-title>
+    <ion-title>{{ socio?.nombre ?? "Detalle de Cereal"  }}</ion-title>
     <ion-buttons slot="end">
       <ion-back-button defaultHref="/resumen"></ion-back-button>
     </ion-buttons>
@@ -17,16 +17,19 @@
   <br/>
   <br/>
   <h4>Saldo Cereal (S.E.U.O.)</h4>
-  <ion-card style="margin: 0; width: 100%; font-size: 1.6rem;">
+  <ion-card class="card" color="light">
     <div>
       <ion-grid>
         <ion-row>
-           <ion-col col-7 style="text-align: left; margin-left: 1%;"><label>{{ cereal ? cereal.cereal : null }}:</label>  {{ cereal ? cereal.cosecha : null }} {{ cereal ? cereal.clase : null  }}  </ion-col>
-          <ion-col col-4> <strong> {{ cereal ? cereal.kilosTotales : 0 | kilosFormat  }} </strong></ion-col>
+           <ion-col col-7 style="text-align: left; margin-left: 1%;">{{ cereal ? cereal.cereal : null }}:  {{ cereal ? cereal.cosecha : null }} {{ cereal ? cereal.clase : null  }}  </ion-col>
+          <ion-col col-4 style="text-align: left; margin-right: 1%;"><strong>{{ cereal ? cereal.kilosTotales : 0 | kilosFormat  }} KG</strong></ion-col>
         </ion-row>
       </ion-grid>
     </div>
   </ion-card>
+
+  <h4>DETALLE DE MOVIMIENTOS</h4>
+
   <ion-grid>
    <!-- Romaneos
      <ion-row>
@@ -45,10 +48,22 @@
   <ion-item *ngFor="let item of detalleCereal ? detalleCereal.movimientos : null; let i = index;"
     class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
     <ng-container>
-      <label>{{ item.tipoComprobante }} {{ item.numeroComprobante }}</label>  <strong> {{ getImporteMovimiento(item) | kilosFormat }}  </strong> <br />
-      <label style="font-size: 1.1rem"> {{ ( item.fecha !== '.' ? item.fecha : ' ' )}} </label>
+      <ion-col>
+        <label>{{ item.tipoComprobante }}: {{ item.numeroComprobante }}   </label><label style="font-size: 10px"> {{ ( item.fecha !== '.' ? "("+item.fecha+")" : ' ' )}} </label>
+    </ion-col>
+
+    <ion-col>
+      <strong>{{ getImporteMovimiento(item) | kilosFormat }}   </strong>
+  </ion-col>
+
+
+      <!-- <label>{{ item.tipoComprobante }}: {{ item.numeroComprobante }}   </label>
+      <label> {{ getImporteMovimiento(item) | kilosFormat }}  </label> <hr>
+      <label style="font-size: 10px"> {{ ( item.fecha !== '.' ? item.fecha : ' ' )}} </label>-->
     </ng-container>
+
   </ion-item>
+
 </ion-list>
 
 </ion-content>
