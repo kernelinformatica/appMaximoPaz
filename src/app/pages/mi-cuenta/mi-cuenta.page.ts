@@ -20,7 +20,7 @@ export class MiCuentaPage implements OnInit {
   public datosUsuario: any;
   public datos: any;
   public cambiarClaveDatos : any;
-
+  public respuesta: any
   istodoCargado = false;
   constructor(
     public miCuentaService: MiCuentaService,
@@ -60,22 +60,30 @@ export class MiCuentaPage implements OnInit {
 
        this.miCuentaService.cambiarClave(this.claveActual, this.claveNueva).then(
         async resp => {
-         // aca no recibo nada
+
+          let obj = JSON.parse(JSON.stringify(resp));
+          let codigo  = obj.respuesta.codigo;
+          let descripcion = obj.respuesta.descripcion;
+
           if (resp) {
-            await this.loadingController.dismiss();
-            //this.navController.navigateRoot('/resumen', { animated: true });
+
+            this.uiService.presentAlertInfo(codigo+" : "+descripcion);
+            this.navController.navigateRoot('logout', { animated: true });
           } else {
-            await this.loadingController.dismiss();
-           // this.uiService.presentAlertInfo("El datos de autentificación suministrados son inválidos.");
+
+            this.uiService.presentAlertInfo(codigo+" : "+descripcion);
+
+
+
           }
+          await this.loadingController.dismiss();
 
         }
       ).catch(
 
         async error => {
-
           this.uiService.presentAlertInfo(error);
-          await this.loadingController.dismiss();
+
         }
       );
 

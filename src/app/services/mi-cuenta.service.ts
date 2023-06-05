@@ -1,6 +1,7 @@
+import { Control } from './../modelo/control';
 
 import { Usuario } from 'src/app/modelo/usuario';
-import { Injectable } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, Injectable } from '@angular/core';
 
 //------------ IMPORTO LAS LIBRERIAS QUE NECESITO ------------//
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
@@ -39,6 +40,7 @@ export class MiCuentaService {
   //---------------------------------------------//
 
   usuarioActual: any;
+  errors: Object | undefined;
 
   // Metodo constructor
   constructor(public http: HttpClient) { }
@@ -58,9 +60,6 @@ export class MiCuentaService {
     return new Promise(async (resolve, reject) => {
         try {
 
-        //const params = 'claveAnterior=' + CryptoJS.MD5(claveActual) + '&claveNueva=' + CryptoJS.MD5(claveNueva);;
-
-       // Doy los valores por defecto, para que el codigo actual siga andando. Luego habría que forzar los argumentos.
         let claveAnteriorEnviar  = CryptoJS.MD5(claveActual)
         let claveNuevEnviar = CryptoJS.MD5(claveNueva);
 
@@ -74,42 +73,97 @@ export class MiCuentaService {
           body: null,
         };
 
-        this.http.post(url,  httpOptions).subscribe((data : any)   => {
+        this.http.post(url, httpOptions).subscribe({
+          next: (data: any) => {
+            this.control = data.control
+
+            debugger
+            // data is already a JSON object
+            if (this.control.codigo == "OK"  ){
+              // Intento parsear el usuario
+
+              this.usuarioActual.token = new Token(data.datos.token);
+              if (this.usuarioActual.token.hashId != null) {
+                this.respuesta = this.control;
+
+                resolve({
+                  respuesta : this.respuesta
+                });
+                this.logueado = true;
+
+              }else{
+               // COMO DEVUELVO ESTA RESPUESTA HACIA EL mi-cuenta.ts ?
+               resolve({
+                respuesta : this.respuesta.control
+              });
+              this.logueado = true;
+
+             }
+           }else{
+
+             this.respuesta = this.control;
+             resolve(false)
+
+             // Pongo la bandera de logue en true
+
+
+           }
+          },
+          error: (error: any) => {
+
+
+
+            resolve({
+              respuesta : error.error.control
+
+            });
+
+          }
+        })
+        /*this.http.post(url,  httpOptions)
+
+        .subscribe(
+
+          (data : any)   => {
           // data is already a JSON object
           this.control = data.control;
-
-          debugger
-          if (this.control.codigo == "OK"  ){
+            if (this.control.codigo == "OK"  ){
              // Intento parsear el usuario
 
              this.usuarioActual.token = new Token(data.datos.token);
              if (this.usuarioActual.token.hashId != null) {
-              // COMO DEVUELVO ESTA RESPUESTA HACIA EL mi-cuenta.ts ?
-              this.respuesta = this.control;
-              // Pongo la bandera de logue en true
-              this.logueado = true;
+               this.respuesta = this.control;
+               this.logueado = true;
+               resolve(true)
+
+
              }else{
               // COMO DEVUELVO ESTA RESPUESTA HACIA EL mi-cuenta.ts ?
               this.respuesta = this.control;
+              resolve(false)
 
             }
           }else{
 
             this.respuesta = this.control;
+            resolve(false)
 
             // Pongo la bandera de logue en true
-            this.logueado = true;
+
 
           }
 
 
-        });
+        })*/
         } catch (error: any) {
 
           const dataError = JSON.parse(error.error)
           reject(dataError.control.descripcion);
         }
+
       });
+
+
 
   } // FIN METODO
 
