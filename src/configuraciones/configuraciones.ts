@@ -13,5 +13,6 @@ export class Configuraciones
     public static detalleCerUrl : string = `${Configuraciones.urlBase}/detallecer/`;
     public static detalleCtaCteUrl : string = `${Configuraciones.urlBase}/detallecc/`;
     public static resumenUrl : string = `${Configuraciones.urlBase}/resumen/`;
+    public static notificacionesUrl: string = `${Configuraciones.urlBase}/notificaciones/`;
     public static version : string = "0.02A";
 }

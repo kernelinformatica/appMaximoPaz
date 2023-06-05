@@ -29,12 +29,12 @@ const routes: Routes = [
   {
     path: 'acerca',
     loadChildren: () => import('./pages/acerca/acerca.module').then(m => m.AcercaPageModule)
+  },  {
+    path: 'popover',
+    loadChildren: () => import('./pages/popover/popover.module').then( m => m.PopoverPageModule)
   },
 
-  {
-    path: 'mi-cuenta',
-    loadChildren: () => import('./pages/mi-cuenta/mi-cuenta.module').then( m => m.MiCuentaPageModule)
-  },
+
 
 
 ];

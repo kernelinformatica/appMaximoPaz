@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+
+    <ion-buttons slort="start">
+      <ion-menu-button menu="menuPrincipal"></ion-menu-button>
+      <ion-title>Notificaciones</ion-title>
+    </ion-buttons>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="istodoCargado" padding>
+  <div class="tab-content top-space-2" *ngIf="notificaciones && notificaciones.length === 0">
+    <div style="width: 100%;
+          position: absolute;
+          top: 20vh;
+          font-size: 1.8rem;">No tiene notificaciones</div>
+  </div>
+  <div class="tab-content top-space-2" *ngIf="notificaciones && notificaciones.length > 0">
+    <ng-container class="container-space" *ngFor="let n of notificaciones">
+      <ion-list class="justify transparent-bg smallest-list no-bottom-margin list-border" *ngIf="n.visible">
+        <div class="inline-creator">
+          <div class="list-content reservas-display black shrink-capacity">{{parseFecha(n.fechaEnvio)}}</div>
+          <div (click)="verNotificacion(n)" class="list-content reservas-display black taright shrink-capacity">Toque
+            aquí para ver el mensaje</div>
+          <div class="list-content taright reservas-display black shrink-capacity" (click)="borrarNotificacion(n)"><i
+              class="fas fa-trash"></i></div>
+          <div class="new-icon"><i *ngIf="!n.visto" class="fas fa-exclamation-circle"></i></div>
+        </div>
+        <div class="inline-creator-1line">
+          <div class="list-content alone static-left-margin reservas-display taleft  black producto-size">{{n.titulo}}
+          </div>
+        </div>
+      </ion-list>
+    </ng-container>
+  </div>
+</ion-content>

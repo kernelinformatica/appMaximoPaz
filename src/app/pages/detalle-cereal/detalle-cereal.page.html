@@ -20,9 +20,9 @@
   <ion-card class="card" color="light">
     <div>
       <ion-grid>
-        <ion-row>
-           <ion-col col-7 style="text-align: left; margin-left: 1%;">{{ cereal ? cereal.cereal : null }}:  {{ cereal ? cereal.cosecha : null }} {{ cereal ? cereal.clase : null  }}  </ion-col>
-          <ion-col col-4 style="text-align: left; margin-right: 1%;"><strong>{{ cereal ? cereal.kilosTotales : 0 | kilosFormat  }} KG</strong></ion-col>
+        <ion-row  class="headerResumenCerealesResaltado"  >
+           <ion-col  col-7 style="text-align: left; margin-left: 1%;">{{ cereal ? cereal.cereal : null }}:  {{ cereal ? cereal.cosecha : null }} {{ cereal ? cereal.clase : null  }}  </ion-col>
+          <ion-col  col-4 style="text-align: left; margin-right: 1%;"><strong>{{ cereal ? cereal.kilosTotales : 0 | kilosFormat  }} KG</strong></ion-col>
         </ion-row>
       </ion-grid>
     </div>

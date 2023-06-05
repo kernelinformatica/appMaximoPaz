@@ -36,7 +36,7 @@ ion-grid {
   background-color: transparent;
 
   ion-row {
-
+    height: 50px;
     background-color: white;
   }
 
@@ -113,15 +113,13 @@ strong {
   font-size: 35px;
   color: red;
 }
-.headerImporteCtacteResaltado {
-  vertical-align: middle;
-  text-align: center;
-  padding-bottom: 0px;
-  padding-top: 0px;
+.headerResumenCerealesResaltado {
+  padding-top: 11px;
+  font-weight: bold;
   font-family: 'Roboto';
-  font-size: 35px;
-  color: #3171E2;
+  color: #000000;
 }
+
 .card{
   margin: 2%;
   width: 96%;
@@ -179,12 +177,14 @@ strong {
   color: #262626;
 }
 
+
 strong {
   font-size: 11px;
   font-weight: normal;
   float: right;
   margin-right: 10%;
   color: #444444;
+
 }
 
 .par {

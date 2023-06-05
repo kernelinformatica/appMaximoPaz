@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "462549405302",
+    "firebase_url": "https://kernelpushtest.firebaseio.com",
+    "project_id": "kernelpushtest",
+    "storage_bucket": "kernelpushtest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462549405302:android:c667939442d836e53d1957",
+        "android_client_info": {
+          "package_name": "app.gestagromovil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462549405302-ab9qou02qggcnn52gktc6nss5kvdi558.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDISP0XDClnMjhxzo3NSWqTalddkK8Qs-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462549405302-ab9qou02qggcnn52gktc6nss5kvdi558.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
