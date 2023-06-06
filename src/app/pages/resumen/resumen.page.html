@@ -4,12 +4,19 @@
     <ion-buttons slort="start">
       <ion-menu-button menu="menuPrincipal"></ion-menu-button>
       <ion-title>Resumen de cuenta</ion-title>
-   </ion-buttons>
+
+      <app-header-component 
+        *ngIf="notificaciones"
+        [headerText]="''" 
+        [numeroMensajes]="notificaciones.ver ? notificaciones.numeroMensajes : 0">
+      </app-header-component>
+
+      <!-- <app-user-component></app-user-component> -->
+
+  </ion-buttons>
 </ion-toolbar>
-<!--<header-component [headerText]="''" [notificaciones]="notificacionesService.ver ? notificacionesService.numeroMensajes : 0"></header-component>
-  <user-component></user-component>
--->
 </ion-header>
+
 <ion-content [fullscreen]="true" *ngIf="istodoCargado">
 
   <ion-card color="light">

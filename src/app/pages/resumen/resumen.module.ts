@@ -8,6 +8,8 @@ import { ResumenPageRoutingModule } from './resumen-routing.module';
 
 import { ResumenPage } from './resumen.page';
 import { PipesModule } from "../../pipes/pipes.module";
+import { HeaderComponentModule } from "../../components/header-component/header-component.module";
+import { UserComponentModule } from 'src/app/components/user-component/user-component.module';
 
 @NgModule({
     declarations: [ResumenPage],
@@ -16,7 +18,9 @@ import { PipesModule } from "../../pipes/pipes.module";
         FormsModule,
         IonicModule,
         ResumenPageRoutingModule,
-        PipesModule
+        PipesModule,
+        HeaderComponentModule,
+        UserComponentModule
     ]
 })
 export class ResumenPageModule {}

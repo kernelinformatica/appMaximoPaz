@@ -29,7 +29,12 @@ const routes: Routes = [
   {
     path: 'acerca',
     loadChildren: () => import('./pages/acerca/acerca.module').then(m => m.AcercaPageModule)
-  },  {
+  },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./pages/notificaciones/notificaciones.module').then(m => m.NotificacionesPageModule)
+  },
+  {
     path: 'popover',
     loadChildren: () => import('./pages/popover/popover.module').then( m => m.PopoverPageModule)
   },

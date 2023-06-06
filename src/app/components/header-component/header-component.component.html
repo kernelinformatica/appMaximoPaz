@@ -1,3 +1,10 @@
-<p>
-  header-component works!
-</p>
+
+<ion-buttons slot="end">
+  <ion-button (click)="verNotificaciones()">
+    <ion-icon name="notifications-outline"></ion-icon>
+    <ion-badge slot="start">{{numeroMensajes}}</ion-badge>
+  </ion-button>
+  <ion-button (click)="presentPopover($event)">
+    <ion-icon name="add-outline"></ion-icon>
+  </ion-button>
+</ion-buttons>

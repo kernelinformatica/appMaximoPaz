@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Funciones } from 'src/app/modelo/funciones';
 import { LoadingController, MenuController, NavController } from '@ionic/angular';
 import { UiService } from 'src/app/services/ui.service';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
 @Component({
   selector: 'app-resumen',
   templateUrl: './resumen.page.html',
@@ -28,11 +29,15 @@ export class ResumenPage implements OnInit {
   resumen: any;
   funciones: Funciones = new Funciones([""]);
   private activatedRoute = inject(ActivatedRoute);
+
+  notificaciones: any = null;
+
   constructor(public resumenService: ResumenService,
     private uiService: UiService,
     private navController: NavController,
     private loadingController: LoadingController,
-    private menuController: MenuController) {
+    private menuController: MenuController,
+    private notificacionesService: NotificacionesService) {
   }
 
   async ngOnInit() {
@@ -48,6 +53,10 @@ export class ResumenPage implements OnInit {
         this.cargarDatos();
         await this.loadingController.dismiss();
       });
+
+    this.notificacionesService.load().then(notificaciones => {
+      this.notificaciones = notificaciones;
+    });
   }
 
 
