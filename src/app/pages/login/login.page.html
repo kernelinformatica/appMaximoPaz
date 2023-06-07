@@ -1,6 +1,6 @@
 
 <ion-content class="login-content" padding>
-  
+
   <ion-col>
     <div class="slogan_bienvenido_box"></div>
   </ion-col>
@@ -12,7 +12,7 @@
   <ion-col>
     <div class="slogan_cooperativa_box">GESTION INTELIGENTE PARA EL SECTOR AGROPECUARIO</div>
   </ion-col>
-  
+
   <div class="login-box">
     <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
       <ion-row>
@@ -28,7 +28,11 @@
                 name="numOperador"
                 placeholder="CUENTA CORRIENTE"
                 formControlName="usuario"
-                required></ion-input>
+                required>
+              </ion-input>
+              <button  item-end  class="iconcuenta">
+                <ion-icon  [name]="iconcuenta"></ion-icon>
+            </button>
             </ion-item>
             <ion-item>
               <ion-input
@@ -41,6 +45,7 @@
                 placeholder="CLAVE DE ACCESO"
                 formControlName="clave"
                 required></ion-input>
+
             </ion-item>
           </ion-list>
         </ion-col>

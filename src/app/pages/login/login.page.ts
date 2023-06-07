@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, NavController } from '@ionic/angular';
@@ -22,9 +22,11 @@ export class LoginPage implements OnInit {
   errorLoginMsg: string | null = "";
   errorLoginTitle: string | null = "";
   errorLoginSubTitle: string | null = "";
-
+  passwordTypeInput  =  'password';
+  iconpassword  =  'eye-off';
+  iconcuenta = 'person';
   rememberMe = false;
-
+  @ViewChild('passwordEyeRegister') passwordEye: any;
   constructor(private uiService: UiService,
     private formBuilder: FormBuilder,
     private loginService: LoginService,
@@ -37,14 +39,17 @@ export class LoginPage implements OnInit {
       usuario: ["", [Validators.required]],
       clave: ["", [Validators.required]]
     });
-
   }
 
   ngOnInit(): void {
     localStorage.removeItem('control');
     localStorage.removeItem('usuarioActual');
   }
-
+  togglePasswordMode() {
+    this.passwordTypeInput  =  this.passwordTypeInput  ===  'text'  ?  'password'  :  'text';
+    this.iconpassword  =  this.iconpassword  ===  'eye-off'  ?  'eye'  :  'eye-off';
+    this.passwordEye.el.setFocus();
+}
   get isValidForm() { return true; }
 
   showHidePassword(): void {

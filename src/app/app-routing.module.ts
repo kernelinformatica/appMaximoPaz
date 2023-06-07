@@ -3,6 +3,10 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'mi-cuenta',
+    loadChildren: () => import('./pages/mi-cuenta/mi-cuenta.module').then(m => m.MiCuentaPageModule)
+  },
+  {
     path: 'logout',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
   },

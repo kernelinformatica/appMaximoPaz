@@ -3,11 +3,11 @@
 
     <ion-buttons slort="start">
       <ion-menu-button menu="menuPrincipal"></ion-menu-button>
-      <ion-title>Resumen de cuenta</ion-title>
+      <ion-title>Bienvenido !!!</ion-title>
 
-      <app-header-component 
+      <app-header-component
         *ngIf="notificaciones"
-        [headerText]="''" 
+        [headerText]="''"
         [numeroMensajes]="notificaciones.ver ? notificaciones.numeroMensajes : 0">
       </app-header-component>
 
@@ -19,18 +19,20 @@
 
 <ion-content [fullscreen]="true" *ngIf="istodoCargado">
 
-  <ion-card color="light">
+  <ion-card color="tertiary">
     <ion-card-header>
       <ion-card-title class="ion-card-title"><ion-icon name="person"></ion-icon> {{ resumen?.cuenta.nombre ?? "" | uppercase }}</ion-card-title>
 
       <p class="texto_gral"><ion-icon name="mail"></ion-icon> {{ resumen?.cuenta.email }}</p>
 
     </ion-card-header>
+<!--      <ion-card-content> Datos de su cuenta </ion-card-content> -->
+    <ion-button fill="clear" (click)="linkMiCuenta()" class="card-btn">Gestionar</ion-button>
 
-   <!--  <ion-card-content> Card Content </ion-card-content> -->
+
   </ion-card>
 
-  <ion-card color="light">
+  <ion-card color="success">
     <ion-card-header>
       <ion-card-title class="ion-card-title">CUENTA CORRIENTE: {{ resumen?.cuenta.id }} </ion-card-title>
      <!--  <ion-card-subtitle> Cuenta: {{ resumen?.cuenta.id }}</ion-card-subtitle>-->

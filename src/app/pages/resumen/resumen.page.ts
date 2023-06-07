@@ -1,3 +1,4 @@
+import { MiCuentaPage } from './../mi-cuenta/mi-cuenta.page';
 import { Component, OnInit, inject } from '@angular/core';
 import { ResumenService } from 'src/app/services/resumen.service';
 import { ActivatedRoute } from '@angular/router';
@@ -162,7 +163,9 @@ export class ResumenPage implements OnInit {
   }
 
 
-
+public linkMiCuenta (){
+  this.navController.navigateRoot('/mi-cuenta');
+}
   public getSaldoCtaCteActual(saldo: any) {
 
     if (saldo < 0) {
@@ -181,8 +184,8 @@ export class ResumenPage implements OnInit {
 
   }
 
-  public getLogoEmpresa() {
-    return "http://www.gestagro.com.ar/clientes/movil/logos/11.png";
-  }
+
+
+
 
 }
