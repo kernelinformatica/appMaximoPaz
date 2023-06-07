@@ -30,36 +30,39 @@
                 formControlName="usuario"
                 required>
               </ion-input>
-              <button  item-end  class="iconcuenta">
+              <button  item-end  class="btn_user_icon">
                 <ion-icon  [name]="iconcuenta"></ion-icon>
             </button>
             </ion-item>
             <ion-item>
               <ion-input
-                type="password"
+                [type]= "passwordTypeInput"
                 autocomplete="off"
                 autocorrect="off"
                 autocapitalize="off"
                 spellcheck="false"
                 name="clave"
+                id="clave"
                 placeholder="CLAVE DE ACCESO"
                 formControlName="clave"
                 required></ion-input>
-
+                <button  item-end  class="btn_eye_icon" (click)="togglePasswordMode()">
+                  <ion-icon  [name]="iconpassword"></ion-icon>
+              </button>
             </ion-item>
           </ion-list>
         </ion-col>
       </ion-row>
 
-    <!--    <ion-row>
+   <!--  <ion-row>
         <ion-label class="txtRecordarme">RECORDARME</ion-label>
         <ion-checkbox
           dark class="chkRecordarme"
           name="rememberMe"
           [(ngModel)]="rememberMe"
           ngControl="rememberMe"></ion-checkbox>
-      </ion-row>-->
-
+      </ion-row>
+ -->
       <ion-row>
         <ion-col class="signup-col">
           <ion-button

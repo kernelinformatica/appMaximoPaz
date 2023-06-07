@@ -35,8 +35,23 @@ ion-list {
 }
 
 }
+.logoResumen {
+  display: flex;
+ // justify-content: center;
+  width: 100px;
+  height: 35px;
+  margin-left: 5px;
+  margin-top: 100
+
+
+
+}
+
 .texto_gral{
-  font-size: 12px;
+  font-size: 11px;
+  padding: 0 0 0 0;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+margin-top: 5px;
 }
 .card-btn{
   font-weight: bolder;
@@ -121,7 +136,9 @@ strong {
   left: -10px;
   position: relative;
 }
-
+.ion-icon{
+  margin-top: 1px;
+}
 .par {
   --background: #FFFFFF;
   opacity: 0.8;

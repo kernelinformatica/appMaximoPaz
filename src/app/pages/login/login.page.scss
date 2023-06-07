@@ -189,3 +189,30 @@ background-image: url("../../../../resources/bg.fw.png");
 .bigger {
   font-size: 1.7em !important;
 }
+.btn_user_icon{
+  position: absolute;
+  right: 6px;
+  bottom: 15px;
+  background: transparent;
+  z-index: 2;
+  ion-icon{
+      font-size: 22px;
+      color:#e35d0a;
+  }
+}
+
+.btn_eye_icon{
+  position: absolute;
+  right: 6px;
+  bottom: 15px;
+  background: transparent;
+  z-index: 2;
+  ion-icon{
+      font-size: 22px;
+      color:#e35d0a;
+  }
+}
+
+.btn_eye_icon:focus{
+  outline: none  !important;
+}

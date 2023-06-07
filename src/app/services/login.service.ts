@@ -44,6 +44,7 @@ export class LoginService {
             if (this.usuarioActual.control.codigo == 'OK') {
               let control = this.usuarioActual.control;
               this.usuarioActual = new Usuario(this.usuarioActual.datos);
+              debugger
               //Seteo como logueado.
 
               this.logueado = true;

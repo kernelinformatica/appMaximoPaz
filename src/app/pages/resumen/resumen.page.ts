@@ -60,7 +60,16 @@ export class ResumenPage implements OnInit {
     });
   }
 
+  public getLogoEmpresa() {
 
+    if ( this.resumen.empresa.id !=  '') {
+
+     return "http://www.gestagro.com.ar/clientes/movil/logos/"+this.resumen.empresa.id+".png";
+    } else {
+      return "http://www.gestagro.com.ar/clientes/movil/logos/00.png";
+    }
+
+  }
   /**
     * Esta funcion se usa para cargar los datos restantes
     */

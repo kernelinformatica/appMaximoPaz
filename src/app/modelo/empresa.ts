@@ -11,6 +11,17 @@ export class Empresa{
   public nombre : string;
   public nombreCompleto : string;
   public cuit : string;
+  public direccion: string;
+  public telefonos: string;
+  public informacionContacto : string;
+  public horariosAtencion : string;
+  public dominio : string;
+  public email : string;
+  public accesoAppMovil: string;
+
+
+
+
   //---------------------------------------------//
 
   // parseo el mensaje
@@ -19,5 +30,14 @@ export class Empresa{
     this.nombre = empresa.Nombre;
     this.nombreCompleto = empresa.NombreCompleto;
     this.cuit = empresa.Cuit;
+    this.direccion = empresa.Direccion;
+    this.telefonos = empresa.Telefonos;
+    this.informacionContacto = empresa.InformacionContacto;
+    this.horariosAtencion = empresa.HorariosAtencion;
+    this.dominio = empresa.Dominio;
+    this.email = empresa.Email;
+    this.accesoAppMovil = empresa.AccesoAppMovil
+
+
   }
 }

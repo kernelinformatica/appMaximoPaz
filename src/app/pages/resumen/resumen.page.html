@@ -21,9 +21,12 @@
 
   <ion-card color="tertiary">
     <ion-card-header>
-      <ion-card-title class="ion-card-title"><ion-icon name="person"></ion-icon> {{ resumen?.cuenta.nombre ?? "" | uppercase }}</ion-card-title>
+      <ion-card-title class="ion-card-title">
+        <ion-icon name="person"></ion-icon> {{ resumen?.cuenta.nombre ?? "" | uppercase }}
+      </ion-card-title>
+      <ion-card-subtitle><ion-icon name="bookmark"></ion-icon> {{ resumen?.cuenta.id }}</ion-card-subtitle>
+      <ion-card-subtitle><ion-icon name="mail"></ion-icon>  {{ resumen?.cuenta.email }}</ion-card-subtitle>
 
-      <p class="texto_gral"><ion-icon name="mail"></ion-icon> {{ resumen?.cuenta.email }}</p>
 
     </ion-card-header>
 <!--      <ion-card-content> Datos de su cuenta </ion-card-content> -->
@@ -135,6 +138,27 @@
     </div>
   </ion-list>
 
+  <br>
+  <ion-card color="light">
+
+
+    <ion-card-header>
+      <ion-card-title class="ion-card-title">
+        <ion-icon name="business"></ion-icon> {{ resumen?.empresa.nombreCompleto }}
+
+      </ion-card-title>
+
+
+      <div class="texto_gral"><ion-icon name="location"></ion-icon> {{ resumen?.empresa.direccion }}</div>
+      <br>
+      <div class="texto_gral"><ion-icon name="time" class="ion-icon" ></ion-icon> {{ resumen?.empresa.horariosAtencion }}</div>
+      <div class="texto_gral"><ion-icon name="mail" class="ion-icon"></ion-icon > {{ resumen?.empresa.email }}</div>
+     <div class="texto_gral"><ion-icon name="link" class="ion-icon" ></ion-icon> http://{{ resumen?.empresa.dominio }}</div>
+     <a href='http://{{ resumen.empresa.dominio }}' target="_blank"><img class="logoResumen" src="{{getLogoEmpresa()}}" /></a>
+    </ion-card-header>
+
+<!--      <ion-card-content> Datos de su cuenta </ion-card-content> -->
+  </ion-card>
   <!--
       <ion-list *ngIf="tieneFuncion('fichaRemitos') && contieneRemitos">
         <ion-list-header class="headerList" (click)="toggleDetalleFichaRemitos()">
