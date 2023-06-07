@@ -81,15 +81,17 @@ background-image: url("../../../../resources/bg.fw.png");
 
 
   .chkRecordarme {
+
       margin: 0;
       padding: 0;
-      left: -33%;
-      border: #FFF;
+      left: -25%;
+      border: black;
   }
 
   .txtRecordarme {
       font-size: 11px;
-      color: white;
+      color: black;
+      padding-left: 45%;
   }
 
   .item-inner {
@@ -197,7 +199,7 @@ background-image: url("../../../../resources/bg.fw.png");
   z-index: 2;
   ion-icon{
       font-size: 22px;
-      color:#e35d0a;
+      color:#FF8000;
   }
 }
 
@@ -209,7 +211,7 @@ background-image: url("../../../../resources/bg.fw.png");
   z-index: 2;
   ion-icon{
       font-size: 22px;
-      color:#e35d0a;
+      color:#FF8000;
   }
 }
 

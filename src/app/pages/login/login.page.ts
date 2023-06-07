@@ -22,6 +22,7 @@ export class LoginPage implements OnInit {
   errorLoginMsg: string | null = "";
   errorLoginTitle: string | null = "";
   errorLoginSubTitle: string | null = "";
+
   passwordTypeInput  =  'password';
   iconpassword  =  'eye-off';
   iconcuenta = 'person';
