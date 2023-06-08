@@ -25,9 +25,9 @@ export class AppComponent {
   public getLogoEmpresa() {
     if (typeof this.clientJson === 'string') {
       const parsedData = JSON.parse(this.clientJson);
-     return "http://www.gestagro.com.ar/clientes/movil/logos/"+parsedData.empresa.id+".png";
+     return "https://www.gestagro.com.ar/clientes/movil/logos/"+parsedData.empresa.id+".png";
     } else {
-      return "http://www.gestagro.com.ar/clientes/movil/logos/00.png";
+      return "https://www.gestagro.com.ar/clientes/movil/logos/00.png";
     }
 
   }
