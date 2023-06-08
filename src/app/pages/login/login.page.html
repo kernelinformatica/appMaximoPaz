@@ -20,8 +20,9 @@
           <ion-list>
             <ion-item>
               <ion-input
-                type="text"
+                type="number"
                 autocomplete="off"
+                maxlength= "7"
                 autocorrect="off"
                 autocapitalize="off"
                 spellcheck="false"
@@ -45,7 +46,8 @@
                 id="clave"
                 placeholder="CLAVE DE ACCESO"
                 formControlName="clave"
-                required></ion-input>
+                required>
+              </ion-input>
                 <button  item-end  class="btn_eye_icon" (click)="togglePasswordMode()">
                   <ion-icon  [name]="iconpassword"></ion-icon>
               </button>
