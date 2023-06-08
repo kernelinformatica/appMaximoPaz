@@ -63,10 +63,10 @@ export class ResumenPage implements OnInit {
   public getLogoEmpresa() {
 
     if ( this.resumen.empresa.id !=  '') {
-
-     return "https://www.gestagro.com.ar/clientes/movil/logos/"+this.resumen.empresa.id+".png";
+    //https://www.gestagro.com.ar/clientes/movil/logos/
+     return "assets/images/logos/"+this.resumen.empresa.id+".png";
     } else {
-      return "https://www.gestagro.com.ar/clientes/movil/logos/00.png";
+      return "assets/images/logos/00.png";
     }
 
   }

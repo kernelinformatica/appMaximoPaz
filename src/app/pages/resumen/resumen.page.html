@@ -144,16 +144,13 @@
 
     <ion-card-header>
       <ion-card-title class="ion-card-title">
-        <ion-icon name="business"></ion-icon> {{ resumen?.empresa.nombreCompleto }}
-
+       {{ resumen?.empresa.nombreCompleto }}
       </ion-card-title>
-
-
       <div class="texto_gral"><ion-icon name="location"></ion-icon> {{ resumen?.empresa.direccion }}</div>
-      <br>
       <div class="texto_gral"><ion-icon name="time" class="ion-icon" ></ion-icon> {{ resumen?.empresa.horariosAtencion }}</div>
       <div class="texto_gral"><ion-icon name="mail" class="ion-icon"></ion-icon > {{ resumen?.empresa.email }}</div>
      <div class="texto_gral"><ion-icon name="link" class="ion-icon" ></ion-icon> http://{{ resumen?.empresa.dominio }}</div>
+     <br>
      <a href='http://{{ resumen.empresa.dominio }}' target="_blank"><img class="logoResumen" src="{{getLogoEmpresa()}}" /></a>
     </ion-card-header>
 

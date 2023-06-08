@@ -16,18 +16,14 @@ export class AppComponent {
     { title: 'Cerrar Sesión', url: '', icon: 'log-out' },
 
   ];
-
-
-
   public clientJson = localStorage.getItem('usuarioActual')?.toString();
-
   public labels = ["etiquetas 1", 'etiqueta 2'];
   public getLogoEmpresa() {
     if (typeof this.clientJson === 'string') {
       const parsedData = JSON.parse(this.clientJson);
-     return "https://www.gestagro.com.ar/clientes/movil/logos/"+parsedData.empresa.id+".png";
+      return "assets/images/logos/"+parsedData.empresa.id+".png";
     } else {
-      return "https://www.gestagro.com.ar/clientes/movil/logos/00.png";
+      return "assets/images/logos/00.png";
     }
 
   }
