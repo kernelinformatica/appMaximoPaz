@@ -22,6 +22,7 @@ export class NotificacionesPage implements OnInit {
 
   //spaghetti
   public borrarNotificacion(mensaje: Notificacion) {
+   
     if (mensaje && mensaje.idMensaje) {
       this.notificacionesService.borrarNotificacion(mensaje.idMensaje).then(
         resp => {

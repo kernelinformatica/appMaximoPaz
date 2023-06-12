@@ -165,4 +165,10 @@ ion-content {
     padding-left: 2%;
   
   }
-  
+
+  .icon-inner, .ionicon, svg {
+    padding-top: 2px;
+    display: block;
+    height: 100%;
+    width: 100%;
+}

@@ -72,7 +72,7 @@ export class NotificacionesService {
                         idMensaje: idMensaje
                     }),
                 };
-
+debugger
                 this.http.post(url, httpOptions).subscribe((data: any) => {
                     let control = data.control;
                     if (control.codigo == "OK") {

@@ -1,8 +1,13 @@
 ion-badge {
     font-size: 15px;
     background-color: transparent;
-    color: var(--primary);
+    color: var(--danger);
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 5px;
+    left: 14px;
+   
+}
+
+.notification {
+  padding-left: 30px;
 }

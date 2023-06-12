@@ -14,27 +14,50 @@
 
 <ion-content *ngIf="istodoCargado" padding>
   <div class="tab-content top-space-2" *ngIf="notificaciones && notificaciones.length === 0">
-    <div style="width: 100%;
-          position: absolute;
-          top: 20vh;
-          font-size: 1.8rem;">No tiene notificaciones</div>
-  </div>
+    <ion-card color="danger">
+      <ion-card-header>
+        <ion-card-title><ion-icon name="notifications"></ion-icon> No hay Notificaciones</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        No tiene notificaciones hasta el momento.
+      </ion-card-content>
+    </ion-card>
+</div>
+  
   <div class="tab-content top-space-2" *ngIf="notificaciones && notificaciones.length > 0">
     <ng-container class="container-space" *ngFor="let n of notificaciones">
-      <ion-list class="justify transparent-bg smallest-list no-bottom-margin list-border" *ngIf="n.visible">
-        <div class="inline-creator">
-          <div class="list-content reservas-display black shrink-capacity">{{parseFecha(n.fechaEnvio)}}</div>
-          <div (click)="verNotificacion(n)" class="list-content reservas-display black taright shrink-capacity">Toque
-            aquí para ver el mensaje</div>
-          <div class="list-content taright reservas-display black shrink-capacity" (click)="borrarNotificacion(n)"><i
-              class="fas fa-trash"></i></div>
-          <div class="new-icon"><i *ngIf="!n.visto" class="fas fa-exclamation-circle"></i></div>
-        </div>
-        <div class="inline-creator-1line">
-          <div class="list-content alone static-left-margin reservas-display taleft  black producto-size">{{n.titulo}}
-          </div>
-        </div>
-      </ion-list>
+      <ion-card *ngIf="n.visible" color="warning">
+        <ion-card-header>
+         
+          <ion-card-title>{{n.titulo}}</ion-card-title>
+          
+          <ion-card-subtitle>{{parseFecha(n.fechaEnvio)}}</ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <ion-list class="justify transparent-bg smallest-list no-bottom-margin list-border" *ngIf="n.visible">
+            <div class="inline-creator">
+              <div (click)="verNotificacion(n)" class="list-content reservas-display black taright shrink-capacity">{{n.mensaje}}</div>
+             <!-- <div class="new-icon"><ion-icon  *ngIf="!n.visto" class="information-circle" name="information-circle"></ion-icon> </div>-->
+            </div>
+           
+                <div style="float:right" class="borrar-notificacion-card-trash"  (click)="borrarNotificacion(n)">
+                <ion-icon name="trash"></ion-icon></div>
+           
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+
+
+
+
+      
+
+
+
+
+
     </ng-container>
   </div>
 </ion-content>

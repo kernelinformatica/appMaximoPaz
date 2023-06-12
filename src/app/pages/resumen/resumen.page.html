@@ -144,18 +144,29 @@
 
     <ion-card-header>
       <ion-card-title class="ion-card-title">
-       {{ resumen?.empresa.nombreCompleto }}
+       {{ resumen?.empresa.nombre }}
       </ion-card-title>
+      <ion-card-subtitle>{{ resumen?.empresa.nombreCompleto }}</ion-card-subtitle>
+      <hr>
       <div class="texto_gral"><ion-icon name="location"></ion-icon> {{ resumen?.empresa.direccion }}</div>
-      <div class="texto_gral"><ion-icon name="time" class="ion-icon" ></ion-icon> {{ resumen?.empresa.horariosAtencion }}</div>
-      <div class="texto_gral"><ion-icon name="mail" class="ion-icon"></ion-icon > {{ resumen?.empresa.email }}</div>
+      <div class="texto_gral"><ion-icon name="call" class="ion-icon" ></ion-icon> {{ resumen?.empresa.telefonos }}</div>
+     <!--  <div class="texto_gral"><ion-icon name="time" class="ion-icon" ></ion-icon> {{ resumen?.empresa.horariosAtencion }}</div> -->
+      <div class="texto_gral"><ion-icon name="mail" class="ion-icon"></ion-icon ><a href="mailto:{{ resumen?.empresa.email }}"> {{ resumen?.empresa.email }}</a></div>
      <div class="texto_gral"><ion-icon name="link" class="ion-icon" ></ion-icon> http://{{ resumen?.empresa.dominio }}</div>
      <br>
+
      <a href='http://{{ resumen.empresa.dominio }}' target="_blank"><img class="logoResumen" src="{{getLogoEmpresa()}}" /></a>
     </ion-card-header>
 
-<!--      <ion-card-content> Datos de su cuenta </ion-card-content> -->
+
   </ion-card>
+  <!-- SOLO PARA CAUR ( LINK A OFERTAS ) *ngIf="empresa.id === 03"-->
+  <ion-card color="light" *ngIf="ofertasCaurTapped()"  >
+  <ion-card-header>
+     <a href='https://comercial.caur.coop.ar/ofertas/' target="_blank"><img class="logoResumen2"    src="https://comercial.caur.coop.ar/ofertas/assets/img/logos/03-nav-bar.png" /></a>
+    </ion-card-header>
+  </ion-card>
+
   <!--
       <ion-list *ngIf="tieneFuncion('fichaRemitos') && contieneRemitos">
         <ion-list-header class="headerList" (click)="toggleDetalleFichaRemitos()">

@@ -38,6 +38,7 @@ export class DetalleCtactePage implements OnInit {
 
     this.cuenta = cuenta;
     this.socio = socio;
+    
     this.detallaCtaCteService.load().then(
       async resp => {
         this.data = resp;
@@ -50,10 +51,8 @@ export class DetalleCtactePage implements OnInit {
 
 
   public getSaldoCtaCteActual() {
-
     if (this.cuenta.saldo < 0) {
       // acreedor
-
       this.saldoDeudorAcreedor = "ACREEDOR";
       this.importeEstadoSaldos = 'headerImporteCtacteResaltadoNegativo';
 

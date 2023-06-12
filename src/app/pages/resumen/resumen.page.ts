@@ -28,6 +28,7 @@ export class ResumenPage implements OnInit {
   istodoCargado = false;
   data: any;
   resumen: any;
+  empresa: any;
   funciones: Funciones = new Funciones([""]);
   private activatedRoute = inject(ActivatedRoute);
 
@@ -49,6 +50,8 @@ export class ResumenPage implements OnInit {
       async resp => {
         this.data = resp;
         this.resumen = this.data.resumen;
+        this.empresa = this.data.resumen.empresa;
+        
         this.funciones = new Funciones(this.data.funciones.listaFunciones);
         this.istodoCargado = true;
         this.cargarDatos();
@@ -94,6 +97,29 @@ export class ResumenPage implements OnInit {
 
         });
 
+    }
+  }
+  public ofertasProductosTapped(event: any, item: any) {
+
+    if (this.tieneFuncion("catalogoDeProductos")) {
+    
+
+      this.navController.navigateRoot('/ofertas',
+        {
+          animated: true,
+          queryParams: { cuenta: item, socio: this.resumen.cuenta }
+
+        });
+     
+    }
+  }
+  // solo para caur
+  public ofertasCaurTapped() {
+    if (this.tieneFuncion("ofertasCaur")) {
+      return true
+    }else{
+      return false
+     
     }
   }
 
