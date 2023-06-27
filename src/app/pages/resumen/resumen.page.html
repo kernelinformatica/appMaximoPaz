@@ -1,4 +1,5 @@
 <ion-header [translucent]="true">
+  
   <ion-toolbar>
 
     <ion-buttons slort="start">
@@ -8,7 +9,7 @@
       <app-header-component
         *ngIf="notificaciones"
         [headerText]="''"
-        [numeroMensajes]="notificaciones.ver ? notificaciones.numeroMensajes : 0">
+        [numeroMensajes]="ver ? numeroMensajes : numeroMensajes">
       </app-header-component>
 
       <!-- <app-user-component></app-user-component> -->
@@ -18,12 +19,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="istodoCargado">
+  
+
 
   <ion-card color="tertiary">
     <ion-card-header>
       <ion-card-title class="ion-card-title">
         <ion-icon name="person"></ion-icon> {{ resumen?.cuenta.nombre ?? "" | uppercase }}
       </ion-card-title>
+
       <ion-card-subtitle><ion-icon name="bookmark"></ion-icon> {{ resumen?.cuenta.id }}</ion-card-subtitle>
       <ion-card-subtitle><ion-icon name="mail"></ion-icon>  {{ resumen?.cuenta.email }}</ion-card-subtitle>
 
@@ -139,33 +143,143 @@
   </ion-list>
 
   <br>
-  <ion-card color="light">
+  
 
 
-    <ion-card-header>
-      <ion-card-title class="ion-card-title">
-       {{ resumen?.empresa.nombre }}
-      </ion-card-title>
-      <ion-card-subtitle>{{ resumen?.empresa.nombreCompleto }}</ion-card-subtitle>
-      <hr>
-      <div class="texto_gral"><ion-icon name="location"></ion-icon> {{ resumen?.empresa.direccion }}</div>
-      <div class="texto_gral"><ion-icon name="call" class="ion-icon" ></ion-icon> {{ resumen?.empresa.telefonos }}</div>
-     <!--  <div class="texto_gral"><ion-icon name="time" class="ion-icon" ></ion-icon> {{ resumen?.empresa.horariosAtencion }}</div> -->
-      <div class="texto_gral"><ion-icon name="mail" class="ion-icon"></ion-icon ><a href="mailto:{{ resumen?.empresa.email }}"> {{ resumen?.empresa.email }}</a></div>
-     <div class="texto_gral"><ion-icon name="link" class="ion-icon" ></ion-icon> http://{{ resumen?.empresa.dominio }}</div>
-     <br>
-
-     <a href='http://{{ resumen.empresa.dominio }}' target="_blank"><img class="logoResumen" src="{{getLogoEmpresa()}}" /></a>
-    </ion-card-header>
 
 
-  </ion-card>
-  <!-- SOLO PARA CAUR ( LINK A OFERTAS ) *ngIf="empresa.id === 03"-->
-  <ion-card color="light" *ngIf="ofertasCaurTapped()"  >
+
+
+
+
+
+<ion-card color="light" *ngIf="mercadoDisponible.length > 0" >
   <ion-card-header>
-     <a href='https://comercial.caur.coop.ar/ofertas/' target="_blank"><img class="logoResumen2"    src="https://comercial.caur.coop.ar/ofertas/assets/img/logos/03-nav-bar.png" /></a>
-    </ion-card-header>
-  </ion-card>
+    <ion-card-title class="ion-card-title">
+      MERCADO DE CEREALES
+     </ion-card-title>
+     <ion-card-subtitle>
+      Cierre: {{mercadoDisponible[0].cierre}}
+     </ion-card-subtitle>
+  </ion-card-header>
+   
+  <ion-card-content>
+    <ion-spinner *ngIf="!isMercadoCerealesCargado()"></ion-spinner>
+    <div *ngIf="isMercadoCerealesCargado()">
+    <div><h2><ion-icon name="pie-chart"></ion-icon> Disponible</h2></div>
+    <ion-list *ngFor="let item of mercadoDisponible; let i = index;">
+         <ion-grid   class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+           <ion-row class="texto-mercado">
+            <ion-col>
+               <div style="text-align: left"  >
+                   {{item.nombre}} 
+               </div>
+            </ion-col>
+
+            <ion-col >
+              <div style="text-align: right"  >
+                {{item.monedaSimbolo}} {{item.precioTn}}   
+              </div>
+            </ion-col>
+
+             
+           
+
+             <ion-col>
+              
+              <ion-icon class="green-arrow icon-size" style="color:green" *ngIf="item.variacionDiaAnterior > 0" name="arrow-up-outline"></ion-icon>
+              <ion-icon class="red-arrow icon-size" style="color:red" *ngIf="item.variacionDiaAnterior < 0" name="arrow-down-outline"></ion-icon>
+              <ion-icon class="white-arrow icon-size" style="color:blue" *ngIf="item.variacionDiaAnterior === '0'" name="reorder-two-outline"></ion-icon>      </ion-col>
+            
+             <ion-col  >
+               <div style="text-align: right">
+                 {{ item.nombrePuerto }} 
+               </div>
+             </ion-col>
+             
+           </ion-row>
+         </ion-grid>
+       </ion-list>
+       <hr>
+       <div><h2><ion-icon name="stats-chart-outline"></ion-icon> Futuros</h2></div>
+       <ion-list *ngFor="let item of mercadoFuturo; let i = index;">
+        <ion-grid   class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+          <ion-row  class="texto-mercado">
+              
+            <ion-col >
+              <div style="text-align: left"  >
+                  {{item.nombre}} 
+              </div>
+            </ion-col>
+
+            
+            <ion-col >
+             <div style="text-align: right"  >
+               {{item.monedaSimbolo}} {{item.precioTn}} 
+             </div>
+           </ion-col>
+
+
+
+
+            <ion-col>
+              <div style="text-align: left"  >
+              
+                  <ion-icon class="green-arrow icon-size"  style="color:green" *ngIf="item.variacionDiaAnterior > 0" name="arrow-up-outline"></ion-icon>
+                  <ion-icon class="red-arrow icon-size" style="color:red" *ngIf="item.variacionDiaAnterior < 0" name="arrow-down-outline"></ion-icon>
+                  <ion-icon class="white-arrow icon-size" style="color:blue" *ngIf="item.variacionDiaAnterior === '0'" name="reorder-two-outline"></ion-icon>
+              </div>
+            </ion-col>
+            <ion-col  >
+              <div style="text-align: right">
+                Período: {{item.periodo}}
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+      </div>
+  
+  
+    </ion-card-content>
+
+</ion-card>
+
+
+
+
+
+
+<ion-card color="light">
+
+
+  <ion-card-header>
+    <ion-card-title class="ion-card-title">
+     {{ resumen?.empresa.nombre }}
+    </ion-card-title>
+    <ion-card-subtitle>{{ resumen?.empresa.nombreCompleto }}</ion-card-subtitle>
+    <hr>
+    <div class="texto_gral"><ion-icon name="location"></ion-icon> {{ resumen?.empresa.direccion }}</div>
+    <div class="texto_gral"><ion-icon name="call" class="ion-icon" ></ion-icon> {{ resumen?.empresa.telefonos }}</div>
+   <!--  <div class="texto_gral"><ion-icon name="time" class="ion-icon" ></ion-icon> {{ resumen?.empresa.horariosAtencion }}</div> -->
+    <div class="texto_gral"><ion-icon name="mail" class="ion-icon"></ion-icon ><a href="mailto:{{ resumen?.empresa.email }}"> {{ resumen?.empresa.email }}</a></div>
+   <div class="texto_gral"><ion-icon name="link" class="ion-icon" ></ion-icon> http://{{ resumen?.empresa.dominio }}</div>
+   <br>
+
+   <a href='http://{{ resumen.empresa.dominio }}' target="_blank"><img class="logoResumen" src="{{getLogoEmpresa()}}" /></a>
+  </ion-card-header>
+
+
+</ion-card>
+<!-- SOLO PARA CAUR ( LINK A OFERTAS ) *ngIf="empresa.id === 03"-->
+<ion-card color="light" *ngIf="ofertasCaurTapped()"  >
+<ion-card-header>
+   <a href='https://comercial.caur.coop.ar/ofertas/' target="_blank"><img class="logoResumen2"    src="https://www.kernelinformatica.com.ar/applications/apps/gestagro/logos/03-ofertas.png" /></a>
+  </ion-card-header>
+</ion-card>
+
+
+
 
   <!--
       <ion-list *ngIf="tieneFuncion('fichaRemitos') && contieneRemitos">

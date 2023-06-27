@@ -18,6 +18,7 @@ export class Empresa{
   public dominio : string;
   public email : string;
   public accesoAppMovil: string;
+  public coopeHash : string;
 
 
 
@@ -36,7 +37,8 @@ export class Empresa{
     this.horariosAtencion = empresa.HorariosAtencion;
     this.dominio = empresa.Dominio;
     this.email = empresa.Email;
-    this.accesoAppMovil = empresa.AccesoAppMovil
+    this.accesoAppMovil = empresa.AccesoAppMovil;
+    this.coopeHash = empresa.CoopeHash;
 
 
   }

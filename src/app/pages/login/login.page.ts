@@ -1,3 +1,4 @@
+import { Configuraciones } from 'src/configuraciones/configuraciones';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +13,7 @@ import { UiService } from 'src/app/services/ui.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  public rememberMe = false;
   showPassword: boolean = false;
   passwordToggleIcon: string = 'eye';
   loginForm: FormGroup;
@@ -22,11 +23,13 @@ export class LoginPage implements OnInit {
   errorLoginMsg: string | null = "";
   errorLoginTitle: string | null = "";
   errorLoginSubTitle: string | null = "";
-
+  gestAgroVersion : String | null = "";
+  gestAgroUrl : String | null = "";
   passwordTypeInput  =  'password';
   iconpassword  =  'eye-off';
   iconcuenta = 'person';
-  rememberMe = false;
+  public registerCredentials = { usuario: '', clave: '' };  // Usado para el inicio de sesion
+  
   @ViewChild('passwordEyeRegister') passwordEye: any;
   constructor(private uiService: UiService,
     private formBuilder: FormBuilder,
@@ -43,8 +46,11 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit(): void {
-    localStorage.removeItem('control');
-    localStorage.removeItem('usuarioActual');
+  
+    this.doLoadLogin();
+    this.gestAgroVersion = Configuraciones.version;
+    this.gestAgroUrl = Configuraciones.urlBase;
+    
   }
   togglePasswordMode() {
     this.passwordTypeInput  =  this.passwordTypeInput  ===  'text'  ?  'password'  :  'text';
@@ -76,18 +82,21 @@ export class LoginPage implements OnInit {
       this.uiService.presentAlertInfo('Por favor ingrese Cuenta Corriente y Clave de Acceso para acceder al sistema');
       return;
     }
-
     await this.uiService.presentLoading();
-
-    this.loginService.loginUser(login).then(
+    this.loginService.loginUser(login, this.rememberMe).then(
+      
       async resp => {
-
-        if (resp) {
+        
+        if (resp == 1) 
+        {
           await this.loadingController.dismiss();
           this.navController.navigateRoot('/resumen', { animated: true });
-        } else {
+        } else if (resp == 0) {
           await this.loadingController.dismiss();
-          this.uiService.presentAlertInfo("El datos de autentificación suministrados son inválidos.");
+          this.uiService.presentAlertInfo("Los datos de autentificación suministrados son inválidos.");
+        } else if (resp == 2) {
+          await this.loadingController.dismiss();
+          this.uiService.presentAlertInfo("Cliente no autorizado, póngase en contacto con su Cooperativa.");
         }
       }
     ).catch(
@@ -97,6 +106,34 @@ export class LoginPage implements OnInit {
       }
     );
 
+  }
+
+  async doLoadLogin() {
+    await this.uiService.presentLoading();
+      this.loginService.trySavedLogin().then(
+        async returnValue => {
+          //Si hay login guardado.
+          console.log("trySavedLogin salió bien:");
+          await this.loadingController.dismiss();
+          if (returnValue) {
+           //Redirijo al resumen
+            this.navController.navigateRoot('/resumen', { animated: true });
+          } else {
+           
+            this.navController.navigateRoot('/login', { animated: true });
+          }
+          
+          console.log(returnValue);
+        },
+        (error: any) => {
+           this.loadingController.dismiss();
+          console.log("trySavedLogin salió mal:");
+          console.log(error);
+          alert("no hay datos grabados de sesion, redirijo al login")
+          this.navController.navigateRoot('/login', { animated: true });
+        }
+      )
+    
   }
 
   /**
@@ -135,5 +172,23 @@ export class LoginPage implements OnInit {
     };
     return login;
   }
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 }
 

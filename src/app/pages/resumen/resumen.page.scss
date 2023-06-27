@@ -17,7 +17,7 @@ ion-content {
 }
 
 ion-list {
-  padding: 0px 10px;
+  padding: 0px 5px;
   background-color: transparent;
 
   ion-label{
@@ -53,6 +53,7 @@ ion-list {
   padding: 0 0 0 0;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
 margin-top: 5px;
+
 }
 .card-btn{
   font-weight: bolder;
@@ -186,5 +187,46 @@ strong {
   color: grey;
   font-size: 11px;
   padding-left: 2%;
+}
 
+
+/*
+
+MERCADO DE CEREALES ESTILOS
+
+*/
+
+.row {
+  width: 100%;
+}
+
+.green-arrow {
+  
+  color: green;
+  
+}
+
+.red-arrow {
+  color: red;
+ 
+}
+
+.blue-equals {
+  color: blue !important;
+ 
+
+}
+.white-equals {
+  color: white !important;
+ 
+}
+
+.icon-size {
+  font-size: 1.3rem;
+  margin-left: 30px
+}
+.texto-mercado{
+  font-size: 12px;
+  color:black;
+  font-family: "Roboto";
 }

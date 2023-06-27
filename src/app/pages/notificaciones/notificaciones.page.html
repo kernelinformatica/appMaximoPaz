@@ -3,7 +3,7 @@
 
     <ion-buttons slort="start">
       <ion-menu-button menu="menuPrincipal"></ion-menu-button>
-      <ion-title>Notificaciones</ion-title>
+      <ion-title>Notificaciones ({{numeroMensajes}})</ion-title>
     </ion-buttons>
 
     <ion-buttons slot="end">
@@ -27,7 +27,7 @@
   
   <div class="tab-content top-space-2" *ngIf="notificaciones && notificaciones.length > 0">
     <ng-container class="container-space" *ngFor="let n of notificaciones">
-      <ion-card *ngIf="n.visible" color="warning">
+      <ion-card class= "{{muestraVistoSn(n)}}" *ngIf="n.visible" color="{{muestraVistoSn(n)}}">
         <ion-card-header>
          
           <ion-card-title>{{n.titulo}}</ion-card-title>

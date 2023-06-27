@@ -24,10 +24,8 @@ export class HeaderComponent {
     this.cuenta = cuenta;
   }
 
-  //Esto no veo donde se usa
-  public getLogoEmpresa(): string {
-    return "http://www.gestagro.com.ar/clientes/movil/logos/" + this.cuenta.id.substring(0, 2) + ".png";
-  }
+
+  
 
   async presentPopover(e: Event) {
     const popover = await this.popoverController.create({
@@ -42,7 +40,7 @@ export class HeaderComponent {
     this.navController.navigateRoot('/notificaciones',
         {
           animated: true,
-          queryParams: { cuenta: this.cuenta }
+         // queryParams: { cuenta: this.cuenta }
         });
   }
 

@@ -120,41 +120,7 @@ export class MiCuentaService {
 
           }
         })
-        /*this.http.post(url,  httpOptions)
-
-        .subscribe(
-
-          (data : any)   => {
-          // data is already a JSON object
-          this.control = data.control;
-            if (this.control.codigo == "OK"  ){
-             // Intento parsear el usuario
-
-             this.usuarioActual.token = new Token(data.datos.token);
-             if (this.usuarioActual.token.hashId != null) {
-               this.respuesta = this.control;
-               this.logueado = true;
-               resolve(true)
-
-
-             }else{
-              // COMO DEVUELVO ESTA RESPUESTA HACIA EL mi-cuenta.ts ?
-              this.respuesta = this.control;
-              resolve(false)
-
-            }
-          }else{
-
-            this.respuesta = this.control;
-            resolve(false)
-
-            // Pongo la bandera de logue en true
-
-
-          }
-
-
-        })*/
+       
         } catch (error: any) {
 
           const dataError = JSON.parse(error.error)

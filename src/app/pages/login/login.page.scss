@@ -12,7 +12,7 @@ ion-content {
 //background: linear-gradient(0deg, rgba(168,198,237,1) 0%, rgba(119,165,227,1) 100%);
 background: rgb(168,198,237);
 background: linear-gradient(0deg, rgba(168,198,237,1) 0%, rgba(63,136,236,1) 100%);
-background-image: url("../../../../resources/bg.fw.png");
+background-image: url("../../../../resources/bg.png");
   .slogan_bienvenido_box {
       font-family: 'Roboto-Bold';
       font-size: 38px;
@@ -84,14 +84,21 @@ background-image: url("../../../../resources/bg.fw.png");
 
       margin: 0;
       padding: 0;
-      left: -25%;
       border: black;
+      padding-left: 2%;
   }
+
+  .checkbox-icon {
+    margin: 0;
+    padding: 0;
+    border: black;
+    padding-left: 2%;
+}
 
   .txtRecordarme {
       font-size: 11px;
       color: black;
-      padding-left: 45%;
+      padding-left: 3%;
   }
 
   .item-inner {
@@ -146,7 +153,10 @@ background-image: url("../../../../resources/bg.fw.png");
   padding: 0px;
   display: flex;
 }
-
+.texto {
+text-align: center;
+  font-size: 11px;
+}
 .flex-properties {
   flex-wrap: nowrap !important;
   justify-content: center;
@@ -218,3 +228,7 @@ background-image: url("../../../../resources/bg.fw.png");
 .btn_eye_icon:focus{
   outline: none  !important;
 }
+
+
+
+

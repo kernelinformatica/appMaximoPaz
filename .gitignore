@@ -23,6 +23,7 @@ log.txt
 /platforms
 /plugins
 /android
+/wrapper
 
 # Compiled output
 /dist
@@ -31,7 +32,17 @@ log.txt
 /bazel-out
 
 # Node
+/angular
 /node_modules
+/android
+/build-scan-data
+/caches
+/daemon
+/sdks
+/native
+/.vscode
+
+
 npm-debug.log
 yarn-error.log
 
@@ -64,6 +75,7 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+
 
 # System files
 .DS_Store

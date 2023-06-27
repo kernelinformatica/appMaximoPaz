@@ -12,7 +12,7 @@ export class NotificacionesPage implements OnInit {
 
   istodoCargado = false;
   notificaciones: Notificacion[] = [];
-
+  numeroMensajes: number = 0;
   constructor(public notificacionesService: NotificacionesService,
               private uiService: UiService) { }
 
@@ -59,12 +59,21 @@ export class NotificacionesPage implements OnInit {
       }
     }
   }
-
+  public muestraVistoSn(item: any){
+    if (item.visto === true){
+      return "ligth";
+      
+    }else{
+      return "warning";
+    }
+    
+  }
   private cargarNotificaciones(){
     this.notificacionesService.load().then(
       async (resp: any) => {
         if(resp) {
           this.notificaciones = resp.notificaciones;
+          this.numeroMensajes = this.notificaciones.length;
           this.istodoCargado = true;
         }
       }

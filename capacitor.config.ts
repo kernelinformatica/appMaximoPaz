@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'appGestAgroV2',
+  appId: 'com.app.gestagromovil',
+  appName: 'Gestagro-Movil',
   webDir: 'www',
   server: {
     androidScheme: 'https'

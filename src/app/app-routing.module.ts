@@ -6,10 +6,7 @@ const routes: Routes = [
     path: 'mi-cuenta',
     loadChildren: () => import('./pages/mi-cuenta/mi-cuenta.module').then(m => m.MiCuentaPageModule)
   },
-  {
-    path: 'logout',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
-  },
+ 
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
@@ -21,6 +18,7 @@ const routes: Routes = [
   {
     path: 'resumen',
     loadChildren: () => import('./pages/resumen/resumen.module').then(m => m.ResumenPageModule)
+    
   },
   {
     path: 'detalle-ctacte',
@@ -42,6 +40,17 @@ const routes: Routes = [
     path: 'popover',
     loadChildren: () => import('./pages/popover/popover.module').then( m => m.PopoverPageModule)
   },
+  {
+    path: 'logout',
+    loadChildren: () => import('./pages/logout/logout.module').then( m => m.LogoutPageModule)
+  },
+  {
+    path: 'mercado-cereales',
+    loadChildren: () => import('./pages/mercado-cereales/mercado-cereales.module').then( m => m.MercadoCerealesPageModule)
+  },
+
+  
+
 
 
 
