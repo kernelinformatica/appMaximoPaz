@@ -2,7 +2,7 @@ import { Configuraciones } from 'src/configuraciones/configuraciones';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController, NavController, MenuController } from '@ionic/angular';
 import { Login } from 'src/app/modelo/login';
 import { LoginService } from 'src/app/services/login.service';
 import { UiService } from 'src/app/services/ui.service';
@@ -36,7 +36,9 @@ export class LoginPage implements OnInit {
     private loginService: LoginService,
     private navController: NavController,
     private activateRoute: ActivatedRoute,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private menuCtrl: MenuController
+
   ) {
     this.testError = this.activateRoute.snapshot.queryParamMap.get("refreshToken");
     this.loginForm = this.formBuilder.group({
@@ -46,7 +48,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit(): void {
-  
+    this.menuCtrl.enable(false)
     this.doLoadLogin();
     this.gestAgroVersion = Configuraciones.version;
     this.gestAgroUrl = Configuraciones.urlBase;
@@ -113,7 +115,6 @@ export class LoginPage implements OnInit {
       this.loginService.trySavedLogin().then(
         async returnValue => {
           //Si hay login guardado.
-          console.log("trySavedLogin salió bien:");
           await this.loadingController.dismiss();
           if (returnValue) {
            //Redirijo al resumen
@@ -127,9 +128,7 @@ export class LoginPage implements OnInit {
         },
         (error: any) => {
            this.loadingController.dismiss();
-          console.log("trySavedLogin salió mal:");
           console.log(error);
-          alert("no hay datos grabados de sesion, redirijo al login")
           this.navController.navigateRoot('/login', { animated: true });
         }
       )

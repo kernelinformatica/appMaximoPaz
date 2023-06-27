@@ -9,7 +9,8 @@ import { Configuraciones } from 'src/configuraciones/configuraciones';
 })
 export class AppComponent {
 
-  constructor(private platform: Platform) {
+
+  constructor(private platform: Platform, ) {
     /*
     Este código elimina todas las entradas del caché de la aplicación cuando se carga la plataforma. De esta manera,
     se asegura de que la aplicación siempre esté utilizando los archivos más recientes y no los archivos almacenados en caché.
@@ -41,9 +42,11 @@ export class AppComponent {
     if (typeof clientJson === 'string') {
       var parsedData = JSON.parse(clientJson);
       logo = Configuraciones.rutaLogos+parsedData.empresa.id+".png";
+     
       clientJson = "";
        return logo;
   } else {
+    
       return "assets/images/logos/00.png";
     }
 
@@ -62,7 +65,6 @@ export class AppComponent {
 
 
   initializeApp(){
-
     //alert("Inicializa app")
   }
 

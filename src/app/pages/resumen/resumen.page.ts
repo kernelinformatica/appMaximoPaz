@@ -70,7 +70,6 @@ export class ResumenPage implements OnInit {
       this.empresa = this.data.resumen.empresa;
       this.istodoCargado = true
       this.funciones = new Funciones(this.data.funciones.listaFunciones);
-
       this.cargarDatos();
       await this.loadingController.dismiss();
     });

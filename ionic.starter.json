@@ -1,5 +1,5 @@
 {
-  "name": "GestAgro",
+  "name": "GestAgro-Movil",
   "baseref": "main",
   "tarignore": [
     "node_modules",
