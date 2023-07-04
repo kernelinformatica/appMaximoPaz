@@ -31,14 +31,14 @@ export class DetalleCtactePage implements OnInit {
   }
 
   async ngOnInit() {
-    await this.uiService.presentLoading();
+    await this.uiService.presentLoading("Cargando resumen...");
 
     const cuenta = this.route.snapshot.queryParamMap.get("cuenta");
     const socio = this.route.snapshot.queryParamMap.get("socio");
 
     this.cuenta = cuenta;
     this.socio = socio;
-    
+
     this.detallaCtaCteService.load().then(
       async resp => {
         this.data = resp;

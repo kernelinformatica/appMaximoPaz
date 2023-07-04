@@ -47,7 +47,19 @@ const routes: Routes = [
   {
     path: 'mercado-cereales',
     loadChildren: () => import('./pages/mercado-cereales/mercado-cereales.module').then( m => m.MercadoCerealesPageModule)
+  },  {
+    path: 'politica',
+    loadChildren: () => import('./pages/info/politica/politica.module').then( m => m.PoliticaPageModule)
   },
+  {
+    path: 'terminos-condiciones',
+    loadChildren: () => import('./pages/info/terminos-condiciones/terminos-condiciones.module').then( m => m.TerminosCondicionesPageModule)
+  },
+  {
+    path: 'legales',
+    loadChildren: () => import('./pages/info/legales/legales.module').then( m => m.LegalesPageModule)
+  },
+
 
   
 

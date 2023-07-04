@@ -29,10 +29,11 @@ export class AppComponent {
     { title: 'Inicio / Resumen', url: '/resumen', icon: 'home' },
     { title: 'Mi Cuenta', url: '/mi-cuenta', icon: 'person' },
     { title: 'Acerca de', url: '/acerca', icon: 'business' },
+    { title: 'Legales', url: '/legales', icon: 'information-circle' },
     { title: 'Cerrar Sesión', url: '/logout', icon: 'log-out' },
 
   ];
-
+  public temp = "";
 
   public labels = ["etiquetas 1", 'etiqueta 2'];
 
@@ -42,11 +43,11 @@ export class AppComponent {
     if (typeof clientJson === 'string') {
       var parsedData = JSON.parse(clientJson);
       logo = Configuraciones.rutaLogos+parsedData.empresa.id+".png";
-     
+
       clientJson = "";
        return logo;
   } else {
-    
+
       return "assets/images/logos/00.png";
     }
 

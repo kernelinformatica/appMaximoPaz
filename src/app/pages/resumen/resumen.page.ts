@@ -8,6 +8,12 @@ import {
   MenuController,
   NavController,
 } from '@ionic/angular';
+import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
 import { UiService } from 'src/app/services/ui.service';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { Configuraciones } from 'src/configuraciones/configuraciones';
@@ -31,8 +37,7 @@ export class ResumenPage implements OnInit {
   public contieneMercadoCereales: boolean | any;
   public saldoDeudorAcreedor: any | undefined;
   public importeEstadoSaldos: any | undefined;
-  //public headerImporteCtacteResaltadoPositivo : any | "red" | undefined;
-
+  public fechaCierre : string | undefined;
 
   data: any;
   resumen: any;
@@ -54,15 +59,20 @@ export class ResumenPage implements OnInit {
     private menuController: MenuController,
     public notificacionesService: NotificacionesService,
     public mercadoDisponibleService: MercadosService,
-    public mercadoFuturosService: MercadosService
+    public mercadoFuturosService: MercadosService,
+
+    private menuCtrl : MenuController
   ) {}
 
   async ngOnInit() {
-    // refresco la pagina por el cache
 
+
+    // refresco la pagina por el cache
+    this.menuCtrl.enable(true);
     this.istodoCargado = false
+
     //this.navController.navigateRoot('/resumen', { animated: true });
-    await this.uiService.presentLoading();
+    await this.uiService.presentLoading("Aguarde...");
     this.seccion = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.resumenService.load().then(async (resp) => {
       this.data = resp;
@@ -72,6 +82,7 @@ export class ResumenPage implements OnInit {
       this.funciones = new Funciones(this.data.funciones.listaFunciones);
       this.cargarDatos();
       await this.loadingController.dismiss();
+
     });
     this.notificacionesService.ponerEnFalso();
     this.notificacionesService.checkPorVer().then(async (resp) => {
@@ -83,7 +94,58 @@ export class ResumenPage implements OnInit {
       }
       this.numeroMensajes = this.data;
     });
+
+    // NOTIFICACIONES CAPACITOR
+    /*PushNotifications.requestPermissions().then(result => {
+      if (result.receive === 'granted') {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+      } else {
+        // Show some error
+      }
+    });
+
+
+
+
+    // Request permission to use push notifications
+    // iOS will prompt user and return if they granted permission or not
+    // Android will just grant without prompting
+    PushNotifications.requestPermissions().then(result => {
+      if (result.receive === 'granted') {
+        // Register with Apple / Google to receive push via APNS/FCM
+        PushNotifications.register();
+      } else {
+        // Show some error
+      }
+    });
+
+    PushNotifications.addListener('registration', (token: Token) => {
+      alert('Push registration success, token: ' + token.value);
+    });
+
+    PushNotifications.addListener('registrationError', (error: any) => {
+      alert('Error on registration: ' + JSON.stringify(error));
+    });
+
+    PushNotifications.addListener(
+      'pushNotificationReceived',
+      (notification: PushNotificationSchema) => {
+        alert('Push received: ' + JSON.stringify(notification));
+      },
+    );
+
+    PushNotifications.addListener(
+      'pushNotificationActionPerformed',
+      (notification: ActionPerformed) => {
+        alert('Push action performed: ' + JSON.stringify(notification));
+      },
+    );
+*/
+
+
   }
+  // End ngOnInit()
 
   public getLogoEmpresa() {
     if (this.resumen.empresa.id != '') {
@@ -96,29 +158,34 @@ export class ResumenPage implements OnInit {
   /**
    * Esta funcion se usa para cargar los datos restantes
    */
-  public cargarDatos() {
-    
+  public  cargarDatos() {
+
     // traigo las notificaciones
     this.notificacionesService.load().then((notificaciones) => {
       this.notificaciones = notificaciones;
     });
     // traigo el mercado de cereales
-
+   // await this.uiService.presentLoading("Cargando mercados...");
     this.mercadoDisponibleService
       .load(this.resumen.empresa.id, 'json', 'mercado-cereales', '1', this.resumen.empresa.coopeHash)
-      .then((data: any) => {
+      .then( (data: any) => {
+
         this.mercadoDisponible = data.mercadoCer
-        
+        this.fechaCierre = this.mercadoDisponible[0].cierre
+
+
       });
    this.mercadoFuturosService
       .load(this.resumen.empresa.id, 'json', 'mercado-cereales', '2')
-      .then((data: any) => {
+      .then(async (data: any) => {
         this.mercadoFuturo = data.mercadoCer
+
       });
 
     this.tieneCombustibles();
     this.tieneRemitos();
     this.tieneMercadoCereales();
+
   }
 
   ngAfterViewInit() {
@@ -238,28 +305,37 @@ export class ResumenPage implements OnInit {
     this.navController.navigateRoot('/mi-cuenta');
   }
   public getSaldoCtaCteActual(saldo: any) {
+
     if (saldo < 0) {
       // acreedor
+      setTimeout(() => {
+        this.saldoDeudorAcreedor = 'ACREEDOR';
+        this.importeEstadoSaldos = 'headerImporteCtacteResaltadoNegativo';
+      }, 1000);
 
-      this.saldoDeudorAcreedor = 'ACREEDOR';
-      this.importeEstadoSaldos = 'headerImporteCtacteResaltadoNegativo';
     } else {
+      setTimeout(() => {
       // deudor
       this.saldoDeudorAcreedor = 'DEUDOR';
       this.importeEstadoSaldos = 'headerImporteCtacteResaltadoPositivo';
+    }, 1000);
     }
     return saldo;
   }
 
  public isMercadoCerealesCargado() : boolean {
     // Pregunto si ya se obtuvo una respuesta del serivicio
-    if(typeof this.mercadoDisponible !== 'undefined' && this.mercadoDisponible.length > 0){
+    if(typeof this.mercadoDisponible !== 'undefined'){
       return true;
     }else{
       return false;
     }
   }
 
+/*
+notififaciones push
 
+
+*/
 
 }

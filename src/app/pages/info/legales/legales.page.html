@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Legales</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/resumen"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row >
+      <ion-col>
+        <div class="centrado">
+          <ion-list>
+            <ion-item  (click)="terminosYCondiciones()">
+              <ion-label><ion-icon name="reader"></ion-icon> Términos y condiciones</ion-label>
+            </ion-item>
+            <ion-item (click)="politicaPrivacidad()">
+              <ion-label><ion-icon name="lock-closed"></ion-icon> Política de privacidad</ion-label>
+            </ion-item>
+          </ion-list>
+
+
+            <br><br><br><br><br>
+
+            <br>
+            <img class="logo" src="../../../assets/images/kernel.png"/>
+            <p class="kernelInfo">© Copyright. Todos los derechos reservados</p>
+            <p class="kernelInfo"><a href="http://www.kernelinformatica.com.ar" target="_blank">http://www.kernelinformatica.com.ar</a></p>
+
+
+          </div>
+      </ion-col>
+
+    </ion-row>
+
+
+  </ion-grid>
+
+
+
+
+</ion-content>

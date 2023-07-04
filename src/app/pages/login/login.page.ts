@@ -1,3 +1,4 @@
+
 import { Configuraciones } from 'src/configuraciones/configuraciones';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,7 +7,7 @@ import { LoadingController, NavController, MenuController } from '@ionic/angular
 import { Login } from 'src/app/modelo/login';
 import { LoginService } from 'src/app/services/login.service';
 import { UiService } from 'src/app/services/ui.service';
-
+import { InterceptorService } from './../../services/interceptor.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -28,8 +29,9 @@ export class LoginPage implements OnInit {
   passwordTypeInput  =  'password';
   iconpassword  =  'eye-off';
   iconcuenta = 'person';
+
   public registerCredentials = { usuario: '', clave: '' };  // Usado para el inicio de sesion
-  
+
   @ViewChild('passwordEyeRegister') passwordEye: any;
   constructor(private uiService: UiService,
     private formBuilder: FormBuilder,
@@ -37,7 +39,8 @@ export class LoginPage implements OnInit {
     private navController: NavController,
     private activateRoute: ActivatedRoute,
     private loadingController: LoadingController,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private interceptorService: InterceptorService
 
   ) {
     this.testError = this.activateRoute.snapshot.queryParamMap.get("refreshToken");
@@ -49,10 +52,13 @@ export class LoginPage implements OnInit {
 
   ngOnInit(): void {
     this.menuCtrl.enable(false)
-    this.doLoadLogin();
+
     this.gestAgroVersion = Configuraciones.version;
     this.gestAgroUrl = Configuraciones.urlBase;
-    
+   // this.loginService.validarServicioSiEstaDisponible();
+
+
+    this.doLoadLogin();
   }
   togglePasswordMode() {
     this.passwordTypeInput  =  this.passwordTypeInput  ===  'text'  ?  'password'  :  'text';
@@ -84,12 +90,12 @@ export class LoginPage implements OnInit {
       this.uiService.presentAlertInfo('Por favor ingrese Cuenta Corriente y Clave de Acceso para acceder al sistema');
       return;
     }
-    await this.uiService.presentLoading();
+    await this.uiService.presentLoading("Validando sus datos...");
     this.loginService.loginUser(login, this.rememberMe).then(
-      
+
       async resp => {
-        
-        if (resp == 1) 
+
+        if (resp == 1)
         {
           await this.loadingController.dismiss();
           this.navController.navigateRoot('/resumen', { animated: true });
@@ -111,7 +117,7 @@ export class LoginPage implements OnInit {
   }
 
   async doLoadLogin() {
-    await this.uiService.presentLoading();
+    await this.uiService.presentLoading("Ingresando...");
       this.loginService.trySavedLogin().then(
         async returnValue => {
           //Si hay login guardado.
@@ -120,10 +126,10 @@ export class LoginPage implements OnInit {
            //Redirijo al resumen
             this.navController.navigateRoot('/resumen', { animated: true });
           } else {
-           
+
             this.navController.navigateRoot('/login', { animated: true });
           }
-          
+
           console.log(returnValue);
         },
         (error: any) => {
@@ -132,7 +138,7 @@ export class LoginPage implements OnInit {
           this.navController.navigateRoot('/login', { animated: true });
         }
       )
-    
+
   }
 
   /**
@@ -146,7 +152,7 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    await this.uiService.presentLoading();
+    await this.uiService.presentLoading("Cargando...");
     this.loginService.recuperarClave(login)
       .then(
         async (resp: any) => {
@@ -172,7 +178,6 @@ export class LoginPage implements OnInit {
     return login;
   }
 
-  
 
 
 
@@ -188,6 +193,7 @@ export class LoginPage implements OnInit {
 
 
 
-  
+
+
 }
 

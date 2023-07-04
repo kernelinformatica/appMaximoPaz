@@ -56,7 +56,7 @@ export class DetalleCerealPage implements OnInit {
 
     this.cuenta = cuenta;
     this.socio = socio;
-    await this.uiService.presentLoading();
+    await this.uiService.presentLoading("Cargando cereales...");
 
     const cereal = this.route.snapshot.queryParamMap.get("cereal");
 

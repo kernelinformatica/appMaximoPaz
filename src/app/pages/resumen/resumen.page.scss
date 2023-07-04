@@ -112,18 +112,19 @@ strong {
 }
 
 .headerList {
-  margin-top: 20px;
-  margin-bottom: 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   color: var(--primary);
   font-size: 1em;
   background-color: white;
+  
 }
 
 .headerList ion-icon {
   font-size: 2rem;
-  color: var(--secondary);
+ color: var(--secondary);
 }
 
 .headerList ion-label {

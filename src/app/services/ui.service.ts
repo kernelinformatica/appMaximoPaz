@@ -21,10 +21,10 @@ export class UiService {
   }
 
 
-  async presentLoading() {
+  async presentLoading(msg:string) {
     const loading = await this._loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Cargando...',
+      message: msg,
     });
     await loading.present();
   }

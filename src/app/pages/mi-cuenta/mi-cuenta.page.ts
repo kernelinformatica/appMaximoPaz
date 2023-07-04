@@ -34,7 +34,7 @@ export class MiCuentaPage implements OnInit {
    * Este metodo se ejecuta cuando el usuario presiona el botón iniciar
    */
   public async cambiarClave() {
-    await this.uiService.presentLoading();
+    await this.uiService.presentLoading("Aguarde...");
     if (this.claveActual === null) {
       // Muestro mensaje de error
 
