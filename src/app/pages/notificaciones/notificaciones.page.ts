@@ -12,7 +12,9 @@ export class NotificacionesPage implements OnInit {
 
   istodoCargado = false;
   notificaciones: Notificacion[] = [];
+  tieneNotificaciones = false;
   numeroMensajes: number = 0;
+
   constructor(public notificacionesService: NotificacionesService,
               private uiService: UiService) { }
 
@@ -22,7 +24,7 @@ export class NotificacionesPage implements OnInit {
 
   //spaghetti
   public borrarNotificacion(mensaje: Notificacion) {
-   
+
     if (mensaje && mensaje.idMensaje) {
       this.notificacionesService.borrarNotificacion(mensaje.idMensaje).then(
         resp => {
@@ -62,11 +64,11 @@ export class NotificacionesPage implements OnInit {
   public muestraVistoSn(item: any){
     if (item.visto === true){
       return "ligth";
-      
+
     }else{
       return "warning";
     }
-    
+
   }
   private cargarNotificaciones(){
     this.notificacionesService.load().then(
@@ -82,10 +84,10 @@ export class NotificacionesPage implements OnInit {
 
   parseFecha(fecha: any) {
     const fechaDate = new Date(fecha);
-    const fechaParseada =   (fechaDate.getUTCDate() < 10 ? ("0" + fechaDate.getUTCDate().toString()) : fechaDate.getUTCDate().toString()) 
-                            + "/" + 
+    const fechaParseada =   (fechaDate.getUTCDate() < 10 ? ("0" + fechaDate.getUTCDate().toString()) : fechaDate.getUTCDate().toString())
+                            + "/" +
                             (fechaDate.getUTCMonth() < 10 ? ("0" + (fechaDate.getUTCMonth() + 1).toString()) : (fechaDate.getUTCMonth() + 1).toString())
-                            + "/" + 
+                            + "/" +
                             (fechaDate.getUTCFullYear().toString().substr(2, 2)) ;
     return fechaParseada;
   }

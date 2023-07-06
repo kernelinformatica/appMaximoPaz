@@ -14,9 +14,9 @@ export class Configuraciones
     public static detalleCtaCteUrl : string = `${Configuraciones.urlBase}/detallecc/`;
     public static resumenUrl : string = `${Configuraciones.urlBase}/resumen/`;
     public static notificacionesUrl: string = `${Configuraciones.urlBase}/notificaciones/`;
-    public static rutaLogos : string = "assets/images/logos/";
-   //public static rutaLogos : string = "https://www.kernelinformatica.com.ar/applications/apps/gestagro/logos/";
-    public static serviciosWebURL : string = `https://www.kernelinformatica.com.ar/app/webservices/public/ws.php`;
+    //public static rutaLogos : string = "assets/images/logos/";
+   public static rutaLogos : string = "https://www.kernelinformatica.com.ar/applications/apps/gestagro/logos/";
+   public static serviciosWebURL : string = `https://www.kernelinformatica.com.ar/app/webservices/public/ws.php`;
    //public static serviciosWebURL : string = `https://www.kernelinformatica.com.ar/app/webservices/public/servicios-web-rest.php`;
     public static version : string = "0.02A";
 }

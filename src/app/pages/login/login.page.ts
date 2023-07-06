@@ -55,7 +55,7 @@ export class LoginPage implements OnInit {
 
     this.gestAgroVersion = Configuraciones.version;
     this.gestAgroUrl = Configuraciones.urlBase;
-   // this.loginService.validarServicioSiEstaDisponible();
+    this.loginService.validarServicioSiEstaDisponible();
 
 
     this.doLoadLogin();

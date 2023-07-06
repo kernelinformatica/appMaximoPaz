@@ -220,7 +220,7 @@ export class LoginService {
   }
 
   public validarServicioSiEstaDisponible() {
-    alert("validar servicio")
+
    console.log('Valido servicio -> '+this.getURLDummy());
    const url = `${this.getURLDummy()}`;
     const httpOptions = {
@@ -229,15 +229,14 @@ export class LoginService {
     this.http.get(url).pipe(
     ).subscribe(
       (resp) => {
-      debugger
+
         this.servicioDisponible = true;
       }
     );
 
-
-
-
-
+  } catch (error: any) {
+    const dataError = JSON.parse(error.error);
+    this.servicioDisponible = false;
   }
 
   /**

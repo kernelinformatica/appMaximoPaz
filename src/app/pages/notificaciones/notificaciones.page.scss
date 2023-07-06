@@ -15,25 +15,25 @@ ion-content {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ebf1f6', endColorstr='#d5ebfb', GradientType=1) !important;
     ;
     /* IE6-9 fallback on horizontal gradient */
-  
+
   }
-  
+
   ion-list {
     padding: 0px 10px;
     background-color: transparent;
-  
+
     ion-label{
       color: var(--ion-color-primary);
       font-weight: bold;
     }
-  
+
     ion-icon {
       color: var(--ion-color-primary);
     }
     ion-card ion-card-header {
       font-size: 9px;
   }
-  
+
   }
   .texto_gral{
     font-size: 12px;
@@ -50,7 +50,7 @@ ion-content {
     padding: 0 0 0 0;
     //font-weight: 100;
   }
-  
+
   h3 {
     font-family: "Roboto", Helvetica, Arial, sans-serif;
     font-size: 1em;
@@ -61,7 +61,7 @@ ion-content {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
   }
-  
+
   h4 {
     font-family: 'Raleway', sans-serif;
     text-transform: uppercase;
@@ -70,7 +70,7 @@ ion-content {
     color: var(--primary);
     font-size: 1em;
   }
-  
+
   strong {
     font-weight: normal;
     float: right;
@@ -83,11 +83,11 @@ ion-content {
     color: #3171E2;
   }
   .ion-card-title{
-  
+
     font-size: 15px;
-  
+
   }
-  
+
   .headerList {
     margin-top: 20px;
     margin-bottom: 0px;
@@ -97,26 +97,26 @@ ion-content {
     font-size: 1em;
     background-color: white;
   }
-  
+
   .headerList ion-icon {
     font-size: 2rem;
     color: var(--secondary);
   }
-  
+
   .headerList ion-label {
     color: var(--secondary);
   }
-  
+
   .ionCol {
     display: contents;
   }
-  
+
   .ionCol img {
     padding: 5px;
     left: -10px;
     position: relative;
   }
-  
+
   .par {
     --background: #FFFFFF;
     opacity: 0.8;
@@ -124,7 +124,7 @@ ion-content {
     padding-bottom: 5px;
     color: var(--ion-color-primary);
   }
-  
+
   .impar {
     --background: #F9F9F9;
     opacity: 0.8;
@@ -132,12 +132,12 @@ ion-content {
     padding-bottom: 5px;
     color: var(--ion-color-primary);
   }
-  
+
   .item-inner{
     border-style: none;
     border-color: red;
   }
-  
+
   .etiquetaPorFuera{
     text-align: center;
     font-family: "Roboto";
@@ -145,7 +145,7 @@ ion-content {
     color: black;
     padding-bottom: 5px;
   }
-  
+
   .headerImporteCtacteResaltadoPositivo {
     font-weight: bold;
     font-family: 'Roboto';
@@ -158,12 +158,12 @@ ion-content {
     font-size: 13px;
     color: #3171E2;
   }
-  
+
   .texto {
     color: grey;
     font-size: 11px;
     padding-left: 2%;
-  
+
   }
 
   .icon-inner, .ionicon, svg {
@@ -178,4 +178,9 @@ ion-content {
 .ligth{
   color: grey;
 }
+
+ion-toolbar{
+  background-color: var(--ion-color-primary-toolbar);;
+}
+
 

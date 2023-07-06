@@ -46,11 +46,15 @@ export class ResumenPage implements OnInit {
   funciones: Funciones = new Funciones(['']);
   private activatedRoute = inject(ActivatedRoute);
   istodoCargado : any
+  isMercadoDisponible: any;
+  isMercadoFuturo:any;
+  isPizarra: any;
   public notificaciones: any;
   public ver: boolean = false;
   public numeroMensajes: any;
   public mercadoDisponible : any;
   public mercadoFuturo: any;
+
   constructor(
     public resumenService: ResumenService,
     private uiService: UiService,
@@ -70,7 +74,9 @@ export class ResumenPage implements OnInit {
     // refresco la pagina por el cache
     this.menuCtrl.enable(true);
     this.istodoCargado = false
-
+    this.isMercadoDisponible = false;
+    this.isMercadoFuturo = false;
+    this.isPizarra = false;
     //this.navController.navigateRoot('/resumen', { animated: true });
     await this.uiService.presentLoading("Aguarde...");
     this.seccion = this.activatedRoute.snapshot.paramMap.get('id') as string;
@@ -173,13 +179,23 @@ export class ResumenPage implements OnInit {
         this.mercadoDisponible = data.mercadoCer
         this.fechaCierre = this.mercadoDisponible[0].cierre
 
+        if (this.mercadoDisponible.length > 0){
+          this.isMercadoDisponible = true;
+        }else{
+          this.isMercadoDisponible = false;
+        }
 
       });
    this.mercadoFuturosService
       .load(this.resumen.empresa.id, 'json', 'mercado-cereales', '2')
       .then(async (data: any) => {
-        this.mercadoFuturo = data.mercadoCer
 
+        this.mercadoFuturo = data.mercadoCer
+        if (this.mercadoFuturo.length > 0 ){
+          this.isMercadoFuturo = true;
+        }else{
+          this.isMercadoFuturo = false;
+        }
       });
 
     this.tieneCombustibles();

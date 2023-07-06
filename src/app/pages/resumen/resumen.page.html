@@ -19,10 +19,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="istodoCargado">
-  <!-- tertiary
-  -->
-  
-  <ion-card color="light">
+  <ion-card color="secondary">
     <ion-card-header>
       <ion-card-title class="ion-card-title">
         <ion-icon name="person"></ion-icon> {{ resumen?.cuenta.nombre ?? "" | uppercase }}
@@ -145,8 +142,8 @@
   </ion-list>
 </ion-card>
 
-<ion-card color="light" *ngIf="mercadoDisponible !== null || mercadoFuturo !== null" >
-  <ion-card-header *ngIf="mercadoDisponible !== null" >
+<ion-card color="light" *ngIf="isMercadoDisponible === true || isMercadoFuturo === true" >
+  <ion-card-header *ngIf="isMercadoDisponible === true" >
     <ion-card-title class="ion-card-title">
       MERCADO DE CEREALES
      </ion-card-title>
@@ -155,10 +152,10 @@
      </ion-card-subtitle>
   </ion-card-header>
 
-  <ion-card-content  *ngIf="mercadoDisponible !== null || mercadoFuturo !== null">
+  <ion-card-content  *ngIf="isMercadoDisponible === true || isMercadoFuturo === true">
     <ion-spinner *ngIf="!isMercadoCerealesCargado()"></ion-spinner>
     <div *ngIf="isMercadoCerealesCargado()">
-    <div *ngIf="mercadoDisponible !== null"><h2><ion-icon name="pie-chart"></ion-icon> Disponible</h2></div>
+    <div *ngIf="isMercadoDisponible === true"><h2><ion-icon name="pie-chart"></ion-icon> Disponible</h2></div>
     <ion-list *ngFor="let item of mercadoDisponible; let i = index;">
          <ion-grid   class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
            <ion-row class="texto-mercado">
@@ -193,7 +190,7 @@
          </ion-grid>
        </ion-list>
        <hr>
-       <div  *ngIf="mercadoFuturo !==null "><h2><ion-icon name="stats-chart-outline"></ion-icon> Futuros</h2></div>
+       <div *ngIf="isMercadoFuturo === true"><h2><ion-icon name="stats-chart-outline"></ion-icon> Futuros </h2></div>
        <ion-list *ngFor="let item of mercadoFuturo; let i = index;">
         <ion-grid   class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
           <ion-row  class="texto-mercado">
@@ -314,3 +311,7 @@
         <p>Ult. actualización {{ resumen?.ultimaActualizacion ?? "" }} - S.E.U.O. </p>
       </div> -->
 </ion-content>
+<ion-footer>
+<p class="kernelInfo">Kernel Informática © Copyright. Todos los derechos reservados, <a href="mailto:info@kerenlinformatica.com.ar" target="_blank">info@kerenlinformatica.com.ar</a></p>
+<p class="kernelInfo">Alberdi 11 - Rosario(CP: 2000) - Santa Fe - Argentina</p>
+</ion-footer>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1028834260913",
+    "firebase_url": "https://gestagro-movil.firebaseio.com",
+    "project_id": "gestagro-movil",
+    "storage_bucket": "gestagro-movil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028834260913:android:b2c21ddb2da1ed33",
+        "android_client_info": {
+          "package_name": "com.gestagro.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028834260913-oa3kjktl4fnr8qqhaelthgp35dbjjrvt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChrzbq67H49ZWbgqV0RLI_375vG3DW8aI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028834260913-oa3kjktl4fnr8qqhaelthgp35dbjjrvt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

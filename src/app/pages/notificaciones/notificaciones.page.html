@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content *ngIf="istodoCargado" padding>
-  <div class="tab-content top-space-2" *ngIf="notificaciones && notificaciones !== null">
+  <div class="tab-content top-space-2" *ngIf="numeroMensajes === 0" >
     <ion-card color="danger">
       <ion-card-header>
         <ion-card-title><ion-icon name="notifications"></ion-icon> No hay Notificaciones</ion-card-title>
@@ -25,7 +25,7 @@
     </ion-card>
 </div>
 
-  <div class="tab-content top-space-2" *ngIf="notificaciones && notificaciones !==  null">
+  <div class="tab-content top-space-2" *ngIf="numeroMensajes > 0">
     <ng-container class="container-space" *ngFor="let n of notificaciones">
       <ion-card class= "{{muestraVistoSn(n)}}" *ngIf="n.visible" color="{{muestraVistoSn(n)}}">
         <ion-card-header>
