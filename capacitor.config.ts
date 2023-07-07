@@ -1,7 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.gestagro.app',
+   appId: 'ar.com.gestagro.gestagromovilcoop',
+  //appId: 'com.gestagro.app',
   appName: 'GestAgro',
   webDir: 'www',
   server: {
