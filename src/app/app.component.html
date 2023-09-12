@@ -7,9 +7,7 @@
       <ion-list id="inbox-list">
         <ion-list-header><img src="{{ getLogoEmpresa()}}"  /></ion-list-header>
 
-       <ion-note>
-
-        <tr></ion-note>
+        <hr>
 
         <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
           <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false">
@@ -17,7 +15,53 @@
             <ion-label>{{ p.title }}</ion-label>
           </ion-item>
         </ion-menu-toggle>
+
+<hr>
+        <ion-list-header >
+          Servicios
+       </ion-list-header>
+       <ion-menu-toggle >
+        <ion-item  routerDirection="root" button (click)="irAPedidoDeDinero()" lines="none" detail="false"  >
+          <ion-icon aria-hidden="true" slot="start" [ios]="'cash-outline'" [md]="'cash-outline'"></ion-icon>
+         <ion-label>Pedido de dinero</ion-label>
+
+        </ion-item>
+      </ion-menu-toggle>
+
+
+
+      <ion-menu-toggle >
+        <ion-item lines="none" detail="false" button (click)="irAOrdenesDeVenta()"  >
+          <ion-icon aria-hidden="true" slot="start" [ios]="'document-outline'" [md]="'document-outline'"></ion-icon>
+         <ion-label>Ordenes de Venta</ion-label>
+
+        </ion-item>
+      </ion-menu-toggle>
+<hr>
+      <ion-list-header>
+        Otros
+     </ion-list-header>
+
+     <ion-menu-toggle >
+      <ion-item lines="none" detail="false"  button (click)="irAlegales()" >
+        <ion-icon aria-hidden="true" slot="start" [ios]="'information-circle-outline'" [md]="'information-circle-outline'"></ion-icon>
+       <ion-label>Legales</ion-label>
+
+      </ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle >
+      <ion-item lines="none" detail="false" button (click)="salirDelSistema()" >
+        <ion-icon aria-hidden="true" slot="start" [ios]="'power-outline'" [md]="'power-outline'"></ion-icon>
+       <ion-label>Salir</ion-label>
+
+      </ion-item>
+    </ion-menu-toggle>
       </ion-list>
+
+
+
+
+
  </ion-content>
   </ion-menu>
 

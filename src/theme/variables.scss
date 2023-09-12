@@ -5,8 +5,8 @@
 :root {
   --primary: #3171e0;
   --danger: red;
-  //--ion-color-primary-toolbar: #3dc2ff;
-  --ion-color-primary-toolbar: #c7c7c7;
+
+  --ion-color-primary-toolbar:#ECCE41;
   /** primary **/
   --ion-color-primary: #1b1d1be8;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -86,7 +86,7 @@
   --ion-background-color-rgb: 18,18,18;
 
 
-  --ion-text-color: #000000;
+  --ion-text-color: black;
   --ion-text-color-rgb: 255,255,255;
 
   --ion-border-color: transparent;
@@ -132,5 +132,5 @@ $colors: (
 );
 // spinner //
 ion-spinner.sc-ion-loading-md {
-  color: #F87D00;
+  color: #215D2D;
 }

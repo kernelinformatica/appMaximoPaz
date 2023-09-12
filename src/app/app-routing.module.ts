@@ -6,7 +6,7 @@ const routes: Routes = [
     path: 'mi-cuenta',
     loadChildren: () => import('./pages/mi-cuenta/mi-cuenta.module').then(m => m.MiCuentaPageModule)
   },
- 
+
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: 'resumen',
     loadChildren: () => import('./pages/resumen/resumen.module').then(m => m.ResumenPageModule)
-    
+
   },
   {
     path: 'detalle-ctacte',
@@ -47,7 +47,8 @@ const routes: Routes = [
   {
     path: 'mercado-cereales',
     loadChildren: () => import('./pages/mercado-cereales/mercado-cereales.module').then( m => m.MercadoCerealesPageModule)
-  },  {
+  },
+  {
     path: 'politica',
     loadChildren: () => import('./pages/info/politica/politica.module').then( m => m.PoliticaPageModule)
   },
@@ -59,9 +60,28 @@ const routes: Routes = [
     path: 'legales',
     loadChildren: () => import('./pages/info/legales/legales.module').then( m => m.LegalesPageModule)
   },
+  {
+    path: 'como-llegar',
+    loadChildren: () => import('./pages/info/como-llegar/como-llegar.module').then( m => m.ComoLlegarPageModule)
+  },
 
 
-  
+  {
+    path: 'ordenes-de-venta',
+    loadChildren: () => import('./pages/ordenes-de-venta/ordenes-de-venta.module').then( m => m.OrdenesDeVentaPageModule)
+  },  {
+    path: 'pedidos-de-dinero',
+    loadChildren: () => import('./pages/pedidos-de-dinero/pedidos-de-dinero.module').then( m => m.PedidosDeDineroPageModule)
+  },
+
+
+
+
+
+
+
+
+
 
 
 

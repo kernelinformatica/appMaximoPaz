@@ -19,14 +19,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="istodoCargado">
-  <ion-card color="secondary">
+
+  <ion-card color="light">
     <ion-card-header>
       <ion-card-title class="ion-card-title">
         <ion-icon name="person"></ion-icon> {{ resumen?.cuenta.nombre ?? "" | uppercase }}
       </ion-card-title>
 
-      <ion-card-subtitle><ion-icon name="bookmark"></ion-icon> {{ resumen?.cuenta.id }}</ion-card-subtitle>
-      <ion-card-subtitle><ion-icon name="mail"></ion-icon>  {{ resumen?.cuenta.email }}</ion-card-subtitle>
+      <ion-card-subtitle><ion-icon name="mail"></ion-icon> {{ resumen?.cuenta.email }}</ion-card-subtitle>
 
 
     </ion-card-header>
@@ -36,9 +36,9 @@
 
   </ion-card>
 
-  <ion-card color="success" >
+  <ion-card color="light">
     <ion-card-header>
-      <ion-card-title class="ion-card-title">CUENTA CORRIENTE: {{ resumen?.cuenta.id }} </ion-card-title>
+      <ion-card-title class="ion-card-title">CUENTA: {{ resumen?.cuenta.id }} </ion-card-title>
      <!--  <ion-card-subtitle> Cuenta: {{ resumen?.cuenta.id }}</ion-card-subtitle>-->
     </ion-card-header>
 
@@ -51,10 +51,13 @@
           <ion-label >
             <span class= {{importeEstadoSaldos}}>SALDO {{saldoDeudorAcreedor}}</span>
             <strong><div style="text-align: center;" class= {{importeEstadoSaldos}}> <div>{{ getSaldoCtaCteActual(item.saldo) | currencyFormat }}</div></div>
-  </strong>
+    </strong>
           </ion-label>
+
           <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+
         </ion-item>
+
       </div>
     </ion-card-content>
   </ion-card>
@@ -153,7 +156,7 @@
   </ion-card-header>
 
   <ion-card-content  *ngIf="isMercadoDisponible === true || isMercadoFuturo === true">
-    <ion-spinner *ngIf="!isMercadoCerealesCargado()"></ion-spinner>
+   <!--  <ion-spinner *ngIf="!isMercadoCerealesCargado()"></ion-spinner> -->
     <div *ngIf="isMercadoCerealesCargado()">
     <div *ngIf="isMercadoDisponible === true"><h2><ion-icon name="pie-chart"></ion-icon> Disponible</h2></div>
     <ion-list *ngFor="let item of mercadoDisponible; let i = index;">
@@ -265,49 +268,9 @@
    <a href='https://comercial.caur.coop.ar/ofertas/' target="_blank"><img class="logoResumen2"    src="../../../assets/images/logos/03-ofertas.png" /></a>
   </ion-card-header>
 </ion-card>
-
-
-
-
-  <!--
-      <ion-list *ngIf="tieneFuncion('fichaRemitos') && contieneRemitos">
-        <ion-list-header class="headerList" (click)="toggleDetalleFichaRemitos()">
-          Remitos Pendientes a Facturar
-          <ion-icon color="primary" item-right [name]="iconoFichaRemitos"></ion-icon>
-        </ion-list-header>
-        <div *ngIf="mostrarDetalleFichaRemitos">
-            <div *ngFor="let item of resumenService.resumen.fichaRemito; let i = index;">
-              <div  *ngIf="item.idRubroCtacte.idRubroCtacte == 1 || item.idRubroCtacte.idRubroCtacte == 2 ">
-              <button ion-item (click)="fichaRemitosTapped($event, item)"
-                class="{{ ( i % 2 == 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
-                {{  item.idRubroCtacte.nombre }} <strong> {{  item.fecha }} </strong>
-                <ion-icon name="ios-arrow-forward" item-right></ion-icon>
-              </button>
-            </div>
-          </div>
-        </div>
-      </ion-list>
-
-      <ion-list *ngIf="tieneFuncion('fichaCombustibles') && contieneCombustibles">
-          <ion-list-header class="headerList" (click)="toggleDetalleFichaCombustibles()">
-            Combustibles
-            <ion-icon color="primary" item-right [name]="iconoFichaCombustibles"></ion-icon>
-          </ion-list-header>
-          <div *ngIf="mostrarDetalleFichaCombustibles">
-              <div *ngFor="let item of resumenService.resumen.fichaRemito; let i = index;">
-                <div  *ngIf="item.idRubroCtacte.idRubroCtacte == 3 ">
-                <button ion-item (click)="fichaCombustiblesTapped($event, item)"
-                  class="{{ ( i % 2 == 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
-                  {{  item.idRubroCtacte.nombre }} <strong> {{  item.fecha }} </strong>
-                  <ion-icon name="ios-arrow-forward" item-right></ion-icon>
-                </button>
-              </div>
-            </div>
-          </div>
-        </ion-list>
-      -->
-
-  <!-- <div style="padding-top: 0.5em;font-size: .8em">
-        <p>Ult. actualización {{ resumen?.ultimaActualizacion ?? "" }} - S.E.U.O. </p>
-      </div> -->
+      <ion-card color="light" >
+        <ion-card-content>
+          <p ><ion-icon name="time-outline"></ion-icon> Ult. actualización {{ resumen?.ultimaActualizacion ?? "" }} - S.E.U.O.</p>
+        </ion-card-content>
+      </ion-card>
 </ion-content>

@@ -175,15 +175,22 @@ export class ResumenPage implements OnInit {
     this.mercadoDisponibleService
       .load(this.resumen.empresa.id, 'json', 'mercado-cereales', '1', this.resumen.empresa.coopeHash)
       .then( (data: any) => {
+        if (data.control ==  1){
+          this.mercadoDisponible = data.mercadoCer
 
-        this.mercadoDisponible = data.mercadoCer
-        this.fechaCierre = this.mercadoDisponible[0].cierre
+          this.fechaCierre = this.mercadoDisponible[0].cierre
+          if (this.mercadoDisponible == "" || this.mercadoDisponible == null){
+            this.isMercadoDisponible = false
+          }else{
+            this.isMercadoDisponible = true
 
-        if (this.mercadoDisponible.length > 0){
-          this.isMercadoDisponible = true;
+          }
         }else{
-          this.isMercadoDisponible = false;
+            this.isMercadoDisponible = false
+            this.isMercadoFuturo = false;
         }
+
+
 
       });
    this.mercadoFuturosService
@@ -341,11 +348,12 @@ export class ResumenPage implements OnInit {
 
  public isMercadoCerealesCargado() : boolean {
     // Pregunto si ya se obtuvo una respuesta del serivicio
-    if(typeof this.mercadoDisponible !== 'undefined'){
+    if (this.isMercadoDisponible == true){
       return true;
     }else{
-      return false;
+      return false
     }
+
   }
 
 /*

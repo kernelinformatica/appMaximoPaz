@@ -5,7 +5,7 @@
 export class Configuraciones
 {
 
-    //public static urlBase : string = "http://localhost:8080/gestagroex-rest/ws"; //local
+    public static codigoCliente = '05';
     public static urlBase : string = "https://www.gestagro.com.ar/gestagroex-v6/ws"; //Produccion
     public static dummyUrl : string = `${Configuraciones.urlBase}/dummy`;
     public static authUrl : string = `${Configuraciones.urlBase}/usuarios/`;
@@ -18,5 +18,5 @@ export class Configuraciones
    public static rutaLogos : string = "https://www.kernelinformatica.com.ar/applications/apps/gestagro/logos/";
    public static serviciosWebURL : string = `https://www.kernelinformatica.com.ar/app/webservices/public/ws.php`;
    //public static serviciosWebURL : string = `https://www.kernelinformatica.com.ar/app/webservices/public/servicios-web-rest.php`;
-    public static version : string = "0.02A";
+    public static version : string = "1.0";
 }

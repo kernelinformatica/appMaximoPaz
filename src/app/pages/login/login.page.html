@@ -4,14 +4,16 @@
   </ion-col>
   <ion-row class="logo-row">
     <ion-col>
-      <img src="../../../assets/images/logo.png" />
-      <div class="texto">Versión: {{ gestAgroVersion }}</div>
+      <img src="../../../assets/images/logo-login.png" />
+      <div class="texto">Versión: {{ appVersion }}</div>
       <br />
     </ion-col>
   </ion-row>
+  <br />
   <ion-col>
-    <div class="slogan_cooperativa_box">
-      GESTION INTELIGENTE PARA EL SECTOR AGROPECUARIO
+    <div class="titulo_login">ACCESO A SOCIOS</div>
+    <div class="texto">
+      Ingrese los datos de acceso que le suministró la cooperativa
     </div>
     <br />
   </ion-col>
@@ -63,13 +65,9 @@
           </ion-list>
         </ion-col>
       </ion-row>
+      <ion-row> </ion-row>
       <ion-row>
-
-
-      </ion-row>
-<ion-row>
-
-  <ion-checkbox
+        <!-- <ion-checkbox
 
   [(ngModel)]="rememberMe"
   [ngModelOptions]="{standalone: true}"
@@ -77,14 +75,9 @@
   ngControl="rememberMe"
 >
 </ion-checkbox>
-<ion-label class="txtRecordarme"> Ingreso de sesion automático</ion-label>
-</ion-row>
+<ion-label class="txtRecordarme"> Ingreso de sesion automático</ion-label>-->
+      </ion-row>
       <ion-row>
-
-
-
-
-
         <ion-col class="signup-col">
           <ion-button
             id="submit-btn"
@@ -92,11 +85,10 @@
             expand="block"
             class="btn-login"
             [disabled]="!isValidForm"
-            >ACCEDER AL SISTEMA</ion-button
+            >INGRESAR</ion-button
           >
         </ion-col>
       </ion-row>
-
     </form>
     <ion-row>
       <ion-col class="signup-col">
@@ -109,41 +101,33 @@
         >
       </ion-col>
     </ion-row>
+    <div   id="modulo_servicios">
 
 
-    <div class="texto">
-      <a href="http://www.kernelinformatica.com.ar" target="_blank">
-          <img class="logo" src="../../../assets/images/kernel.png" />
-      </a>
-      <p>© Copyright. Todos los derechos reservados</p>
-      <br>
-      <p><img src="../../../assets/images/sectigo_positive_sm.png"></p>
+      <ion-col>
+        <ion-row class="ion-justify-content-center">
+          <ion-button class="button-services">
+
+            <ion-icon  name="megaphone-outline"></ion-icon>
+          </ion-button>
+          <ion-button class="button-services">
+
+            <ion-icon  name="bar-chart-outline"></ion-icon>
+          </ion-button>
+          <ion-button class="button-services">
+
+              <ion-icon name="rainy-outline"></ion-icon>
+            </ion-button>
+        </ion-row>
+      </ion-col>
+
     </div>
 
-    <!--
-    <ion-row class="flex-properties">
-      <ion-col>
-        <ion-button
-            class="small leftmost btn-login"
-            (click)="getNovedades()">
-            <ion-icon slot="start" name="book"></ion-icon>Novedades
-          </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button
-            class="small middle btn-login"
-            ion-button
-            (click)="getMercado()">
-            <ion-icon slot="start" name="stats-chart"></ion-icon>Pizarra</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button
-            class="small rightmost btn-login"
-            ion-button
-            (click)="getClasificados()">
-            <ion-icon slot="start" name="newspaper"></ion-icon>Clasificados</ion-button>
-      </ion-col>
-    </ion-row>-->
+    <div class="texto">
+      <p>© Copyright. Todos los derechos reservados</p>
+      <p><img src="../../../assets/images/sectigo_positive_sm.png" /></p>
+    </div>
+
 
   </div>
 </ion-content>

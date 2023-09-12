@@ -1,6 +1,6 @@
 {
-  "name": "app.gestagromovil",
-  "version": "0.0.2",
+  "name": "app.maximopaz",
+  "version": "0.0.1",
   "author": "Kernel informática",
   "homepage": "https://www.kernelinformatica.com.ar/",
   "scripts": {
@@ -28,10 +28,11 @@
     "@capacitor/app": "5.0.2",
     "@capacitor/browser": "^5.0.5",
     "@capacitor/core": "^5.0.3",
+    "@capacitor/google-maps": "^5.2.1",
     "@capacitor/haptics": "5.0.2",
     "@capacitor/keyboard": "5.0.2",
     "@capacitor/preferences": "^5.0.2",
-    "@capacitor/push-notifications": "^5.0.5",
+    "@capacitor/push-notifications": "^5.0.6",
     "@capacitor/status-bar": "5.0.2",
     "@ionic/angular": "^7.0.0",
     "cordova-plugin-advanced-http": "^3.3.1",
@@ -76,5 +77,5 @@
     "ts-node": "^8.3.0",
     "typescript": "~5.0.2"
   },
-  "description": "Acceso a socios de Cooperativas Agropecuarias"
+  "description": "Acceso a socios de la cooperativa de Máximo Paz"
 }

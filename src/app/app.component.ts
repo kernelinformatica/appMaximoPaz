@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Configuraciones } from 'src/configuraciones/configuraciones';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -10,7 +10,7 @@ import { Configuraciones } from 'src/configuraciones/configuraciones';
 export class AppComponent {
 
 
-  constructor(private platform: Platform, ) {
+  constructor(private platform: Platform, private router: Router) {
     /*
     Este código elimina todas las entradas del caché de la aplicación cuando se carga la plataforma. De esta manera,
     se asegura de que la aplicación siempre esté utilizando los archivos más recientes y no los archivos almacenados en caché.
@@ -28,9 +28,8 @@ export class AppComponent {
   public appPages = [
     { title: 'Inicio / Resumen', url: '/resumen', icon: 'home' },
     { title: 'Mi Cuenta', url: '/mi-cuenta', icon: 'person' },
-    { title: 'Acerca de', url: '/acerca', icon: 'business' },
-    { title: 'Legales', url: '/legales', icon: 'information-circle' },
-    { title: 'Cerrar Sesión', url: '/logout', icon: 'log-out' },
+
+
 
   ];
   public temp = "";
@@ -48,11 +47,26 @@ export class AppComponent {
        return logo;
   } else {
 
-      return "assets/images/logos/00.png";
+      return "assets/images/logos/05.png";
     }
 
   }
+  public irAPedidoDeDinero(){
+    this.router.navigateByUrl('/pedidos-de-dinero')
+  }
+  public irAlegales(){
+    this.router.navigateByUrl('/legales')
 
+  }
+  public salirDelSistema(){
+
+    this.router.navigateByUrl('/logout');
+
+  }
+  public irAOrdenesDeVenta(){
+    this.router.navigateByUrl('/ordenes-de-venta')
+
+  }
 /*
   public getNombreEmpresa() {
 
