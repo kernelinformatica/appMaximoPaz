@@ -176,5 +176,14 @@ ion-content {
 ion-toolbar{
   background-color: var(--ion-color-primary-toolbar);;
 }
-
+.visto{
+  color: rgb(73, 73, 73);
+  opacity: 0.4;
+}
+.noVisto{
+  color:rgb(20, 20, 20);
+}
+ion-card-title{
+  font-size: 16px;
+}
 

@@ -1,4 +1,3 @@
-
 ion-content {
 
 
@@ -11,6 +10,7 @@ ion-content {
   background: linear-gradient(to bottom, rgba(22,45,27,1) 0%, rgba(236,206,65,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#162d1b', endColorstr='#ecce41', GradientType=0 );
 }
+
 
 ion-list {
   padding: 0px 10px;
@@ -35,3 +35,23 @@ ion-list {
 ion-toolbar{
   background-color: var(--ion-color-primary-toolbar);;
 }
+
+.tab-selected {
+  color: #ecce41
+}
+
+ion-tab-button:hover {
+  --color: #EBCF40;
+}
+
+ion-title{
+  font-size: 16px;
+}
+
+.example-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+

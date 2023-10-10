@@ -1,9 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-   appId: 'ar.com.gestagro.gestagromovilcoop',
-  //appId: 'com.gestagro.app',
-  appName: 'GestAgro',
+   appId: 'com.coopaz',
+
+  appName: 'Coopaz',
   webDir: 'www',
   server: {
     androidScheme: 'https'

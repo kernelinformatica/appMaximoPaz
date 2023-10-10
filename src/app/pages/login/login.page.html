@@ -13,7 +13,7 @@
   <ion-col>
     <div class="titulo_login">ACCESO A SOCIOS</div>
     <div class="texto">
-      Ingrese los datos de acceso que le suministró la cooperativa
+      Ingrese los datos de acceso que le suministró <strong>{{razonSocialNombreCorto}}</strong>
     </div>
     <br />
   </ion-col>
@@ -66,24 +66,14 @@
         </ion-col>
       </ion-row>
       <ion-row> </ion-row>
-      <ion-row>
-        <!-- <ion-checkbox
 
-  [(ngModel)]="rememberMe"
-  [ngModelOptions]="{standalone: true}"
-  name="rememberMe"
-  ngControl="rememberMe"
->
-</ion-checkbox>
-<ion-label class="txtRecordarme"> Ingreso de sesion automático</ion-label>-->
-      </ion-row>
       <ion-row>
         <ion-col class="signup-col">
           <ion-button
             id="submit-btn"
             type="submit"
             expand="block"
-            class="btn-login"
+            class="btns"
             [disabled]="!isValidForm"
             >INGRESAR</ion-button
           >
@@ -95,33 +85,76 @@
         <ion-button
           class="recuperacion-btn"
           expand="block"
-          class="btn-login"
+          class="btns"
           (click)="recuperarClave()"
           >Olvidé mi clave</ion-button
         >
       </ion-col>
     </ion-row>
-    <div   id="modulo_servicios">
+   <!-- <ion-card color="light">
+      <ion-card-header>
+        <ion-card-title><ion-icon name="construct"></ion-icon> UTILIDADES (12)</ion-card-title>
 
+      </ion-card-header>
 
-      <ion-col>
-        <ion-row class="ion-justify-content-center">
-          <ion-button class="button-services">
+    <ion-card-content>
 
-            <ion-icon  name="megaphone-outline"></ion-icon>
-          </ion-button>
-          <ion-button class="button-services">
+     <div class="scrolling-wrapper">
+      <div class="cardHscroll">
 
-            <ion-icon  name="bar-chart-outline"></ion-icon>
-          </ion-button>
-          <ion-button class="button-services">
+        <ion-button class="button-services" (click)= "onClickTest()" >
+          <img src="../../../assets/icon/prueba.png"  alt="menu">
 
-              <ion-icon name="rainy-outline"></ion-icon>
-            </ion-button>
-        </ion-row>
-      </ion-col>
+        </ion-button>
+        <div style="text-align: center; font-size: 9px;">hola mundo</div>
+      </div>
+      <div class="cardHscroll">
+        <ion-button class="button-services" (click)= "onClickTest()" >
+          <ion-icon name="thunderstorm-outline"></ion-icon>
+        </ion-button>
+        <div style="text-align: center; font-size: 9px;">hola mundo</div>
+      </div>
+      <div class="cardHscroll">
+        <ion-button class="button-services" (click)= "onClickTest()" >
+          <ion-icon name="construct-outline"></ion-icon>
+        </ion-button>
+        <div style="text-align: center; font-size: 9px;">hola mundo</div>
+      </div>
+      <div class="cardHscroll">
+        <ion-button class="button-services" (click)= "onClickTest()" >
+
+          <img src="../../../assets/icon/icono_plantas.png"  alt="menu">
+        </ion-button>
+        <div style="text-align: center; font-size: 9px;">hola mundo</div>
+      </div>
+      <div class="cardHscroll">
+        <ion-button class="button-services" (click)= "onClickTest()" >
+          <ion-icon name="bus-outline"></ion-icon>
+        </ion-button>
+        <div style="text-align: center; font-size: 9px;">hola mundo</div>
+      </div>
+      <div class="cardHscroll">
+        <ion-button class="button-services" (click)= "onClickTest()" >
+          <img src="../../../assets/icon/prueba.png"  alt="menu">
+
+        </ion-button>
+        <div style="text-align: center; font-size: 9px;">hola mundo</div>
+      </div>
+      <div class="cardHscroll">
+        <ion-button class="button-services" (click)= "onClickTest()" >
+          <img src="../../../assets/icon/prueba.png"  alt="menu">
+        </ion-button>
+        <div style="text-align: center; font-size: 9px;">hola mundo</div>
+      </div>
 
     </div>
+    <hr>
+
+    <hr>
+  </ion-card-content>
+
+</ion-card>-->
+
 
     <div class="texto">
       <p>© Copyright. Todos los derechos reservados</p>

@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>{{ socio?.nombre ?? "Resumen de cuenta"  }}   </ion-title>
+    <ion-title>Cuenta corriente</ion-title>
 
     <ion-buttons slot="end">
       <ion-back-button defaultHref="/resumen"></ion-back-button>
@@ -9,21 +9,27 @@
 </ion-header>
 
 
-<ion-content [fullscreen]="true" *ngIf="istodoCargado">
-  <h4>
-    <div>CUENTA: {{socio.id }} </div>
-  </h4>
-  
-  <h4>
-    <div>SALDO {{saldoDeudorAcreedor}} A FECHA  {{ cuenta?.aFecha ?? "" }}</div>
-  </h4>
-  <div class="texto">Saldo Cuenta {{socio.id}} (S.E.U.O.)</div><br>
-  <ion-list class="margin-bot" style="background-color: rgba(255,255,255,.5); padding: 10px;">
-     <div style="text-align: center;" class= {{importeEstadoSaldos}}> <div> {{ cuenta.moneda }} {{ getSaldoCtaCteActual() }}</div></div>
-   </ion-list>
+  <ion-content [fullscreen]="true" *ngIf="istodoCargado">
 
 
-  <h4>DETALLE DE MOVIMIENTOS</h4>
+    <ion-card color="light">
+      <ion-card-header>
+        <ion-card-title class="ion-card-title">{{socio.nombre ?? "" | uppercase }} / {{ socio.id }}  </ion-card-title>
+       <ion-card-subtitle class="ion-card-sub-title">SALDO {{saldoDeudorAcreedor}} A FECHA  {{ cuenta?.aFecha ?? "" }}</ion-card-subtitle>
+
+      </ion-card-header>
+      <ion-card-content>
+        <div style="text-align: right;" class= {{importeEstadoSaldos}}> <div> {{ cuenta.moneda }} {{ getSaldoCtaCteActual() }}</div></div>
+        <div style="text-align: right;"  class="ion-card-sub-title">Saldo Cuenta {{socio.id}} (S.E.U.O.)</div>
+      </ion-card-content>
+    </ion-card>
+
+
+
+    <h4>DETALLE DE MOVIMIENTOS</h4>
+
+
+
   <ion-list>
     <ion-item *ngFor="let item of detalleCtaCte.movimientos; let i = index;"
       class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">

@@ -1,37 +1,26 @@
 {
   "project_info": {
-    "project_number": "462549405302",
-    "firebase_url": "https://kernelpushtest.firebaseio.com",
-    "project_id": "kernelpushtest",
-    "storage_bucket": "kernelpushtest.appspot.com"
+    "project_number": "654890343765",
+    "project_id": "coopazapp-db15f",
+    "storage_bucket": "coopazapp-db15f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:462549405302:android:c667939442d836e53d1957",
+        "mobilesdk_app_id": "1:654890343765:android:4e1bf51606872c31fd63dc",
         "android_client_info": {
-          "package_name": "app.gestagromovil"
+          "package_name": "com.coopaz"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "462549405302-ab9qou02qggcnn52gktc6nss5kvdi558.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDISP0XDClnMjhxzo3NSWqTalddkK8Qs-M"
+          "current_key": "AIzaSyAYrp0VDttmnk4HbZAwH8VJuS3Wbyd24Z0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "462549405302-ab9qou02qggcnn52gktc6nss5kvdi558.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

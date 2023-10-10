@@ -11,3 +11,12 @@ ion-content {
 ion-toolbar{
   background-color: var(--ion-color-primary-toolbar);;
 }
+
+.tab-selected {
+  color: #ecce41
+}
+
+ion-tab-button:hover {
+  --background: #EBCF40;
+  --color: black;
+}

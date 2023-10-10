@@ -3,6 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ResumenService } from 'src/app/services/resumen.service';
 import { ActivatedRoute } from '@angular/router';
 import { Funciones } from 'src/app/modelo/funciones';
+
 import {
   LoadingController,
   MenuController,
@@ -79,6 +80,7 @@ export class ResumenPage implements OnInit {
     this.isPizarra = false;
     //this.navController.navigateRoot('/resumen', { animated: true });
     await this.uiService.presentLoading("Aguarde...");
+
     this.seccion = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.resumenService.load().then(async (resp) => {
       this.data = resp;

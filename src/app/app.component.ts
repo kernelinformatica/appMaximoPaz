@@ -52,7 +52,7 @@ export class AppComponent {
 
   }
   public irAPedidoDeDinero(){
-    this.router.navigateByUrl('/pedidos-de-dinero')
+   this.router.navigateByUrl('/pedidos-de-dinero/pedir-dinero')
   }
   public irAlegales(){
     this.router.navigateByUrl('/legales')
@@ -64,7 +64,7 @@ export class AppComponent {
 
   }
   public irAOrdenesDeVenta(){
-    this.router.navigateByUrl('/ordenes-de-venta')
+    this.router.navigateByUrl('/ordenes-de-venta/ordenar')
 
   }
 /*

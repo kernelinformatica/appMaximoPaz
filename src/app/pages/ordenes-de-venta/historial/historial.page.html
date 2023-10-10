@@ -1,0 +1,97 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{tituloPagina}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/resumen"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+  <div *ngIf="cantidadRegistros === 0" class="example-content" >
+    <strong>Usted no tiene historial disponible.</strong>
+  </div>
+<div *ngIf="cantidadRegistros > 0">
+    <ng-container  *ngFor="let o of ordenes">
+     <ion-accordion-group expand="inset">
+        <ion-accordion value="first"   >
+          <ion-item class="texto_acordion" slot="header" color="{{colorSt(o.idEstado.idEstado)}}">
+         <ion-row style="width: 100%;" >
+            <ion-col  >
+              <div>{{o.cereal.nombre}}</div>
+
+          </ion-col>
+            <ion-col >
+              <div>{{formatoFecha(o.fechaCobro)}}</div>
+            </ion-col>
+            <ion-col >
+              <div>{{o.toneladas}} TN</div>
+            </ion-col>
+            <ion-col >
+              <div style="text-align: right;">{{o.idEstado.nombre}}</div>
+            </ion-col>
+
+         </ion-row>
+          </ion-item>
+
+          <div class="ion-padding" slot="content" class="extra_info">
+            <div class="extra-info">
+
+
+              <div class="element-extra">
+                <div class="title-extra">Cereal:</div>
+                <div class="content-extra">
+                 {{o.cereal.nombre}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Cosecha:</div>
+                <div class="content-extra">
+                 {{o.cosechaRef}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Toneladas:</div>
+                <div class="content-extra">
+                 {{o.toneladas}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Estado de la orden:</div>
+                <div class="content-extra">
+                 {{o.idEstado.descripcion}}
+                </div>
+              </div>
+
+              <div class="element-extra">
+                <div class="title-extra">Precio Base:</div>
+                <div class="content-extra">
+                  {{o.moneda.abreviatura}} {{o.precioBase}}
+                </div>
+              </div>
+
+              <div class="element-extra">
+                <div class="title-extra">Fecha Venta:</div>
+                <div class="content-extra">
+                  {{formatoFecha(o.fechaVenta)}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Fecha Cobro:</div>
+                <div class="content-extra">
+                  {{formatoFecha(o.fechaCobro)}}
+                </div>
+              </div>
+
+      </div>
+          </div>
+        </ion-accordion>
+
+      </ion-accordion-group>
+
+  </ng-container>
+</div>
+
+
+
+</ion-content>

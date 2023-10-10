@@ -1,7 +1,11 @@
+import { catchError } from 'rxjs/operators';
+
 import { Configuraciones } from 'src/configuraciones/configuraciones';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Route } from '@angular/router';
+
 import {
   LoadingController,
   NavController,
@@ -32,7 +36,7 @@ export class LoginPage implements OnInit {
   passwordTypeInput = 'password';
   iconpassword = 'eye-off';
   iconcuenta = 'person';
-
+  razonSocialNombreCorto  : String | null = '';
   public registerCredentials = { usuario: '', clave: '' }; // Usado para el inicio de sesion
 
   @ViewChild('passwordEyeRegister') passwordEye: any;
@@ -44,7 +48,9 @@ export class LoginPage implements OnInit {
     private activateRoute: ActivatedRoute,
     private loadingController: LoadingController,
     private menuCtrl: MenuController,
+
     private interceptorService: InterceptorService
+
   ) {
     this.testError =
       this.activateRoute.snapshot.queryParamMap.get('refreshToken');
@@ -59,9 +65,9 @@ export class LoginPage implements OnInit {
 
     this.appVersion = Configuraciones.version;
     this.gestAgroUrl = Configuraciones.urlBase;
+    this.razonSocialNombreCorto = Configuraciones.razonSocialNombreCorto;
     this.loginService.validarServicioSiEstaDisponible();
-
-    //this.doLoadLogin();
+    this.doLoadLogin();
   }
   togglePasswordMode() {
     this.passwordTypeInput =
@@ -138,32 +144,53 @@ export class LoginPage implements OnInit {
     }
   }
 
+
+
   async doLoadLogin() {
+    let count = 0;
+    // Si tiro algún que ingreso al catch, hago un intervalo de 12 segundos,
+    // para reiniciar lapantalla del login y que se puedan loguear
+    const intervalId = setInterval(() => {
+      count++;
+      if (count == 12){
+        clearInterval(intervalId)
+        this.uiService.dissmisLoading();
+       }
+       console.log("Esperando respuesta: "+count);
+    }, 1000);
+
+
     await this.uiService.presentLoading('Ingresando...');
-    this.loginService.trySavedLogin().then(
+
+    this.loginService.trySavedLogin()
+      .then(
       async (returnValue) => {
-        //Si hay login guardado.
-        await this.loadingController.dismiss();
+           //Si hay login guardado.
+
+
         if (returnValue) {
           //Redirijo al resumen
           this.navController.navigateRoot('/resumen', { animated: true });
         } else {
+
           this.navController.navigateRoot('/login', { animated: true });
         }
+        clearInterval(intervalId)
+        this.uiService.dissmisLoading();
 
         console.log(returnValue);
-      },
-      (error: any) => {
+      })
+      .catch(error => {
         this.loadingController.dismiss();
         console.log(error);
         this.navController.navigateRoot('/login', { animated: true });
-      }
-    );
+      });
   }
 
   /**
    * Este metodo se usa para la recuperacion de contraseñas
    */
+
   async recuperarClave() {
     const login = this.buildInterfaceLogin(this.loginForm.value);
     if (login.usuario == '') {
@@ -197,5 +224,20 @@ export class LoginPage implements OnInit {
       clave: loginFrom.clave,
     };
     return login;
+  }
+
+  filtradoejemplo (){
+    const personas = [
+      { nombre: 'Juan', edad: 25 },
+      { nombre: 'María', edad: 17 },
+      { nombre: 'Pedro', edad: 30 },
+    ];
+    const personasFiltradas = personas.filter(persona => persona.edad >= 18);
+    console.log(personasFiltradas); // [{ nombre: 'Juan', edad: 25 }, { nombre: 'Pedro', edad: 30 }]
+  }
+
+  onClickTest(){
+  window.open("http://www.google.com", "_blank")
+
   }
 }

@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Solicitudes de dinero ({{cantidadRegistros}})</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/resumen"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+<div>
+
+
+
+
+  <div *ngIf="cantidadRegistros > 0" >
+    <ng-container  *ngFor="let f of fondos_m">
+
+<
+      <ion-accordion-group expand="inset">
+        <ion-accordion value="first"   >
+          <ion-item class="texto_acordion" slot="header" color="{{colorSt(f.idEstado.idEstado)}}">
+         <ion-row style="width: 100%;" >
+            <ion-col  >
+              <div><ion-icon name="{{f.idEstado.icono}}"></ion-icon> {{f.tipoTransaccion.nombre.slice(0,6)}}...</div>
+          </ion-col>
+            <ion-col >
+              <div style="text-align: right;"><strong>$ {{f.importe}}</strong></div>
+            </ion-col>
+            <ion-col >
+              <div style="text-align: right;"> {{f.idEstado.nombre}}</div>
+            </ion-col>
+
+         </ion-row>
+          </ion-item>
+
+          <div class="ion-padding" slot="content" class="extra_info">
+            <div class="extra-info">
+              <div class="element-extra">
+                <div class="title-extra">Código seguimiento:</div>
+                <div class="content-extra">
+                  {{f.idFondos}}
+                </div>
+              </div>
+
+              <div class="element-extra">
+                <div class="title-extra">Tipo Transacción:</div>
+                <div class="content-extra">
+                  {{f.tipoTransaccion.descripcion}}
+                </div>
+              </div>
+              <div class="element-extra"*ngIf="f.tipoTransaccion.idTransaccion.idTransaccion === 6 ">
+                <div class="title-extra">Destino Cbu:</div>
+                <div class="content-extra">
+                 {{f.destinoCbuPadron.cbu}}
+                </div>
+              </div>
+              <div class="element-extra" *ngIf="f.tipoTransaccion.idTransaccion.idTransaccion === 6 ">
+                <div class="title-extra">Banco:</div>
+                <div class="content-extra">
+                 {{f.destinoCbuPadron.banco.nombre}}
+                </div>
+              </div>
+              <div class="element-extra" *ngIf="f.tipoTransaccion.idTransaccion.idTransaccion === 7">
+                <div class="title-extra">Sucursal Cobro:</div>
+                <div class="content-extra">
+                 {{f.sucursal.nombre}} {{f.sucursal.localidadPcia}}
+                </div>
+              </div>
+
+              <div class="element-extra" *ngIf="f.tipoTransaccion.idTransaccion.idTransaccion === 7">
+                <div class="title-extra">Banco:</div>
+                <div class="content-extra">
+                 {{f.idChequera.idBanco.nombre}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Fecha solicitud:</div>
+                <div class="content-extra">
+                  {{formatoFecha(f.fechaSolicitud)}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Fecha de Cobro:</div>
+                <div class="content-extra">
+                  {{formatoFecha(f.fechaCobro)}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Importe solicitado:</div>
+                <div class="content-extra">
+                 <strong>$ {{f.importe}}</strong>
+                </div>
+              </div>
+
+              <div class="element-extra">
+                <div class="title-extra">Estado:</div>
+                <div class="content-extra">
+                 {{f.idEstado.descripcion}}
+                </div>
+              </div>
+            <div class="element-extra"  *ngIf="f.observacion !== ''">
+                <div class="title-extra">Observaciones:</div>
+                <div class="content-extra">
+                 {{f.observacion}}
+                </div>
+              </div>
+              <div class="element-extra" *ngIf="f.repuesta !== ''">
+                <div class="title-extra">Respuesta:</div>
+                <div class="content-extra">
+                 {{f.respuesta}}
+                </div>
+              </div>
+
+      </div>
+          </div>
+        </ion-accordion>
+
+      </ion-accordion-group>
+
+
+
+
+
+
+  </ng-container>
+  </div>
+
+
+</div>
+
+
+
+
+
+
+</ion-content>

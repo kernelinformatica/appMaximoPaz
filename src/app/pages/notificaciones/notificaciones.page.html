@@ -27,11 +27,11 @@
 
   <div class="tab-content top-space-2" *ngIf="numeroMensajes > 0">
     <ng-container class="container-space" *ngFor="let n of notificaciones">
-      <ion-card class= "{{muestraVistoSn(n)}}" *ngIf="n.visible" color="{{muestraVistoSn(n)}}">
+      <ion-card class= "{{muestraVistoSnColor(n)}}" *ngIf="n.visible"   color="{{muestraVistoSn(n)}}">
         <ion-card-header>
 
-          <ion-card-title>{{n.titulo}}</ion-card-title>
-
+          <ion-card-title><ion-icon  name="{{mostrarSobreLeidoNoLeido(n)}}"></ion-icon> {{n.titulo}}</ion-card-title>
+          <ion-badge slot="start">{{estadoLeido}}</ion-badge>
           <ion-card-subtitle>{{parseFecha(n.fechaEnvio)}}</ion-card-subtitle>
         </ion-card-header>
 
@@ -43,7 +43,9 @@
             </div>
 
                 <div style="float:right" class="borrar-notificacion-card-trash"  (click)="borrarNotificacion(n)">
-                <ion-icon name="trash"></ion-icon></div>
+                <ion-icon name="trash"></ion-icon>
+              </div>
+
 
           </ion-list>
         </ion-card-content>

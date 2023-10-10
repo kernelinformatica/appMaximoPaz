@@ -41,7 +41,6 @@ export class ResumenService {
   // Este metodo invoca el servicio y parsea la respuesta
   public async load() {
     const usuarioActualStr = localStorage.getItem('usuarioActual');
-
     if (usuarioActualStr) {
       this.usuarioActual = JSON.parse(usuarioActualStr);
     }

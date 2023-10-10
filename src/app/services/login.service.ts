@@ -114,71 +114,75 @@ export class LoginService {
   async trySavedLogin() {
 
 
-    //return new Promise(async (resolve, reject) => {
-    //  try {
+    /*return new Promise(async (resolve, reject) => {
+      try {*/
     let credenciales: any = localStorage.getItem('usuarioActual');
     this.usuarioGrabado = JSON.parse(credenciales);
     console.log('Hay credenciales! :) -> ' + credenciales);
     console.log('Token valido hasta: ' + this.usuarioGrabado.token.fechaHasta);
     const today = new Date();
     const fechaHoy = today.toDateString();
-    let fechaToken = new Date(this.usuarioGrabado.token.fechaHasta);
-    let fechaActual = new Date(fechaHoy);
-    if (this.usuarioGrabado.token.hashId != '') {
-      return new Promise(async (resolve, reject) => {
-        let token: string = this.usuarioGrabado.token.hashId;
-        let parametros: URLSearchParams = new URLSearchParams();
-        parametros.set('token', token);
-        resolve(true);
+    const fechaToken = new Date(this.usuarioGrabado.token.fechaHasta);
+    const fechaActual = new Date(fechaHoy);
 
-        try {
-          const url =
-            `${this.getUrlTestToken(this.usuarioGrabado.cuenta.id)}?` +
-            parametros;
-          const params = { parametros };
-          const httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type': 'application/x-www-form-urlencoded',
-              token: token,
-            }),
-          };
+    if (new Date(fechaToken) < new Date(fechaHoy)){
+     this.logueado = false;
+      this.logout();
+      return this.logueado;
 
-          this.http.get(url, httpOptions).subscribe((resp: any) => {
-            let control = resp.control;
-            if (control.codigo == 'OK') {
-              // si no tien permiso la coope lo pateo
+    }else{
+      if (this.usuarioGrabado.token.hashId != '') {
+        return new Promise(async (resolve, reject) => {
+          let token: string = this.usuarioGrabado.token.hashId;
+          let parametros: URLSearchParams = new URLSearchParams();
 
-              this.versionGestagro = control.versionLib;
-              this.versionServicio = control.version;
-              this.usuarioActual = this.usuarioGrabado;
+          try {
+            const url =
+              `${this.getUrlTestToken(this.usuarioGrabado.cuenta.id)}?` +
+              parametros;
+              const params = { parametros };
+              const httpOptions = {
+                headers: new HttpHeaders({
+                  token: token,
+                }),
+              };
 
-              this.logueado = true;
-            } else {
-              this.logueado = false;
-            }
-          });
-        } catch (error: any) {
-          const dataError = JSON.parse(error.error);
-          reject(dataError.control.descripcion);
-        }
-      });
+              this.http.get(url, httpOptions).subscribe((resp: any) => {
+              let control = resp.control;
+              if (control.codigo == 'OK') {
+                // si no tien permiso la coope lo pateo
+                this.logueado = true;
 
-      /*
+              } else {
+                this.logueado = false;
+              }
+              resolve(this.logueado);
+            })
+            } catch (error: any) {
 
-              */
-    } else {
-      console.log('se debe loguear ):');
-      // no hay credenciales asi que lo mando a pantalla de login
+            const dataError = JSON.parse(error.error);
+            reject(dataError.control.descripcion);
+          }
+        })
+        ;
+
+
+      } else {
+        alert("ERROR")
+        // no hay credenciales asi que lo mando a pantalla de login
+      }
     }
-    //this.loginUser();
 
-    /*} catch (error: any) {
+
+
+/*
+    } catch (error: any) {
           debugger
           alert('Error: Ocurrio un error general, intente nuevamente más tarde.');
           const dataError = JSON.parse(error.error);
           reject(dataError.control.descripcion);
-        }*/
-    // });
+        }
+     });*/
   }
 
   public logout(): void {
@@ -194,7 +198,7 @@ export class LoginService {
    */
   private getURLServicio(usuario: string) {
     // Por ahora devuelvo el string como esta, despues hay que usar el token
-    return Configuraciones.authUrl + usuario;
+    return Configuraciones.authUrl+usuario;
   }
 
   /**

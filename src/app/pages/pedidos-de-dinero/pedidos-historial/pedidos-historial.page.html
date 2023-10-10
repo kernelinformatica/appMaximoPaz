@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Historial de solicitudes ({{cantidadDePedidos}})</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/resumen"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+
+<div>
+
+
+    <div *ngIf="cantidadDePedidos > 0">
+      <ng-container  *ngFor="let h of fondos_h">
+        <ion-accordion-group expand="inset">
+          <ion-accordion value="first"   >
+            <ion-item class="texto_acordion" slot="header" color="{{colorSt(h.idEstado.idEstado)}}">
+           <ion-row style="width: 100%;" >
+              <ion-col  >
+                <div><ion-icon name="{{h.idEstado.icono}}"></ion-icon> {{h.tipoTransaccion.nombre.slice(0,6)}}...</div>
+            </ion-col>
+
+            <ion-col >
+              <div style="text-align: right;"><strong>{{formatoFecha(h.fechaSolicitud)}}  </strong></div>
+            </ion-col>
+            <ion-col >
+                <div style="text-align: right;"><strong>$ {{h.importe}}</strong></div>
+              </ion-col>
+              <ion-col >
+                <div style="text-align: right;"> {{h.idEstado.nombre}}</div>
+              </ion-col>
+
+           </ion-row>
+            </ion-item>
+
+            <div class="ion-padding" slot="content" class="extra_info">
+              <div class="extra-info">
+                <div class="element-extra">
+                  <div class="title-extra">Código seguimiento:</div>
+                  <div class="content-extra">
+                    {{h.idFondos}}
+                  </div>
+                </div>
+
+                <div class="element-extra">
+                  <div class="title-extra">Tipo Transacción:</div>
+                  <div class="content-extra">
+                    {{h.tipoTransaccion.descripcion}}
+                  </div>
+                </div>
+               <!--<div class="element-extra"*ngIf="h.tipoTransaccion.idTransaccion.idTransaccion === 6 ">
+                  <div class="title-extra">Destino Cbu:</div>
+                  <div class="content-extra">
+                   {{h.destinoCbuPadron.cbu}}
+                  </div>
+                </div>
+                <div class="element-extra" *ngIf="h.tipoTransaccion.idTransaccion.idTransaccion === 6 ">
+                  <div class="title-extra">Banco:</div>
+                  <div class="content-extra">
+                   {{h.destinoCbuPadron.banco.nombre}}
+                  </div>
+                </div>
+                <div class="element-extra" *ngIf="h.tipoTransaccion.idTransaccion.idTransaccion === 7">
+                  <div class="title-extra">Sucursal Cobro:</div>
+                  <div class="content-extra">
+                   {{h.sucursal.nombre}} {{h.sucursal.localidadPcia}}
+                  </div>
+                </div>
+
+                <div class="element-extra" *ngIf="h.tipoTransaccion.idTransaccion.idTransaccion === 7">
+                  <div class="title-extra">Banco:</div>
+                  <div class="content-extra">
+                   {{h.idChequera.idBanco.nombre}}
+                  </div>
+                </div>-->
+                <div class="element-extra">
+                  <div class="title-extra">Fecha solicitud:</div>
+                  <div class="content-extra">
+                    {{formatoFecha(h.fechaSolicitud)}}
+                  </div>
+                </div>
+                <div class="element-extra">
+                  <div class="title-extra">Fecha de Cobro:</div>
+                  <div class="content-extra">
+                    {{formatoFecha(h.fechaCobro)}}
+                  </div>
+                </div>
+                <div class="element-extra">
+                  <div class="title-extra">Importe solicitado:</div>
+                  <div class="content-extra">
+                   <strong>$ {{h.importe}}</strong>
+                  </div>
+                </div>
+
+                <div class="element-extra">
+                  <div class="title-extra">Estado:</div>
+                  <div class="content-extra">
+                   {{h.idEstado.descripcion}}
+                  </div>
+                </div>
+              <div class="element-extra"  *ngIf="h.observacion !== ''">
+                  <div class="title-extra">Observaciones:</div>
+                  <div class="content-extra">
+                   {{h.observacion}}
+                  </div>
+                </div>
+                <div class="element-extra" *ngIf="h.repuesta !== ''">
+                  <div class="title-extra">Respuesta:</div>
+                  <div class="content-extra">
+                   {{h.respuesta}}
+                  </div>
+                </div>
+
+        </div>
+            </div>
+          </ion-accordion>
+
+        </ion-accordion-group>
+
+
+
+
+
+
+    </ng-container>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+</ion-content>

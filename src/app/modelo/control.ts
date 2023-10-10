@@ -4,7 +4,7 @@ export class Control {
   //---------------------------------------------//
   // DECLARACION DE LAS PROPIEDADES QUE NECESITO //
   //---------------------------------------------//
-  public codigo : number;
+  public codigo : string;
   public descripcion: string;
   public descripcionLarga: string;
   public version: string;

@@ -1,0 +1,141 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Ordenes de ventas pendientes {{cantidadRegistros}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/resumen"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Ordenes Pendientes {{cantidadRegistros}}</ion-title>
+    </ion-toolbar>
+      <ion-buttons slot="end">
+    <ion-back-button defaultHref="/resumen"></ion-back-button>
+  </ion-buttons>
+  </ion-header>
+
+  <div *ngIf="cantidadRegistros > 0" >
+    <ng-container  *ngFor="let o of ordenes">
+
+<!-- expand="inset"-->
+      <ion-accordion-group  expand="inset">
+        <ion-accordion value="first"   >
+          <ion-item class="texto_acordion" slot="header" color="{{colorSt(o.idEstado.idEstado)}}">
+         <ion-row style="width: 100%;" >
+            <ion-col  >
+              <div>{{o.cereal.nombre}}</div>
+
+          </ion-col>
+            <ion-col >
+              <div>{{formatoFecha(o.fechaCobro)}}</div>
+            </ion-col>
+            <ion-col >
+              <div style="text-align: right;">{{o.toneladas}} TN</div>
+            </ion-col>
+            <ion-col >
+              <div style="text-align: right;">{{o.idEstado.nombre}}</div>
+            </ion-col>
+
+         </ion-row>
+          </ion-item>
+
+          <div class="ion-padding" slot="content" class="extra_info">
+            <div class="extra-info">
+
+
+              <div class="element-extra">
+                <div class="title-extra">Cereal:</div>
+                <div class="content-extra">
+                 {{o.cereal.nombre}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Cosecha:</div>
+                <div class="content-extra">
+                 {{o.cosechaRef}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Toneladas:</div>
+                <div class="content-extra">
+                 {{o.toneladas}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Estado de la orden:</div>
+                <div class="content-extra">
+                 {{o.idEstado.descripcion}}
+                </div>
+              </div>
+
+              <div class="element-extra">
+                <div class="title-extra">Precio Base:</div>
+                <div class="content-extra">
+                  {{o.moneda.abreviatura}} {{o.precioBase}}
+                </div>
+              </div>
+
+              <div class="element-extra">
+                <div class="title-extra">Fecha Venta:</div>
+                <div class="content-extra">
+                  {{formatoFecha(o.fechaVenta)}}
+                </div>
+              </div>
+              <div class="element-extra">
+                <div class="title-extra">Fecha Cobro:</div>
+                <div class="content-extra">
+                  {{formatoFecha(o.fechaCobro)}}
+                </div>
+              </div>
+
+      </div>
+          </div>
+        </ion-accordion>
+
+      </ion-accordion-group>
+
+
+
+   <!--<ion-accordion-group expand="inset">
+      <ion-accordion value="first"  >
+        <ion-item slot="header" color="{{colorSt(o.idEstado.idEstado)}}">
+       <ion-row style="width: 100%;" >
+          <ion-col style="width: 150px;" >
+            <div><strong>{{o.cereal.nombre}}</strong></div>
+            <div>Cos: {{o.cosechaRef}}</div>
+
+          </ion-col>
+          <ion-col >
+            <div>{{o.idEstado.nombre}}</div>
+            <div>Ton: {{o.toneladas}}</div>
+          </ion-col>
+
+          <ion-col>
+            <div>{{o.mercado.descripcion}}</div>
+            <div>{{o.moneda.abreviatura}} {{o.precioBase}}</div>
+          </ion-col>
+          <ion-col >
+            <div>Cobro: {{formatoFecha(o.fechaCobro)}}</div>
+            <div>{{o.idEstado.idEtado}}</div>
+          </ion-col>
+
+       </ion-row>
+        </ion-item>
+
+        <div class="ion-padding" slot="content">Más detalles de la orden</div>
+      </ion-accordion>
+
+    </ion-accordion-group>-->
+
+
+
+  </ng-container>
+  </div>
+
+
+
+</ion-content>

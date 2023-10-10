@@ -21,8 +21,8 @@ export class LogoutPage implements OnInit {
 
   ngOnInit() {
     this.loginService.deleteStorage();
-   this.logout();
-   
+    this.logout();
+
 
 
   }
@@ -30,9 +30,9 @@ export class LogoutPage implements OnInit {
   public logout() {
    this.loginService.logout();
     // Seteo la pagina a donde debe ir
-   
+
     this.navController.navigateRoot('/login', { animated: true });
-    
+
 
   }
 

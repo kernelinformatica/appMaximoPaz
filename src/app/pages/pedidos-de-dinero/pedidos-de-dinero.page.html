@@ -1,37 +1,23 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Pedir dinero</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">pedidos-de-dinero</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-
-
   <ion-tabs>
-    <!-- Tab bar -->
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="schedule">
+      <ion-tab-button tab="pedir-dinero">
         <ion-icon name="cash" aria-hidden="true"></ion-icon>
         <ion-label>Solicitar dinero</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button tab="speakers">
+      <ion-tab-button tab="mis-pedidos">
         <ion-icon name="person-circle" aria-hidden="true"></ion-icon>
+
         <ion-label>Mis Pedidos</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button tab="map">
+      <ion-tab-button tab="pedidos-historial">
         <ion-icon name="refresh" aria-hidden="true"></ion-icon>
         <ion-label>Historial</ion-label>
       </ion-tab-button>
-
-
-    </ion-tab-bar>
+   </ion-tab-bar>
   </ion-tabs>
 </ion-content>

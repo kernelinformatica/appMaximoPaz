@@ -5,7 +5,7 @@ import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { Configuraciones } from 'src/configuraciones/configuraciones'
 import { DetalleCtaCte } from '../modelo/detallectacte';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { UiService } from './ui.service';
 
 /**
 * Esta clase se creo para invocar el recurso del servicio web que devuelve el
@@ -26,7 +26,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   usuarioActual: any;
   detalleCtateSocio: any;
   // Metodo constructor
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public uiService: UiService) { }
 
   // Este metodo invoca el servicio y parsea la respuesta
   public async load() {
@@ -62,7 +62,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
           }
 
 
-        });
+        }, (error) => {
+
+          //this.uiService.dissmisLoading();
+           this.uiService.presentAlertInfo("Error Inesperado: "+error.name+": "+error.message)
+
+         });
         } catch (error: any) {
           const dataError = JSON.parse(error.error)
           reject(dataError.control.descripcion);

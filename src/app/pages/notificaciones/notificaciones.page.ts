@@ -9,7 +9,7 @@ import { UiService } from 'src/app/services/ui.service';
   styleUrls: ['./notificaciones.page.scss'],
 })
 export class NotificacionesPage implements OnInit {
-
+  estadoLeido: String | undefined;
   istodoCargado = false;
   notificaciones: Notificacion[] = [];
   tieneNotificaciones = false;
@@ -63,13 +63,36 @@ export class NotificacionesPage implements OnInit {
   }
   public muestraVistoSn(item: any){
     if (item.visto === true){
-      return "ligth";
+      return "light";
+      this.estadoLeido = "Leido"
 
     }else{
       return "warning";
+      this.estadoLeido = ""
     }
+ }
+ public muestraVistoSnColor(item: any){
+  if (item.visto === true){
+    return "visto";
+
+
+  }else{
+    return "noVisto";
 
   }
+
+
+ }
+
+ public mostrarSobreLeidoNoLeido(item: any){
+  if (item.visto === true){
+    return "mail-open-outline";
+
+ }else{
+    return "mail-unread-outline";
+
+  }
+ }
   private cargarNotificaciones(){
     this.notificacionesService.load().then(
       async (resp: any) => {

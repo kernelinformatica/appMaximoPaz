@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pedir dinero</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/resumen"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+   <ion-content *ngIf="!estaTodoCargado">
+
+
+    <ion-card  class="card" color="light">
+      <ion-card-header>
+        <ion-card-title class="ion-card-title">{{usuarioActual.cuenta.nombre}}</ion-card-title>
+       <ion-card-subtitle class="ion-card-sub-title">CUENTA: {{usuarioActual.cuenta.id}}</ion-card-subtitle>
+    </ion-card-header>
+   </ion-card>
+    <ion-card color="light">
+      <ion-card-header>
+        <ion-card-title>Solicitud de Dinero </ion-card-title>
+        <ion-card-subtitle>Solicite dinero y aguarde que sea autorizado.</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list>
+          <form (ngSubmit)="logForm()">
+          <ion-item>
+            <ion-input   style="text-align: right; font-weight: bold; color: green;"  value="0.00"  type="number" label="Importe Solicitado"
+              [(ngModel)]="aSolicitar.importe" name="importe" label-placement="floating" placeholder="0"></ion-input>
+        </ion-item>
+          <ion-item >
+             <ion-select  label="Tipo de Transaccion" label-placement="floating"  *ngIf="transaccionesService.transacciones" class="input-btn" [(ngModel)]="aSolicitar.tipoTransaccion" name="transaccion" placeholder="Transaccion">
+             <ion-select-option *ngFor="let tra of transaccionesService.transacciones" [value]="tra"> {{tra.nombre}}</ion-select-option>
+        </ion-select>
+          </ion-item>
+        <ion-list *ngIf="(aSolicitar.tipoTransaccion && aSolicitar.tipoTransaccion.idTransaccion  && aSolicitar.tipoTransaccion.idTransaccion.idTransaccion === 6)" >
+         <ion-item>
+            <ion-select *ngIf="cbuSocios" class="input-btn" [(ngModel)]="aSolicitar.destinoCbuPadron" name="destinoCbu" placeholder="Destino Cbu" label="Destino Cbu">
+              <ion-select-option  *ngFor="let cbu of cbuPadronService.arrayCbu" [value]="cbu">{{cbu.cbu}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+
+
+      <ion-list *ngIf="(aSolicitar.tipoTransaccion && aSolicitar.tipoTransaccion.idTransaccion  && aSolicitar.tipoTransaccion.idTransaccion.idTransaccion === 7)" class="addmargin">
+          <ion-item>
+             <ion-select *ngIf="chequerasService.chequeras" class="input-btn" [(ngModel)]="aSolicitar.idChequera" name="banco" placeholder="Medio de cobro">
+                  <ion-select-option *ngFor="let chequera of chequerasService.chequeras" [value]="chequera">{{chequera.idBanco.nombre}}</ion-select-option>
+              </ion-select>
+          </ion-item>
+        </ion-list>
+
+
+          <ion-list *ngIf="(aSolicitar.tipoTransaccion && aSolicitar.tipoTransaccion.idTransaccion  && aSolicitar.tipoTransaccion.idTransaccion.idTransaccion === 7)" >
+           <ion-item >
+            <ion-select *ngIf="sucursales" class="input-btn" [(ngModel)]="aSolicitar.sucursal" name="sucursal" placeholder="Sucursal de cobro" label="Scursal de cobro">
+              <ion-select-option *ngFor="let sucursal of sucursalesService.sucursales" [value]="sucursal">{{sucursal.nombre}} - {{sucursal.localidadPcia}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          </ion-list>
+         <ion-item>
+         <ion-textarea label="Comentarios" [(ngModel)]="aSolicitar.observacion"  style="text-align: left;"  class="textarea-height" placeholder="Comentarios..." [(ngModel)]="aSolicitar.observacion" name="observacion" autocomplete="on" autocorrect="on" maxlength="180" label-placement="floating" placeholder="Ingrese alguna observación respecto al pedido de dinero"></ion-textarea>
+
+       </ion-item>
+
+       <ion-item>
+
+
+        <ion-label>Fecha de Cobro </ion-label>
+       <ion-datetime-button datetime="datetime"></ion-datetime-button>
+       <ion-modal [keepContentsMounted]="true">
+         <ng-template>
+           <ion-datetime style="background-color: black; color:white" locale="es-ES"
+            id="datetime"
+            name="datetime"
+            presentation="date"
+
+            (ngModelChange)="asignarFecha()"
+            (ngModel)="fechaSeleccionada"
+         [preferWheel]="true">
+          </ion-datetime>
+         </ng-template>
+       </ion-modal>
+      </ion-item>
+
+      <ion-button  class="btns" [disabled]="checkDisable()" ion-button type="submit" expand="block">Solicitar</ion-button>
+    </form>
+      </ion-list>
+      </ion-card-content>
+   </ion-card>
+  </ion-content>

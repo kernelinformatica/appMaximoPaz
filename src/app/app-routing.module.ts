@@ -69,10 +69,12 @@ const routes: Routes = [
   {
     path: 'ordenes-de-venta',
     loadChildren: () => import('./pages/ordenes-de-venta/ordenes-de-venta.module').then( m => m.OrdenesDeVentaPageModule)
-  },  {
+  },
+  {
     path: 'pedidos-de-dinero',
     loadChildren: () => import('./pages/pedidos-de-dinero/pedidos-de-dinero.module').then( m => m.PedidosDeDineroPageModule)
   },
+
 
 
 

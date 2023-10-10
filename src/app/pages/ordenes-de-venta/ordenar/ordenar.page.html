@@ -1,0 +1,141 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Emitir una orden  de venta</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/resumen"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content  [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Emitir una orden  de venta</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card  class="card" color="light">
+    <ion-card-header>
+      <ion-card-title class="ion-card-title">{{usuarioActual.cuenta.nombre}}</ion-card-title>
+     <ion-card-subtitle class="ion-card-sub-title">CUENTA: {{usuarioActual.cuenta.id}}</ion-card-subtitle>
+  </ion-card-header>
+ </ion-card>
+  <ion-card color="light">
+    <ion-card-header>
+      <ion-card-title>Ordenes de Venta </ion-card-title>
+      <ion-card-subtitle>Emita una orden de venta de cereales.</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form (ngSubmit)="logForm()">
+        <ion-item >
+         <ion-select  label="Mercado" label-placement="floating"   [(ngModel)]="orden.mercado"   *ngIf="ordenVentasMercadosService.mercado" class="input-btn"  (ngModelChange)="deleteFecha()" name="mercado" placeholder="Mercado">
+          <ion-select-option *ngFor="let mercado of ordenVentasMercadosService.mercado" [value]="mercado.mercado">{{mercado.descripcion}}</ion-select-option>
+       </ion-select>
+      </ion-item>
+
+
+      <ion-item >
+        <ion-select  label="Cereales" label-placement="floating"
+        *ngIf="cerealesService.cereal"
+        [(ngModel)]="orden.codigoCereal"
+        (ngModelChange)="buscaCosechas()"
+        class="input-btn" name="cereal" placeholder="Cereales" >
+         <ion-select-option *ngFor="let c of cerealesService.cereal" [value]="c.codigoCereal"> {{c.nombre}}</ion-select-option>
+    </ion-select>
+    </ion-item>
+
+    <ion-list class="addmargin" *ngIf="orden.mercado && orden.codigoCereal"   >
+      <ion-item>
+        <ion-select  *ngIf="   orden.codigoCereal  && orden.mercado === 1 && cantidadCosechas > 0" class="input-btn" [(ngModel)]="orden.cosecha" name="cosecha" placeholder="Cosecha" [disabled]="1 > cerealResumenService.cerealResumenes.length"
+          >
+          <div>
+             <ion-select-option *ngFor="let cr of cerealResumen" [value]="cr.cerealResumenPK.cosecha">{{cr.cerealResumenPK.cosecha}}</ion-select-option>
+
+        </div>
+          </ion-select>
+          <ion-input *ngIf="orden.mercado === 2 && orden.codigoCereal" type="number" class="text-input input-btn"
+            placeholder="Cosecha"
+             [(ngModel)]="orden.cosecha" name="cosecha"
+             maxlength="4"></ion-input>
+     </ion-item>
+  </ion-list>
+
+  <ion-list   class="addmargin" *ngIf="orden.mercado && orden.codigoCereal && orden.cosecha "  >
+    <ion-item>
+            <ion-select class="input-btn" [(ngModel)]="orden.moneda" name="moneda" placeholder="Moneda">
+                    <div>
+                        <ion-select-option *ngFor="let moneda of monedasService.monedas" [value]="moneda.idMoneda">{{moneda.descripcion}} - {{moneda.abreviatura}}</ion-select-option>
+                    </div>
+            </ion-select>
+    </ion-item>
+</ion-list>
+
+
+<ion-list  class="addmargin"  *ngIf="orden.mercado && orden.codigoCereal && orden.cosecha"  >
+  <ion-item>
+      <ion-input type="number" class="text-input input-btn" placeholder="Toneladas" [(ngModel)]="orden.toneladas" name="toneladas"></ion-input>
+  </ion-item>
+</ion-list>
+
+<ion-list  class="addmargin" *ngIf="orden.mercado && orden.codigoCereal && orden.cosecha"  >
+  <ion-item>
+      <ion-input type="number" class="text-input input-btn" placeholder="Precio base" [(ngModel)]="orden.precioBase" name="precioBase"></ion-input>
+  </ion-item>
+</ion-list>
+
+<ion-list  class="addmargin" *ngIf="orden.mercado && orden.codigoCereal && orden.cosecha" >
+
+  <ion-item>
+      <ion-input class="text-input input-btn" [attr.readonly]="true" [(ngModel)]="orden.fechaVenta" name="fechaVenta"></ion-input>
+  </ion-item>
+</ion-list>
+<ion-list class="addmargin" *ngIf="orden.mercado && orden.codigoCereal && orden.cosecha" >
+
+  <ion-item   >
+
+    <ion-input *ngIf="orden.mercado === 1" [attr.readonly]="true" [(ngModel)]="orden.fechaCobro" name="fechaCobro"></ion-input>
+
+    <div *ngIf="orden.mercado === 2">
+      <ion-label>Fecha de cobro: </ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button >
+       <ion-modal [keepContentsMounted]="true">
+         <ng-template>
+          <ion-datetime style="background-color: black; color:white" locale="es-ES"
+            id="datetime"
+            name="datetime"
+            presentation="date"
+            (ngModelChange)="asignarFecha()"
+            (ngModel)="fechaSeleccionada"
+         [preferWheel]="true">
+          </ion-datetime>
+         </ng-template>
+       </ion-modal>
+      </div>
+  </ion-item>
+
+
+
+
+</ion-list>
+
+
+
+<!-- [disabled]="checkDisable()" -->
+<ion-button  class="btns" ion-button type="submit"  id ="confirmar" expand="block">CONFIRMAR</ion-button>
+
+        </form>
+
+
+
+
+
+
+      </ion-card-content>
+      </ion-card>
+
+
+
+
+
+</ion-content>

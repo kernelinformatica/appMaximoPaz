@@ -32,6 +32,8 @@ export class DetalleCerealPage implements OnInit {
     public loadingCtrl: LoadingController,
     private loadingController: LoadingController) {
   }
+  public usuarioActualStr = localStorage.getItem('usuarioActual');
+
   /**
  * Esta funcion se usa para saber si se puede renderizar la pagina o no
  */
@@ -51,13 +53,10 @@ export class DetalleCerealPage implements OnInit {
     return false;
   }
   async ngOnInit() {
-    const cuenta = this.route.snapshot.queryParamMap.get("cuenta");
-    const socio = this.route.snapshot.queryParamMap.get("socio");
 
-    this.cuenta = cuenta;
-    this.socio = socio;
-    await this.uiService.presentLoading("Cargando cereales...");
 
+
+     await this.uiService.presentLoading("Cargando cereales...");
     const cereal = this.route.snapshot.queryParamMap.get("cereal");
 
     if (cereal) {
@@ -71,6 +70,9 @@ export class DetalleCerealPage implements OnInit {
           this.detalleCerealSocio = this.data.detalleCereal;
           this.detalleCereal = this.detalleCerealSocio
           this.istodoCargado = true;
+          this.socio = this.data.socio.cuenta.nombre;
+          this.cuenta = this.data.socio.cuenta.id;
+
           await this.loadingController.dismiss();
 
         });
@@ -78,6 +80,10 @@ export class DetalleCerealPage implements OnInit {
         await this.loadingController.dismiss();
         alert("Ocurrio un error general al traer la información de cereales "+this.cereal.cerealId)
     }
+
+
+
+
 
   }
 

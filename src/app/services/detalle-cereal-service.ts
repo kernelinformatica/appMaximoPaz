@@ -16,6 +16,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { Configuraciones } from 'src/configuraciones/configuraciones'
 import { Preferences } from '@capacitor/preferences';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { UiService } from './ui.service';
 /**
 * Esta clase se creo para invocar el recurso del servicio web que devuelve el
 * resumen de la cuenta
@@ -37,7 +38,7 @@ export class DetalleCerealService {
   usuarioActual: any;
   detalleCerealSocio: any
   // Metodo constructor
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public uiService: UiService) { }
   public configuraciones = Configuraciones;
   // Este metodo invoca el servicio y parsea la respuesta
   public async load(cerealId? : string, claseId?: string, cosecha?: string) {
@@ -84,14 +85,20 @@ export class DetalleCerealService {
             resolve(
               {
                 detalleCereal: this.detalleCereal,
-                funciones: this.usuarioActual.funciones
+                funciones: this.usuarioActual.funciones,
+                socio : this.usuarioActual
               });
           }
-        });
+        }, (error) => {
+
+          //this.uiService.dissmisLoading();
+           this.uiService.presentAlertInfo("Error Inesperado: "+error.name+": "+error.message)
+
+         });
 
       } catch (error: any) {
         //this.flag = false;
-        alert("Ocurrio un error inesperado: "+error)
+        this.uiService.presentAlertInfo("Error Inesperado: "+error.name+": "+error.message)
 
         const dataError = JSON.parse(error.error)
         reject(dataError.control.descripcion);

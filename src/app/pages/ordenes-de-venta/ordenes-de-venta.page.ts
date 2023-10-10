@@ -10,6 +10,7 @@ export class OrdenesDeVentaPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

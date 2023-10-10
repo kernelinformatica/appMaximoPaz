@@ -1,37 +1,22 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-
-    <ion-title>Ordenes de venta (Cereales)</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button defaultHref="/resumen"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">ordenes-de-venta</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-
   <ion-tabs>
     <ion-tab-bar slot="button">
-      <ion-tab-button tab="pedir">
-        <ion-icon name="reader-outline"></ion-icon>
-        Ordenar
+      <ion-tab-button tab="ordenar">
+        <ion-icon name="reader-outline" aria-hidden="true"></ion-icon>
+       <label>Emitir</label>
       </ion-tab-button>
-      <ion-tab-button tab="solicitudes">
-        <ion-icon name="layers-outline"></ion-icon>
-       Mis ordenes
+      <ion-tab-button tab="mis-ordenes">
+        <ion-icon name="layers-outline" aria-hidden="true"></ion-icon>
+      <label> Mis ordenes</label>
       </ion-tab-button>
       <ion-tab-button tab="historial">
-        <ion-icon name="reload-outline"></ion-icon>
-        Historial
+        <ion-icon name="reload-outline" aria-hidden="true"></ion-icon>
+       <label>Historial</label>
       </ion-tab-button>
 
     </ion-tab-bar>
   </ion-tabs>
 </ion-content>
+
+
+
