@@ -12,13 +12,13 @@ export class Configuraciones
     Produccion
 
     */
-    //public static urlBase : string = "https://www.gestagro.com.ar/gestagroex-v9/ws";
+    public static urlBase : string = "https://www.gestagro.com.ar/gestagroex-v9/ws";
 
    /*
 
    Desarrollo
       */
-   public static urlBase : string = "http://localhost:8080/gestagroex-rest/ws";
+   //public static urlBase : string = "http://localhost:8080/gestagroex-rest/ws";
 
 
 

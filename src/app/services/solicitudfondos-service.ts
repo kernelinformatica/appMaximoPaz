@@ -178,7 +178,7 @@ export class SolicitudFondosService {
 
   public async crearSolicitud(aSolicitar: SolicitudFondos) {
 
-alert(aSolicitar.fechaCobro)
+    debugger
     const usuarioActualStr = localStorage.getItem('usuarioActual');
     if (usuarioActualStr) {
       this.usuarioActual = JSON.parse(usuarioActualStr);

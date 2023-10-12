@@ -26,6 +26,7 @@
         <ion-accordion value="first"   >
           <ion-item class="texto_acordion" slot="header" color="{{colorSt(o.idEstado.idEstado)}}">
          <ion-row style="width: 100%;" >
+          <ion-col>{{o.mercado.descripcion}}</ion-col>
             <ion-col  >
               <div>{{o.cereal.nombre}}</div>
 
@@ -46,7 +47,12 @@
           <div class="ion-padding" slot="content" class="extra_info">
             <div class="extra-info">
 
-
+              <div class="element-extra">
+                <div class="title-extra">Mercado:</div>
+                <div class="content-extra">
+                 {{o.mercado.descripcion}}
+                </div>
+              </div>
               <div class="element-extra">
                 <div class="title-extra">Cereal:</div>
                 <div class="content-extra">

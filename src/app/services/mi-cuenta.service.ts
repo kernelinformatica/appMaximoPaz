@@ -68,7 +68,7 @@ export class MiCuentaService {
         parameters.set("claveAnterior", claveAnteriorEnviar.toString());
         parameters.set("claveNueva", claveNuevEnviar.toString());
         parameters.set("token", this.usuarioActual.token.hashId);
-        const url = `${this.getURLServicio()}?`+parameters;;
+        const url = `${this.getURLServicio()}?`+parameters;
         const httpOptions = {
           body: null,
         };

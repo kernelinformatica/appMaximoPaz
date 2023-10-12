@@ -7,7 +7,6 @@ import { ResumenService } from 'src/app/services/resumen.service';
 import { UiService } from 'src/app/services/ui.service';
 import { Router } from '@angular/router';
 
-
 // Servicios que necesito ////////////////
 import { OrdenVentasMercadosService } from './../../../services/orden-ventas-mercados.service';
 import { CerealesService } from 'src/app/services/cereales.service';
@@ -23,13 +22,10 @@ import { OrdenesVentaService } from './../../../services/ordenes-venta.service';
   styleUrls: ['./ordenar.page.scss'],
 })
 export class OrdenarPage implements OnInit {
-
-
-
   orden: any;
   fechaVenta!: Date;
   fechaCobro!: Date;
-  public fechaSeleccionada!: string;
+  public fechaSeleccionada: any;
   public fechaHoy!: string;
   public now!: Date;
   public minDate!: number;
@@ -42,7 +38,7 @@ export class OrdenarPage implements OnInit {
   public cerealResumen!: any;
   public estaTodoCargado: boolean | false = false;
   public cantidadCosechas!: number
-public urlVer : any;
+  public urlVer : any;
   constructor(public navCtrl: NavController,
     public loadingController: LoadingController,
     public resumenService: ResumenService,
@@ -67,7 +63,7 @@ public urlVer : any;
         this.fechaVenta = new Date();
         this.fechaCobro = new Date(this.fechaVenta.getUTCFullYear(), this.fechaVenta.getUTCMonth(), this.fechaVenta.getUTCDate() + 10);
 
-        this.fechaSeleccionada = "";
+
         this.now = new Date();
         this.minDate = this.now.getFullYear();
         this.maxDate = new Date(this.now.getFullYear() + 2, 11, 31).toISOString();
@@ -137,7 +133,7 @@ public urlVer : any;
 
 
     if(this.orden.mercado == 1) {
-      debugger
+
         this.cerealResumenService.load(this.orden.codigoCereal, false).then(async(data: any) => {
 
           this.cantidadCosechas = data.cerealResumenes.cantidadRegistros
@@ -172,12 +168,12 @@ public urlVer : any;
     })
   }
   public deleteFecha() {
-
+    debugger
     if(this.orden.mercado == "Disponible") {
       this.orden.cosecha == null;
       this.orden = {codigoCereal: null, precio: null, precioBase: null, toneladas: null, cosecha: null, mercado: 1, moneda: null};
-      this.orden.fechaVenta =  "Fecha de venta: "+this.uiService.parseFecha(this.fechaVenta);
-      this.orden.fechaCobro =  "Fecha de cobro: "+this.uiService.parseFecha(this.fechaCobro);
+      this.orden.fechaVenta =  this.uiService.parseFecha(this.fechaVenta);
+      this.orden.fechaCobro =  this.uiService.parseFecha(this.fechaCobro);
 
     } else{
       this.orden.fechaCobro = null;
@@ -191,10 +187,10 @@ public urlVer : any;
 
 
   public asignarFecha() {
-    //asumiendo que viene en formato yyyy/mm/dd
-    let fechaParseada = new Date(Number(this.fechaSeleccionada.substr(0,4)), Number(this.fechaSeleccionada.substr(5, 2)) - 1, 1);
-
+    let fechaParseadaTemp = this.fechaSeleccionada.split("T")
+    let fechaParseada= fechaParseadaTemp[0]
     this.orden.fechaCobro = fechaParseada;
+
     console.log(this.orden.fechaCobro);
   }
 

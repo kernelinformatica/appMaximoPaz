@@ -38,8 +38,9 @@ public load(cereal: string, sf: any) {
 
   return new Promise(async (resolve, reject) => {
     try {
+
       let parameters:URLSearchParams = new URLSearchParams();
-      parameters.set("cerealCodigo", cereal);
+      parameters.set("codigoCereal", cereal);
       parameters.set("sinFiltro", sf);
       const url = `${this.getURLServicio()}?`+parameters;;
       const params = { };
@@ -47,7 +48,9 @@ public load(cereal: string, sf: any) {
       const httpOptions = {
         body: null,
         headers: new HttpHeaders({
-          token: this.usuarioActual.token.hashId,
+        token: this.usuarioActual.token.hashId,
+
+
 
         }),
       };
@@ -56,7 +59,7 @@ public load(cereal: string, sf: any) {
         // data is already a JSON object
         this.cerealResumenes = data.datos
         let control = data.control;
-        debugger
+
         if (control.codigo == "OK"){
 
           resolve(

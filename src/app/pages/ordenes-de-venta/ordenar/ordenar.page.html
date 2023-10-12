@@ -29,7 +29,11 @@
     <ion-card-content>
       <form (ngSubmit)="logForm()">
         <ion-item >
-         <ion-select  label="Mercado" label-placement="floating"   [(ngModel)]="orden.mercado"   *ngIf="ordenVentasMercadosService.mercado" class="input-btn"  (ngModelChange)="deleteFecha()" name="mercado" placeholder="Mercado">
+         <ion-select  label="Mercado" label-placement="floating"
+          [(ngModel)]="orden.mercado"
+           *ngIf="ordenVentasMercadosService.mercado" class="input-btn"
+            (ngModelChange)="deleteFecha()"
+            name="mercado" placeholder="Mercado">
           <ion-select-option *ngFor="let mercado of ordenVentasMercadosService.mercado" [value]="mercado.mercado">{{mercado.descripcion}}</ion-select-option>
        </ion-select>
       </ion-item>
@@ -87,27 +91,29 @@
 <ion-list  class="addmargin" *ngIf="orden.mercado && orden.codigoCereal && orden.cosecha" >
 
   <ion-item>
+    <ion-label>Fecha de Venta</ion-label>
       <ion-input class="text-input input-btn" [attr.readonly]="true" [(ngModel)]="orden.fechaVenta" name="fechaVenta"></ion-input>
   </ion-item>
 </ion-list>
 <ion-list class="addmargin" *ngIf="orden.mercado && orden.codigoCereal && orden.cosecha" >
 
   <ion-item   >
-
+    <ion-label *ngIf="orden.mercado === 1">Fecha de Cobro</ion-label>
     <ion-input *ngIf="orden.mercado === 1" [attr.readonly]="true" [(ngModel)]="orden.fechaCobro" name="fechaCobro"></ion-input>
-
+    <ion-label *ngIf="orden.mercado === 2">Fecha de Cobro </ion-label>
     <div *ngIf="orden.mercado === 2">
-      <ion-label>Fecha de cobro: </ion-label>
-      <ion-datetime-button datetime="datetime"></ion-datetime-button >
+
+      <ion-datetime-button  datetime="datetime"></ion-datetime-button >
        <ion-modal [keepContentsMounted]="true">
          <ng-template>
           <ion-datetime style="background-color: black; color:white" locale="es-ES"
             id="datetime"
             name="datetime"
             presentation="date"
-            (ngModelChange)="asignarFecha()"
-            (ngModel)="fechaSeleccionada"
-         [preferWheel]="true">
+            [(ngModel)]="fechaSeleccionada"
+             [showDefaultTitle]="true"
+             (ngModelChange)="asignarFecha()" >
+            <span slot="title">Seleccione la fecha de cobro</span>
           </ion-datetime>
          </ng-template>
        </ion-modal>
@@ -121,8 +127,7 @@
 
 
 
-<!-- [disabled]="checkDisable()" -->
-<ion-button  class="btns" ion-button type="submit"  id ="confirmar" expand="block">CONFIRMAR</ion-button>
+<ion-button  class="btns" ion-button type="submit"  [disabled]="checkDisable()" id ="confirmar" expand="block">CONFIRMAR</ion-button>
 
         </form>
 
