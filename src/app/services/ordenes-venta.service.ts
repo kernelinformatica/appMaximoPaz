@@ -32,7 +32,7 @@ export class OrdenesVentaService {
     public router: Router
   ) {}
   public async load() {
-    debugger;
+
     const usuarioActualStr = localStorage.getItem('usuarioActual');
     if (usuarioActualStr) {
       this.usuarioActual = JSON.parse(usuarioActualStr);
@@ -189,7 +189,7 @@ export class OrdenesVentaService {
               aOrdenar.mercado == 6 ? aOrdenar.fechaCobro : '',
           }),
         };
-        debugger
+
         //.toLocaleDateString('en-GB', { timeZone: "UTC" })
         this.ordenesVentaPendientes = [];
         this.ordenesVentaTerminadas = [];

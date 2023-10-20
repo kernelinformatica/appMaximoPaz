@@ -25,7 +25,7 @@
         <ion-list>
           <form (ngSubmit)="logForm()">
           <ion-item>
-            <ion-input   style="text-align: right; font-weight: bold; color: green;"  value="0.00"  type="number" label="Importe Solicitado"
+            <ion-input   style="text-align: right; font-weight: bold; color: green; "  value="0.00"  type="number" label="Importe Solicitado"
               [(ngModel)]="aSolicitar.importe" name="importe" label-placement="floating" placeholder="0"></ion-input>
         </ion-item>
           <ion-item >
@@ -68,17 +68,19 @@
 
 
         <ion-label>Fecha de Cobro </ion-label>
-       <ion-datetime-button datetime="datetime"></ion-datetime-button>
+       <ion-datetime-button class="ion-datetime-button" datetime="datetime"></ion-datetime-button>
        <ion-modal [keepContentsMounted]="true">
          <ng-template>
-           <ion-datetime style="background-color: black; color:white" locale="es-ES"
+           <ion-datetime style="background-color: #5e5839;  color:white" locale="es-ES"
             id="datetime"
             name="datetime"
             presentation="date"
-
             (ngModelChange)="asignarFecha()"
-            (ngModel)="fechaSeleccionada" >
+            (ngModel)="fechaSeleccionada"
+            [showDefaultButtons]="true" [showDefaultButtons]="true" doneText="Aceptar" cancelText="Cancelar">
+
           </ion-datetime>
+
          </ng-template>
        </ion-modal>
       </ion-item>

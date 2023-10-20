@@ -16,18 +16,18 @@
   <div *ngIf="cantidadRegistros > 0" >
     <ng-container  *ngFor="let f of fondos_m">
 
-<
+
       <ion-accordion-group expand="inset">
         <ion-accordion value="first"   >
           <ion-item class="texto_acordion" slot="header" color="{{colorSt(f.idEstado.idEstado)}}">
-         <ion-row style="width: 100%;" >
-            <ion-col  >
-              <div><ion-icon name="{{f.idEstado.icono}}"></ion-icon> {{f.tipoTransaccion.nombre.slice(0,6)}}...</div>
+         <ion-row style="width: 100%;">
+            <ion-col>
+              <div><ion-icon name="{{f.idEstado.icono}}"></ion-icon> {{f.tipoTransaccion.nombre.slice(0,6)}}</div>
           </ion-col>
-            <ion-col >
+            <ion-col>
               <div style="text-align: right;"><strong>$ {{f.importe}}</strong></div>
             </ion-col>
-            <ion-col >
+            <ion-col>
               <div style="text-align: right;"> {{f.idEstado.nombre}}</div>
             </ion-col>
 

@@ -69,4 +69,18 @@ export class DetalleCtactePage implements OnInit {
     this.historico = 'S';
   }
 
+  // comprobantes web
+
+  descargarComprobante(item: any){
+
+    alert("descargareComprobante ---> "+item.urlArchivoDescarga);
+
+
+  }
+
+
+
+
+
+
 }

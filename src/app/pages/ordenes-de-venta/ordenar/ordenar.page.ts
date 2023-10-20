@@ -168,7 +168,7 @@ export class OrdenarPage implements OnInit {
     })
   }
   public deleteFecha() {
-    debugger
+
     if(this.orden.mercado == "Disponible") {
       this.orden.cosecha == null;
       this.orden = {codigoCereal: null, precio: null, precioBase: null, toneladas: null, cosecha: null, mercado: 1, moneda: null};

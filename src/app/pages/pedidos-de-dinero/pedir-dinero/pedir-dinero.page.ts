@@ -19,6 +19,7 @@ import { SolicitudFondosService } from 'src/app/services/solicitudfondos-service
 import { Configuraciones } from 'src/configuraciones/configuraciones';
 import { TransaccionFondos } from 'src/app/modelo/pedidos-fondos/transaccion-fondos';
 import { TipoTransaccion } from 'src/app/modelo/pedidos-fondos/tipo-transaccion';
+
 import { Sucursal } from 'src/app/modelo/sucursal';
 import { LoadingController } from '@ionic/angular';
 @Component({
@@ -103,7 +104,9 @@ export class PedirDineroPage implements OnInit {
     this.fechaSeleccionada = new Date().toString();
     this.fechaCobroSeleccionada = new Date();
     this.uiService.dissmisLoading();
+
   }
+
 
   public checkDisable() : boolean {
 
@@ -113,7 +116,6 @@ export class PedirDineroPage implements OnInit {
     let isChequeraValid = false;
     let isSucursalValid = false;
     let isFechaCobroValid = false;
-
     if(this.aSolicitar.tipoTransaccion && this.aSolicitar.tipoTransaccion.idTransaccion && this.aSolicitar.tipoTransaccion.idTransaccion.idTransaccion == 6) {
 
       isTransaccionValid = true;

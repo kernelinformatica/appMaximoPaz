@@ -17,11 +17,7 @@ ion-card {
   margin-left: 10px;
   margin-right: 10px;
 }
-ion-item {
-margin-left: 10px;
-margin-right: 10px;
 
-}
 .list-md {
   background-color: transparent;
 }
@@ -187,4 +183,69 @@ ion-title {
   font-size: medium;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+
+
+ion-accordion {
+  margin: 0 auto;
+  padding: 0px;
+
+}
+.texto_acordion{
+  font-size: 11px;
+
+}
+ion-accordion.accordion-expanding,
+ion-accordion.accordion-expanded {
+  width: calc(100% - 15px);
+
+  margin: 5px auto;
+}
+
+ion-accordion.accordion-collapsing ion-item[slot='header'],
+ion-accordion.accordion-collapsed ion-item[slot='header'] {
+  --background: var(--ion-color-light);
+  --color: var(--ion-color-light-contrast);
+}
+
+ion-accordion.accordion-expanding ion-item[slot='header'],
+ion-accordion.accordion-expanded ion-item[slot='header'] {
+  --background: var(--ion-color-primary);
+  --color: var(--ion-color-primary-contrast);
+}
+
+
+ion-title{
+  font-size: 16px;
+}
+
+.extra-info {
+  transform-origin: top;
+
+  .element-extra {
+      padding: 0px 0px;
+      display: flex;
+      justify-content: space-between;
+      padding: 5px;
+      border: 9px solid white;
+      border-bottom: 0px;
+      background: #F7F7F7;
+      font-size: 11px;
+      .title-extra, .content-extra {
+          display: inline;
+      }
+      .title-extra {
+          font-weight: bold;
+          text-transform: capitalize;
+
+      }
+      .content-extra {
+          margin-left: 8px;
+          text-align: right;
+
+
+      }
+  }
+
 }

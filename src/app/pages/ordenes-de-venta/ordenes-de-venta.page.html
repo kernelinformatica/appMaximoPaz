@@ -7,6 +7,7 @@
       </ion-tab-button>
       <ion-tab-button tab="mis-ordenes">
         <ion-icon name="layers-outline" aria-hidden="true"></ion-icon>
+        <ion-badge *ngIf="cantidadPendiente >= 0" color="success">{{cantidadPendiente}}</ion-badge>
       <label> Mis ordenes</label>
       </ion-tab-button>
       <ion-tab-button tab="historial">

@@ -28,9 +28,101 @@
 
     <h4>DETALLE DE MOVIMIENTOS</h4>
 
+      <ng-container *ngFor="let item of detalleCtaCte.movimientos; let i = index;" >
+        <ion-accordion-group expand="inset">
+          <ion-accordion value="first"   >
+            <ion-item class="texto_acordion" slot="header">
+           <ion-row style="width: 100%;">
+              <ion-col>
+                <div>  {{item.detalle }}</div>
+            </ion-col>
+              <ion-col>
+                <div style="text-align: right;"><strong> {{ cuenta?.moneda ?? "" }} {{ ( item.importeDebe !== 0  ? item.importeDebe : (item.importeHaber !== 0 ? item.importeHaber : item.importeSaldo) ) | numeroFormat }} </strong>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div style="text-align: right;">{{item.vencimiento}}</div>
+              </ion-col>
+
+           </ion-row>
+            </ion-item>
+
+            <div class="ion-padding" slot="content" class="extra_info">
+              <div class="extra-info">
+                <div class="element-extra" *ngIf="item.numero > 0 && item.idTipoComprobante " >
+                  <div class="title-extra">Número Comprobante :</div>
+                  <div class="content-extra">
+                    {{item.numero}}
+                  </div>
+                </div>
+                <div class="element-extra" *ngIf="item.numero > 0 && item.idTipoComprobante " >
+                  <div class="title-extra">Tipo Comprobante:</div>
+                  <div class="content-extra">
+                    {{item.nombreTipoComprobante}}
+                  </div>
+                </div>
+                <div class="element-extra" *ngIf="item.numero > 0 && item.idTipoComprobante " >
+                  <div class="title-extra">Cod Tipo Comprobante:</div>
+                  <div class="content-extra">
+                    {{item.idTipoComprobante}}
+                  </div>
+                </div>
 
 
-  <ion-list>
+                <div class="element-extra">
+                  <div class="title-extra">Detalle:</div>
+                  <div class="content-extra">
+                    {{item.detalle}}
+                  </div>
+                </div>
+              <div class="element-extra" *ngIf="item.numero > 0 && item.idTipoComprobante " >
+                  <div class="title-extra">Concepto:</div>
+                  <div class="content-extra">
+                    {{item.concepto}}
+                  </div>
+                </div>
+                <div class="element-extra">
+                  <div class="title-extra">Fecha Ingreso:</div>
+                  <div class="content-extra">
+                    {{item.ingreso}}
+                  </div>
+                </div>
+                <div class="element-extra">
+                  <div class="title-extra">Fecha Vencimiento:</div>
+                  <div class="content-extra">
+                    {{item.vencimiento}}
+                  </div>
+                </div>
+                <div class="element-extra">
+                 <div class="title-extra">Importe:</div>
+                  <div class="content-extra">
+                    {{ cuenta?.moneda ?? "" }} {{ ( item.importeDebe !== 0  ? item.importeDebe : (item.importeHaber !== 0 ? item.importeHaber : item.importeSaldo) ) | numeroFormat }}
+                  </div>
+                </div>
+
+                <div class="element-extra" *ngIf="item.numero > 0 && item.idTipoComprobante > 0">
+                  <div *ngIf="item.urlArchivoDescarga !== ''" class="title-extra">Descargar Comprobante:</div>
+                   <div class="content-extra" *ngIf="item.urlArchivoDescarga !== ''">
+                    <div>
+                      <a  href="{{item.urlArchivoDescarga}}" target="_blank" >
+                      <ion-img src="../../../assets/icon/tc/pdf-min-2.png"
+                      alt="Descarga de comprobante"  ></ion-img>
+                    </a>
+                    </div>
+                   </div>
+                 </div>
+
+
+
+
+
+        </div>
+            </div>
+          </ion-accordion>
+
+        </ion-accordion-group>
+      </ng-container>
+ <!-- <ion-list>
     <ion-item *ngFor="let item of detalleCtaCte.movimientos; let i = index;"
       class="{{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
       <ng-container *ngIf="item.historico === historico">
@@ -41,9 +133,12 @@
         <ion-label style="font-size: 11px !important; text-align: right;">
           {{item.vencimiento}}
         </ion-label>
+         <ion-label style="font-size: 11px !important; text-align: right;">
+          {{item.vencimiento}}
+        </ion-label>
       </ng-container>
     </ion-item>
-  </ion-list>
+  </ion-list>-->
 
 
 </ion-content>

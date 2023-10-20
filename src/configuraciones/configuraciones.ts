@@ -9,15 +9,17 @@ export class Configuraciones
     public static razonSocialCliente = "Cooperativa Agropecuaria Ltda. de Máximo Paz";
     public static razonSocialNombreCorto = "Coopaz"
     /*
+
     Produccion
 
     */
-    public static urlBase : string = "https://www.gestagro.com.ar/gestagroex-v9/ws";
+   public static urlBase : string = "https://www.gestagro.com.ar/gestagroex-v9/ws";
 
    /*
 
    Desarrollo
-      */
+
+   */
    //public static urlBase : string = "http://localhost:8080/gestagroex-rest/ws";
 
 
@@ -44,8 +46,8 @@ export class Configuraciones
     public static cerealesResumenUrl : string = `${Configuraciones.urlBase}/cereal-resumen/`;
     public static ordenesVentaUrl: string = `${Configuraciones.urlBase}/ordenes/`;
 
-    //public static rutaLogos : string = "assets/images/logos/";
-   public static rutaLogos : string = "https://www.kernelinformatica.com.ar/applications/apps/gestagro/logos/";
+  public static rutaLogos : string = "assets/images/";
+  // public static rutaLogos : string = "https://www.kernelinformatica.com.ar/applications/apps/gestagro/logos/";
    public static serviciosWebURL : string = `https://www.kernelinformatica.com.ar/app/webservices/public/ws.php`;
    //public static serviciosWebURL : string = `https://www.kernelinformatica.com.ar/app/webservices/public/servicios-web-rest.php`;
     public static version : string = "1.0";
