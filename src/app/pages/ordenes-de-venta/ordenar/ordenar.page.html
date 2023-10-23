@@ -25,10 +25,11 @@
       <ion-card-title>Ordenes de Venta </ion-card-title>
       <ion-card-subtitle>Emita una orden de venta de cereales.</ion-card-subtitle>
     </ion-card-header>
-
+    <div>{{orden.mercado}}</div>
     <ion-card-content>
       <form (ngSubmit)="logForm()">
         <ion-item >
+
          <ion-select  label="Mercado" label-placement="floating"
           [(ngModel)]="orden.mercado"
            *ngIf="ordenVentasMercadosService.mercado" class="input-btn"

@@ -168,10 +168,10 @@ export class OrdenarPage implements OnInit {
     })
   }
   public deleteFecha() {
-
+    debugger
     if(this.orden.mercado == "Disponible") {
       this.orden.cosecha == null;
-      this.orden = {codigoCereal: null, precio: null, precioBase: null, toneladas: null, cosecha: null, mercado: 1, moneda: null};
+      this.orden = {codigoCereal: null, precio: null, precioBase: null, toneladas: 0, cosecha: null, mercado: 1, moneda: null};
       this.orden.fechaVenta =  this.uiService.parseFecha(this.fechaVenta);
       this.orden.fechaCobro =  this.uiService.parseFecha(this.fechaCobro);
 

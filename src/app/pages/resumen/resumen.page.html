@@ -35,35 +35,34 @@
           <ion-label >
             <span class= {{importeEstadoSaldos}}>SALDO {{saldoDeudorAcreedor}}</span>
             <strong><div style="text-align: center;" class= {{importeEstadoSaldos}}> <div>{{ getSaldoCtaCteActual(item.saldo) | currencyFormat }}</div></div>
-    </strong>
+          </strong>
+
           </ion-label>
 
           <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
 
         </ion-item>
+        <div  *ngFor="let item2 of resumen.resumenesCtaCte; let i = index;">
+          <ion-toolbar style="background-color: transparent;">
+            <ion-buttons slot="end">
+              <ion-button class="card-btn" (click)="ctacteTapped($event, item2)">Ver Movimientos</ion-button>
+          </ion-buttons>
 
+          </ion-toolbar>
+        </div>
       </div>
-    <div>
-      <ion-toolbar style="background-color: transparent;">
-       <!-- <ion-buttons slot="start">
-          <ion-button  class="card-btn">Start</ion-button>
-        </ion-buttons>-->
-      <ion-buttons slot="end">
-            <ion-button class="card-btn" (click)="linkMiCuenta()">Gestionar mi cuenta</ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </div>
+
     </ion-card-content>
   </ion-card>
 
 
 
 
-<ion-card color="light" *ngIf="tieneFuncion('resumenCereal')">
+<ion-card color="light">
 
   <ion-list >
     <ion-list-header class="headerList" (click)="toggleDetalleCereales()">
-      <ion-label>Resumen de cereales</ion-label>
+      <ion-icon name="reader-outline"></ion-icon><ion-label style="margin-left: 5px;"> Resumen de cereales</ion-label>
       <ion-button>
         <ion-icon
           *ngIf="mostrarDetalleCereales"
@@ -78,6 +77,7 @@
       </ion-button>
     </ion-list-header>
     <div *ngIf="mostrarDetalleCereales">
+
       <ion-item
         *ngFor="let item of resumen.resumenCereal; let i = index;"
         class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}"
@@ -93,10 +93,109 @@
   </ion-list>
 </ion-card>
 
+<ion-card *ngIf="isMercadoDisponible === true" color="light"  >
+
+  <ion-list >
+    <ion-list-header class="headerList" (click)="toggleMercadoDisponible()">
+      <ion-icon name="bar-chart-outline"></ion-icon> <ion-label style="margin-left: 5px;">Mercado Disponible</ion-label>
+
+      <ion-button>
+        <ion-icon
+          *ngIf="mostrarMercadoDisponible"
+          name="remove-circle-outline"
+          slot="end"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!mostrarMercadoDisponible"
+          name="add-circle-outline"
+          slot="end"
+        ></ion-icon>
+      </ion-button>
+    </ion-list-header>
+    <div *ngIf="mostrarMercadoDisponible">
+      <ion-item class="item item-block item-md par"> Cierre: {{  this.fechaCierre === null ?  "" :  this.fechaCierre }}</ion-item>
+      <ion-item
+        *ngFor="let item of mercadoDisponible; let i = index;"
+        class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+        <ion-label>
+         {{item.nombre}}
+        </ion-label>
+        {{item.monedaSimbolo}} {{item.precioTn}}
+        <ion-col>
+
+          <ion-icon class="green-arrow icon-size" style="color:green" *ngIf="item.variacionDiaAnterior > 0" name="arrow-up-outline"></ion-icon>
+          <ion-icon class="red-arrow icon-size" style="color:red" *ngIf="item.variacionDiaAnterior < 0" name="arrow-down-outline"></ion-icon>
+          <ion-icon class="white-arrow icon-size" style="color:blue" *ngIf="item.variacionDiaAnterior === '0'" name="reorder-two-outline"></ion-icon>      </ion-col>
+
+         <ion-col  >
+           <div style="text-align: right">
+             {{ item.nombrePuerto }}
+           </div>
+         </ion-col>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-card>
+
+
+
+
+
+<ion-card *ngIf="isMercadoFuturo === true" color="light"  >
+  <ion-list >
+    <ion-list-header class="headerList" (click)="toggleMercadoFuturo()">
+      <ion-icon name="trending-up-outline"></ion-icon><ion-label style="margin-left: 5px;"> Futuros</ion-label>
+
+      <ion-button>
+        <ion-icon
+          *ngIf="mostrarMercadoFuturo"
+          name="remove-circle-outline"
+          slot="end"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!mostrarMercadoFuturo"
+          name="add-circle-outline"
+          slot="end"
+        ></ion-icon>
+      </ion-button>
+    </ion-list-header>
+    <div *ngIf="mostrarMercadoFuturo">
+      <ion-item class="item item-block item-md par"> Cierre: {{  this.fechaCierre === null ?  "" :  this.fechaCierre }}</ion-item>
+      <ion-item
+        *ngFor="let item of mercadoFuturo; let i = index;"
+        class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+        <ion-label>
+         {{item.nombre}}
+        </ion-label>
+        {{item.monedaSimbolo}} {{item.precioTn}}
+        <ion-col>
+
+          <ion-icon class="green-arrow icon-size" style="color:green" *ngIf="item.variacionDiaAnterior > 0" name="arrow-up-outline"></ion-icon>
+          <ion-icon class="red-arrow icon-size" style="color:red" *ngIf="item.variacionDiaAnterior < 0" name="arrow-down-outline"></ion-icon>
+          <ion-icon class="white-arrow icon-size" style="color:blue" *ngIf="item.variacionDiaAnterior === '0'" name="reorder-two-outline"></ion-icon>      </ion-col>
+
+         <ion-col  >
+           <div style="text-align: right">
+             {{ item.periodo }}
+           </div>
+         </ion-col>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-card>
+
+
+
+
+
+
+<!--
+
+
 <ion-card color="light" *ngIf="isMercadoDisponible === true || isMercadoFuturo === true" >
   <ion-card-header *ngIf="isMercadoDisponible === true" >
     <ion-card-title class="ion-card-title">
-      MERCADO DE CEREALES
+      MERCADO DISPONIBLE
      </ion-card-title>
      <ion-card-subtitle class="ion-card-sub-title">
       Cierre: {{  this.fechaCierre === null ?  "" :  this.fechaCierre }}
@@ -104,7 +203,7 @@
   </ion-card-header>
 
   <ion-card-content  *ngIf="isMercadoDisponible === true || isMercadoFuturo === true">
-   <!--  <ion-spinner *ngIf="!isMercadoCerealesCargado()"></ion-spinner> -->
+
     <div *ngIf="isMercadoCerealesCargado()">
     <div *ngIf="isMercadoDisponible === true"><h2><ion-icon name="pie-chart"></ion-icon> Disponible</h2></div>
     <ion-list *ngFor="let item of mercadoDisponible; let i = index;">
@@ -183,7 +282,7 @@
     </ion-card-content>
 
 </ion-card>
-
+-->
 
 
 
@@ -210,12 +309,7 @@
 
 
 </ion-card>
-<!-- SOLO PARA CAUR ( LINK A OFERTAS ) *ngIf="empresa.id === 03"-->
-<ion-card color="light" *ngIf="ofertasCaurTapped()"  >
-<ion-card-header>
-   <a href='https://comercial.caur.coop.ar/ofertas/' target="_blank"><img class="logoResumen2"    src="../../../assets/images/logos/03-ofertas.png" /></a>
-  </ion-card-header>
-</ion-card>
+
       <ion-card color="light" >
         <ion-card-content>
           <p ><ion-icon name="time-outline"></ion-icon> Ult. actualización {{ resumen?.ultimaActualizacion ?? "" }} - S.E.U.O.</p>

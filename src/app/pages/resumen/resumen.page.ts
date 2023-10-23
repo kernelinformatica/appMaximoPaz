@@ -31,7 +31,9 @@ export class ResumenPage implements OnInit {
   public mostrarDetalleCuentas = false;
   public mostrarDetalleFichaRemitos = false;
   public mostrarDetalleFichaCombustibles = false; // Usado para ocultar el detalle de las cuentas
-  public mostrarDetalleCereales = false; // Usado para ocultar el detalle de los cereales
+  public mostrarDetalleCereales = false;
+  public mostrarMercadoDisponible = false;  // Usado para ocultar el detalle disponible
+  public mostrarMercadoFuturo = false;  // Usado para ocultar el detalle futuro
   public seccion!: string;
   public contieneRemitos: boolean | any;
   public contieneCombustibles: boolean | any;
@@ -198,7 +200,6 @@ export class ResumenPage implements OnInit {
    this.mercadoFuturosService
       .load(this.resumen.empresa.id, 'json', 'mercado-cereales', '2')
       .then(async (data: any) => {
-
         this.mercadoFuturo = data.mercadoCer
         if (this.mercadoFuturo.length > 0 ){
           this.isMercadoFuturo = true;
@@ -257,13 +258,24 @@ export class ResumenPage implements OnInit {
     }
   }
 
+
+
+
   /**
    * Este metodo se utiliza para mostrar/ocultar el detalle de cereales
    */
   public toggleDetalleCereales() {
+
     this.mostrarDetalleCereales = !this.mostrarDetalleCereales;
   }
+  public toggleMercadoDisponible() {
 
+    this.mostrarMercadoDisponible = !this.mostrarMercadoDisponible;
+    //alert("ciick mercado disponible "+this.mostrarMercadoDisponible)
+  }
+  public toggleMercadoFuturo() {
+    this.mostrarMercadoFuturo = !this.mostrarMercadoFuturo;
+  }
   /**
    * Este metodo se utiliza para mostrar/ocultar el detalle de las cta. cte.
    */
@@ -328,6 +340,9 @@ export class ResumenPage implements OnInit {
 
   public linkMiCuenta() {
     this.navController.navigateRoot('/mi-cuenta');
+  }
+  public linkMovCtaCte(){
+    this.navController.navigateRoot('/detalle-ctacte');
   }
   public getSaldoCtaCteActual(saldo: any) {
 

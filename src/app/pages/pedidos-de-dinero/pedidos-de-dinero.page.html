@@ -10,7 +10,7 @@
 
       <ion-tab-button tab="mis-pedidos">
         <ion-icon name="person-circle" aria-hidden="true"></ion-icon>
-        <ion-badge *ngIf="cantidadPendiente >= 0" color="success">{{cantidadPendiente}}</ion-badge>
+        <ion-badge *ngIf="cantidadPendiente > 0" color="success">{{cantidadPendiente}}</ion-badge>
         <ion-label>Mis Pedidos</ion-label>
       </ion-tab-button>
 
