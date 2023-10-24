@@ -29,13 +29,13 @@
               [(ngModel)]="aSolicitar.importe" name="importe" label-placement="floating" placeholder="0"></ion-input>
         </ion-item>
           <ion-item >
-             <ion-select  label="Tipo de Transaccion" label-placement="floating"  *ngIf="transaccionesService.transacciones" class="input-btn" [(ngModel)]="aSolicitar.tipoTransaccion" name="transaccion" placeholder="Transaccion">
+             <ion-select  interface="popover"  label="Tipo de Transaccion" label-placement="floating"  *ngIf="transaccionesService.transacciones" class="input-btn" [(ngModel)]="aSolicitar.tipoTransaccion" name="transaccion" placeholder="Transaccion">
              <ion-select-option *ngFor="let tra of transaccionesService.transacciones" [value]="tra"> {{tra.nombre}}</ion-select-option>
         </ion-select>
           </ion-item>
         <ion-list *ngIf="(aSolicitar.tipoTransaccion && aSolicitar.tipoTransaccion.idTransaccion  && aSolicitar.tipoTransaccion.idTransaccion.idTransaccion === 6)" >
          <ion-item>
-            <ion-select *ngIf="cbuSocios" class="input-btn" [(ngModel)]="aSolicitar.destinoCbuPadron" name="destinoCbu" placeholder="Destino Cbu" label="Destino Cbu">
+            <ion-select  interface="popover"  *ngIf="cbuSocios" class="input-btn" [(ngModel)]="aSolicitar.destinoCbuPadron" name="destinoCbu" placeholder="Destino Cbu" label="Destino Cbu">
               <ion-select-option  *ngFor="let cbu of cbuPadronService.arrayCbu" [value]="cbu">{{cbu.cbu}}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -45,7 +45,7 @@
 
       <ion-list *ngIf="(aSolicitar.tipoTransaccion && aSolicitar.tipoTransaccion.idTransaccion  && aSolicitar.tipoTransaccion.idTransaccion.idTransaccion === 7)" class="addmargin">
           <ion-item>
-             <ion-select *ngIf="chequerasService.chequeras" class="input-btn" [(ngModel)]="aSolicitar.idChequera" name="banco" placeholder="Medio de cobro">
+             <ion-select  interface="popover" *ngIf="chequerasService.chequeras" class="input-btn" [(ngModel)]="aSolicitar.idChequera" name="banco" placeholder="Medio de cobro">
                   <ion-select-option *ngFor="let chequera of chequerasService.chequeras" [value]="chequera">{{chequera.idBanco.nombre}}</ion-select-option>
               </ion-select>
           </ion-item>
@@ -54,7 +54,7 @@
 
           <ion-list *ngIf="(aSolicitar.tipoTransaccion && aSolicitar.tipoTransaccion.idTransaccion  && aSolicitar.tipoTransaccion.idTransaccion.idTransaccion === 7)" >
            <ion-item >
-            <ion-select *ngIf="sucursales" class="input-btn" [(ngModel)]="aSolicitar.sucursal" name="sucursal" placeholder="Sucursal de cobro" label="Scursal de cobro">
+            <ion-select  interface="popover" *ngIf="sucursales" class="input-btn" [(ngModel)]="aSolicitar.sucursal" name="sucursal" placeholder="Sucursal de cobro" label="Scursal de cobro">
               <ion-select-option *ngFor="let sucursal of sucursalesService.sucursales" [value]="sucursal">{{sucursal.nombre}} - {{sucursal.localidadPcia}}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -67,19 +67,21 @@
        <ion-item>
 
 
-        <ion-label>Fecha de Cobro </ion-label>
+        <ion-label>Fecha de Cobro <div>{{fechaSeleccionada}}</div> </ion-label>
        <ion-datetime-button class="ion-datetime-button" datetime="datetime"></ion-datetime-button>
        <ion-modal [keepContentsMounted]="true">
          <ng-template>
-           <ion-datetime style="background-color: #5e5839;  color:white" locale="es-ES"
+           <ion-datetime style="background-color: #5e5839;  color:white"
+            locale="es-ES"
             id="datetime"
             name="datetime"
             presentation="date"
             (ngModelChange)="asignarFecha()"
             (ngModel)="fechaSeleccionada"
-            [showDefaultButtons]="true" [showDefaultButtons]="true" doneText="Aceptar" cancelText="Cancelar">
-
-          </ion-datetime>
+            [showDefaultButtons]="true"
+            doneText="Aceptar"
+            cancelText="Cancelar">
+       </ion-datetime>
 
          </ng-template>
        </ion-modal>

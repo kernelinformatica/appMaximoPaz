@@ -188,6 +188,10 @@ export class SolicitudFondosService {
 
           const params = {};
           const url = `${this.getURLServicioSolicitarFondos()}`;
+          if (aSolicitar.fechaCobro == null){
+            aSolicitar.fechaCobro =  new Date()
+
+          }
           const httpOptions = {
             headers: new HttpHeaders({
             token: this.usuarioActual.token.hashId,
@@ -230,7 +234,7 @@ export class SolicitudFondosService {
 
 
         } catch (error: any) {
-
+           this.loadingController.dismiss();
           const dataError = JSON.parse(error.message)
           this.uiService.presentAlertInfo("Error de conexión: La conexión al servidor falló, inténtelo más tarde. "+dataError.control.descripcion)
           reject(dataError.control.descripcion);

@@ -25,23 +25,22 @@
       <ion-card-title>Ordenes de Venta </ion-card-title>
       <ion-card-subtitle>Emita una orden de venta de cereales.</ion-card-subtitle>
     </ion-card-header>
-    <div>{{orden.mercado}}</div>
     <ion-card-content>
       <form (ngSubmit)="logForm()">
         <ion-item >
 
-         <ion-select  label="Mercado" label-placement="floating"
+        <ion-select interface="popover" label="Mercado" label-placement="floating"
           [(ngModel)]="orden.mercado"
            *ngIf="ordenVentasMercadosService.mercado" class="input-btn"
             (ngModelChange)="deleteFecha()"
             name="mercado" placeholder="Mercado">
-          <ion-select-option *ngFor="let mercado of ordenVentasMercadosService.mercado" [value]="mercado.mercado">{{mercado.descripcion}}</ion-select-option>
+          <ion-select-option   *ngFor="let mercado of ordenVentasMercadosService.mercado" [value]="mercado.idMercado">{{mercado.descripcion}}</ion-select-option>
        </ion-select>
       </ion-item>
 
 
       <ion-item >
-        <ion-select  label="Cereales" label-placement="floating"
+        <ion-select  interface="popover" label="Cereales" label-placement="floating"
         *ngIf="cerealesService.cereal"
         [(ngModel)]="orden.codigoCereal"
         (ngModelChange)="buscaCosechas()"
@@ -52,14 +51,14 @@
 
     <ion-list class="addmargin" *ngIf="orden.mercado && orden.codigoCereal"   >
       <ion-item>
-        <ion-select  *ngIf="   orden.codigoCereal  && orden.mercado === 1 && cantidadCosechas > 0" class="input-btn" [(ngModel)]="orden.cosecha" name="cosecha" placeholder="Cosecha" [disabled]="1 > cerealResumenService.cerealResumenes.length"
+        <ion-select  interface="popover"  *ngIf="   orden.codigoCereal  && orden.mercado === 5 && cantidadCosechas > 0" class="input-btn" [(ngModel)]="orden.cosecha" name="cosecha" placeholder="Cosecha" [disabled]="1 > cerealResumenService.cerealResumenes.length"
           >
           <div>
              <ion-select-option *ngFor="let cr of cerealResumen" [value]="cr.cerealResumenPK.cosecha">{{cr.cerealResumenPK.cosecha}}</ion-select-option>
 
         </div>
           </ion-select>
-          <ion-input *ngIf="orden.mercado === 2 && orden.codigoCereal" type="number" class="text-input input-btn"
+          <ion-input *ngIf="orden.mercado === 6 && orden.codigoCereal" type="number" class="text-input input-btn"
             placeholder="Cosecha"
              [(ngModel)]="orden.cosecha" name="cosecha"
              maxlength="4"></ion-input>
@@ -68,7 +67,7 @@
 
   <ion-list   class="addmargin" *ngIf="orden.mercado && orden.codigoCereal && orden.cosecha "  >
     <ion-item>
-            <ion-select class="input-btn" [(ngModel)]="orden.moneda" name="moneda" placeholder="Moneda">
+            <ion-select  interface="popover" class="input-btn" [(ngModel)]="orden.moneda" name="moneda" placeholder="Moneda">
                     <div>
                         <ion-select-option *ngFor="let moneda of monedasService.monedas" [value]="moneda.idMoneda">{{moneda.descripcion}} - {{moneda.abreviatura}}</ion-select-option>
                     </div>
@@ -99,21 +98,24 @@
 <ion-list class="addmargin" *ngIf="orden.mercado && orden.codigoCereal && orden.cosecha" >
 
   <ion-item   >
-    <ion-label *ngIf="orden.mercado === 1">Fecha de Cobro</ion-label>
-    <ion-input *ngIf="orden.mercado === 1" [attr.readonly]="true" [(ngModel)]="orden.fechaCobro" name="fechaCobro"></ion-input>
-    <ion-label *ngIf="orden.mercado === 2">Fecha de Cobro </ion-label>
-    <div *ngIf="orden.mercado === 2">
+    <ion-label *ngIf="orden.mercado === 5">Fecha de Cobro</ion-label>
+    <ion-input *ngIf="orden.mercado === 5" [attr.readonly]="true" [(ngModel)]="orden.fechaCobro" name="fechaCobro"></ion-input>
+    <ion-label *ngIf="orden.mercado === 6">Fecha de Cobro </ion-label>
+    <div *ngIf="orden.mercado === 6">
 
-      <ion-datetime-button  datetime="datetime"></ion-datetime-button >
+      <ion-datetime-button  datetime="datetime" ></ion-datetime-button >
        <ion-modal [keepContentsMounted]="true">
          <ng-template>
-          <ion-datetime style="background-color: #5e5839;  color:white" locale="es-ES"
+          <ion-datetime  style="background-color: #5e5839;  color:white" locale="es-ES"
             id="datetime"
             name="datetime"
             presentation="date"
+            min="today"
+
             [(ngModel)]="fechaSeleccionada"
 
-             (ngModelChange)="asignarFecha()" [showDefaultButtons]="true" [showDefaultButtons]="true" doneText="Aceptar" cancelText="Cancelar">
+             (ngModelChange)="asignarFecha()" [showDefaultButtons]="true"
+             [showDefaultButtons]="true" doneText="Aceptar" cancelText="Cancelar">
 
           </ion-datetime>
          </ng-template>
@@ -125,7 +127,6 @@
 
 
 </ion-list>
-
 
 
 <ion-button  class="btns" ion-button type="submit"  [disabled]="checkDisable()" id ="confirmar" expand="block">CONFIRMAR</ion-button>

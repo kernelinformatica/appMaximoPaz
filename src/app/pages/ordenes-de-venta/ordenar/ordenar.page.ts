@@ -25,7 +25,9 @@ export class OrdenarPage implements OnInit {
   orden: any;
   fechaVenta!: Date;
   fechaCobro!: Date;
+  debug!: string;
   public fechaSeleccionada: any;
+  public fechaMinimaPermitida: any
   public fechaHoy!: string;
   public now!: Date;
   public minDate!: number;
@@ -39,6 +41,7 @@ export class OrdenarPage implements OnInit {
   public estaTodoCargado: boolean | false = false;
   public cantidadCosechas!: number
   public urlVer : any;
+
   constructor(public navCtrl: NavController,
     public loadingController: LoadingController,
     public resumenService: ResumenService,
@@ -59,14 +62,14 @@ export class OrdenarPage implements OnInit {
       if (usuarioActualStr) {
         this.usuarioActual = JSON.parse(usuarioActualStr);
         this.orden = {}
-
         this.fechaVenta = new Date();
         this.fechaCobro = new Date(this.fechaVenta.getUTCFullYear(), this.fechaVenta.getUTCMonth(), this.fechaVenta.getUTCDate() + 10);
-
 
         this.now = new Date();
         this.minDate = this.now.getFullYear();
         this.maxDate = new Date(this.now.getFullYear() + 2, 11, 31).toISOString();
+        this.fechaSeleccionada = new Date(this.now.getFullYear() ,this.fechaVenta.getUTCMonth(), this.fechaVenta.getUTCDate() + 10).toISOString();
+        this.fechaMinimaPermitida = this.now;
         this.uiService = uiService;
 
       }else{
@@ -132,7 +135,7 @@ export class OrdenarPage implements OnInit {
   async buscaCosechas() {
 
 
-    if(this.orden.mercado == 1) {
+    if(this.orden.mercado == 5) {
 
         this.cerealResumenService.load(this.orden.codigoCereal, false).then(async(data: any) => {
 
@@ -154,6 +157,7 @@ export class OrdenarPage implements OnInit {
 
      this.mercados = data;
 
+
     });
   }
   async  cargarCereales(){
@@ -168,20 +172,21 @@ export class OrdenarPage implements OnInit {
     })
   }
   public deleteFecha() {
-    debugger
-    if(this.orden.mercado == "Disponible") {
+
+    if(this.orden.mercado == 5) {
       this.orden.cosecha == null;
-      this.orden = {codigoCereal: null, precio: null, precioBase: null, toneladas: 0, cosecha: null, mercado: 1, moneda: null};
+      this.orden = {codigoCereal: null, precio: null, precioBase: null, toneladas: null, cosecha: null, mercado: 5, moneda: null};
       this.orden.fechaVenta =  this.uiService.parseFecha(this.fechaVenta);
       this.orden.fechaCobro =  this.uiService.parseFecha(this.fechaCobro);
 
-    } else{
-      this.orden.fechaCobro = null;
+    }else if (this.orden.mercado == 6){
+
       this.orden.cosecha == null;
-      this.orden = {moneda: null, codigoCereal: null, precio: null, precioBase: null, toneladas: null, cosecha: null, mercado: 2};
+      this.orden = {moneda: null, codigoCereal: null, precio: null, precioBase: null, toneladas: null, cosecha: null, mercado: 6};
       this.orden.fechaVenta =  this.uiService.parseFecha(this.fechaVenta);
 
-    }
+      }
+
   }
 
 
@@ -191,14 +196,34 @@ export class OrdenarPage implements OnInit {
     let fechaParseada= fechaParseadaTemp[0]
     this.orden.fechaCobro = fechaParseada;
 
-    console.log(this.orden.fechaCobro);
+
   }
 
+  public verificoFechas(){
+
+    let fecha1 =new Date(this.fechaMinimaPermitida)
+    let fecha2 = new Date(this.fechaSeleccionada)
+    if (new Date(fecha1).getTime() >= new Date(fecha2).getTime()){
+      return false;
+    }else{
+      return true;
+
+
+    }
+
+
+  }
 
   public checkDisable() {
+    this.debug = this.uiService.parseFecha(this.fechaMinimaPermitida)+ " <---->   "+this.uiService.parseFecha(this.fechaSeleccionada)
+
+    if(!this.orden.fechaCobro){
+      this.asignarFecha()
+    }
     if(this.orden.codigoCereal && this.orden.moneda && this.orden.mercado
       && this.orden.toneladas && this.orden.fechaVenta && this.orden.fechaCobro
-      && this.orden.cosecha && (this.orden.precioBase > 0) && this.orden.toneladas > 0
+      && this.orden.cosecha && this.orden.toneladas > 0
+      && this.verificoFechas()
       && (this.orden.mercado || this.validarCosecha())) {
         return false;
       }

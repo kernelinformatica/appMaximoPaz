@@ -38,7 +38,8 @@ export class PedirDineroPage implements OnInit {
   private iconoPedidoDeFondos = 'logo-usd';
   private iconoDescargaEnPlanta = 'download';  // Usado para mostrar el icono que corresponde  // Usado para mostrar el icono que corresponde
   public aSolicitar: SolicitudFondos = new SolicitudFondos(null);
-  public fechaSeleccionada!: string;
+  public fechaSeleccionada: any;
+  public fechaMinimaPermitida: any
   public fechaCobroSeleccionada: Date = new Date();
   public now!: Date;
   public minDate!: number;
@@ -52,6 +53,8 @@ export class PedirDineroPage implements OnInit {
   public sucursales: Sucursal[] = [];
   public cbuSocios : any;
   public urlVer: any;
+  fechaCobro!: Date;
+  fechaHoy!: Date;
   constructor(
      public uiService: UiService,
      public chequerasService: ChequerasService,
@@ -63,11 +66,19 @@ export class PedirDineroPage implements OnInit {
      private router: Router
 
     ) {
-      this.fechaSeleccionada = new Date().toString();
-      this.fechaCobroSeleccionada = new Date();
+
       const usuarioActualStr = localStorage.getItem('usuarioActual');
       if (usuarioActualStr) {
+        this.fechaMinimaPermitida = new Date().toString();
         this.usuarioActual = JSON.parse(usuarioActualStr);
+        this.fechaHoy = new Date();
+        this.fechaCobro = new Date(this.fechaHoy.getUTCFullYear(), this.fechaHoy.getUTCMonth(), this.fechaHoy.getUTCDate() + 10);
+        this.now = new Date();
+        this.minDate = this.now.getFullYear();
+        this.maxDate = new Date(this.now.getFullYear() + 2, 11, 31).toISOString();
+        this.fechaSeleccionada = new Date(this.now.getFullYear() ,this.fechaHoy.getUTCMonth(), this.fechaHoy.getUTCDate() + 10).toISOString();
+
+        this.fechaMinimaPermitida = this.now;
         this.inicializar()
       }else{
 
@@ -88,6 +99,23 @@ export class PedirDineroPage implements OnInit {
         });
      }
 
+
+     public verificoFechas(){
+
+      let fecha1 =new Date(this.fechaMinimaPermitida)
+      let fecha2 = new Date(this.fechaSeleccionada)
+      this.debugger
+      if (new Date(fecha1).getTime() >= new Date(fecha2).getTime()){
+        return false;
+      }else{
+        return true;
+
+
+      }
+
+
+    }
+
      async  cargarCbuSocios(){
       this.cbuPadronService.loadCbus().then(async(cbus) => {
        this.cbuSocios = cbus;
@@ -98,8 +126,10 @@ export class PedirDineroPage implements OnInit {
 
 
   public logForm() {
-    this.uiService.presentLoading("Solicitando $"+this.aSolicitar.importe+" pesos...")
+   // this.uiService.presentLoading("Solicitando $"+this.aSolicitar.importe+" pesos...")
+
     this.solicitudFondosService.crearSolicitud(this.aSolicitar);
+
     this.aSolicitar = new SolicitudFondos(null);
     this.fechaSeleccionada = new Date().toString();
     this.fechaCobroSeleccionada = new Date();
@@ -116,6 +146,8 @@ export class PedirDineroPage implements OnInit {
     let isChequeraValid = false;
     let isSucursalValid = false;
     let isFechaCobroValid = false;
+    let isValidoRangoFecha = false;
+
     if(this.aSolicitar.tipoTransaccion && this.aSolicitar.tipoTransaccion.idTransaccion && this.aSolicitar.tipoTransaccion.idTransaccion.idTransaccion == 6) {
 
       isTransaccionValid = true;
@@ -133,7 +165,8 @@ export class PedirDineroPage implements OnInit {
       isSucursalValid = (this.aSolicitar.sucursal && this.aSolicitar.sucursal.idSucursal) ? true : false;
       isImporteValid = (this.aSolicitar.importe && this.aSolicitar.importe > 0) ? true : false;
       isFechaCobroValid = (this.aSolicitar.fechaCobro && this.aSolicitar.fechaCobro >= new Date(this.now.getUTCFullYear(), this.now.getUTCMonth(), this.now.getUTCDate())) ? true : false;
-      this.debugger = isTransaccionValid+" - "+isCbuValid+" - "+isImporteValid+" - "+isFechaCobroValid
+      //isValidoRangoFecha = this.verificoFechas();
+      // this.debugger = isTransaccionValid+" - "+isCbuValid+" - "+isImporteValid+" - "+isFechaCobroValid
       return !(isTransaccionValid && isChequeraValid && isSucursalValid && isImporteValid && !isFechaCobroValid);
     }
 
@@ -144,6 +177,9 @@ export class PedirDineroPage implements OnInit {
     this.fechaCobroSeleccionada = new Date(this.fechaSeleccionada);
 
     this.aSolicitar.fechaCobro = this.fechaCobroSeleccionada;
+
+
+
 
  }
 
@@ -171,6 +207,7 @@ export class PedirDineroPage implements OnInit {
 
 
   public inicializar() {
+
     this.cargarTiposDeTransacciones();
     this.cargarCbuSocios();
     this.cargarSucursales()
