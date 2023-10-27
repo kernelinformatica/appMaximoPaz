@@ -31,23 +31,25 @@
       <ng-container *ngFor="let item of detalleCtaCte.movimientos; let i = index;" >
         <ion-accordion-group expand="inset">
           <ion-accordion value="first"   >
-            <ion-item class="texto_acordion" slot="header">
-           <ion-row style="width: 100%;">
+            <ion-item class="texto_acordion" style="background-color:aqua" slot="header">
+           <ion-row style="width: 100%">
               <ion-col>
-                <div>  {{item.detalle }}</div>
+                <div *ngIf="item.concepto !== 'DIFERIDOS' && item.concepto !== 'VENCIDO'">{{item.detalle }}</div>
+                <div  *ngIf="item.concepto === 'DIFERIDOS'"><ion-icon name="caret-down-outline"></ion-icon> MOVIMIENTOS DIFERIDOS</div>
+                <div  *ngIf="item.concepto === 'VENCIDO'"><ion-icon name="caret-down-outline"></ion-icon> MOVIMIENTOS VENCIDOS</div>
             </ion-col>
-              <ion-col>
+              <ion-col *ngIf="item.concepto !== 'DIFERIDOS' && item.concepto !== 'VENCIDO' ">
                 <div style="text-align: right;"><strong> {{ cuenta?.moneda ?? "" }} {{ ( item.importeDebe !== 0  ? item.importeDebe : (item.importeHaber !== 0 ? item.importeHaber : item.importeSaldo) ) | numeroFormat }} </strong>
                 </div>
               </ion-col>
-              <ion-col>
+              <ion-col *ngIf="item.concepto !== 'DIFERIDOS' && item.concepto !== 'VENCIDO' ">
                 <div style="text-align: right;">{{item.vencimiento}}</div>
               </ion-col>
 
            </ion-row>
             </ion-item>
 
-            <div class="ion-padding" slot="content" class="extra_info">
+            <div *ngIf="item.concepto !== 'DIFERIDOS' && item.concepto !== 'VENCIDO'" class="ion-padding" slot="content" class="extra_info">
               <div class="extra-info">
                 <div class="element-extra" *ngIf="item.numero > 0 && item.idTipoComprobante " >
                   <div class="title-extra">Número Comprobante :</div>
@@ -105,7 +107,7 @@
                    <div class="content-extra" *ngIf="item.urlArchivoDescarga !== ''">
                     <div>
                       <a  href="{{item.urlArchivoDescarga}}" target="_blank" >
-                      <ion-img src="../../../assets/icon/tc/pdf-min-2.png"
+                      <ion-img src="../../../assets/icon/tc/pdf.png"
                       alt="Descarga de comprobante"  ></ion-img>
                     </a>
                     </div>

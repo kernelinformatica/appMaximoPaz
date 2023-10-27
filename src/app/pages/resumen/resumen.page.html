@@ -139,8 +139,6 @@
 
 
 
-
-
 <ion-card *ngIf="isMercadoFuturo === true" color="light"  >
   <ion-list >
     <ion-list-header class="headerList" (click)="toggleMercadoFuturo()">
@@ -184,7 +182,62 @@
   </ion-list>
 </ion-card>
 
+<!--
 
+  Noticias
+
+-->
+
+
+
+<ion-card color="light"  >
+
+  <ion-list >
+    <ion-list-header class="headerList" (click)="toggleNoticias()">
+      <ion-icon name="megaphone-outline"></ion-icon> <ion-label style="margin-left: 5px;">Noticias (3)</ion-label>
+<!--<ion-icon name="newspaper-outline"></ion-icon>-->
+      <ion-button>
+        <ion-icon
+          *ngIf="mostrarNoticias"
+          name="remove-circle-outline"
+          slot="end"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!mostrarNoticias"
+          name="add-circle-outline"
+          slot="end"
+        ></ion-icon>
+      </ion-button>
+    </ion-list-header>
+    <div *ngIf="mostrarNoticias">
+      <ion-item class="item item-block item-md par">Toda la actualidad nacional</ion-item>
+      <ion-item
+        *ngFor="let item of noticias; let i = index;"
+        class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+        <ion-label>
+         titulo noticias
+        </ion-label>
+
+        <ion-col>
+         fecha
+        </ion-col>
+
+         <ion-col  >
+           <div style="text-align: right">
+            categoria
+           </div>
+         </ion-col>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-card>
+
+
+
+<!--
+
+  fin noticias
+-->
 
 
 

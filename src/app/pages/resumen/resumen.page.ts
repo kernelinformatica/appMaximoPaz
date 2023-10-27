@@ -19,6 +19,7 @@ import { UiService } from 'src/app/services/ui.service';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { Configuraciones } from 'src/configuraciones/configuraciones';
 import { MercadosService } from 'src/app/services/mercados-service';
+
 @Component({
   selector: 'app-resumen',
   templateUrl: './resumen.page.html',
@@ -33,7 +34,8 @@ export class ResumenPage implements OnInit {
   public mostrarDetalleFichaCombustibles = false; // Usado para ocultar el detalle de las cuentas
   public mostrarDetalleCereales = false;
   public mostrarMercadoDisponible = false;  // Usado para ocultar el detalle disponible
-  public mostrarMercadoFuturo = false;  // Usado para ocultar el detalle futuro
+  public mostrarMercadoFuturo = false;
+  public mostrarNoticias= false;
   public seccion!: string;
   public contieneRemitos: boolean | any;
   public contieneCombustibles: boolean | any;
@@ -52,11 +54,13 @@ export class ResumenPage implements OnInit {
   isMercadoDisponible: any;
   isMercadoFuturo:any;
   isPizarra: any;
+  isNoticias: any;
   public notificaciones: any;
   public ver: boolean = false;
   public numeroMensajes: any;
   public mercadoDisponible : any;
   public mercadoFuturo: any;
+  public noticias: any;
 
   constructor(
     public resumenService: ResumenService,
@@ -272,6 +276,11 @@ export class ResumenPage implements OnInit {
 
     this.mostrarMercadoDisponible = !this.mostrarMercadoDisponible;
     //alert("ciick mercado disponible "+this.mostrarMercadoDisponible)
+  }
+  public toggleNoticias() {
+
+    this.mostrarNoticias = !this.mostrarNoticias;
+
   }
   public toggleMercadoFuturo() {
     this.mostrarMercadoFuturo = !this.mostrarMercadoFuturo;
