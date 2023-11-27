@@ -13,7 +13,9 @@ export class Configuraciones
     Produccion
 
     */
-   public static urlBase : string = "https://www.gestagro.com.ar/gestagroex-v9/ws";
+  //
+  public static urlBaseImgs = "https://www.maximopazcoop.com.ar/i/images_app";
+  public static urlBase : string = "https://www.gestagro.com.ar/gestagroex-v9/ws";
 
    /*
 

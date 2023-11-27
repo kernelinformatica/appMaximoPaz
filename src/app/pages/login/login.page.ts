@@ -37,6 +37,7 @@ export class LoginPage implements OnInit {
   iconpassword = 'eye-off';
   iconcuenta = 'person';
   razonSocialNombreCorto  : String | null = '';
+  public urlLogo = Configuraciones.urlBaseImgs;
   public registerCredentials = { usuario: '', clave: '' }; // Usado para el inicio de sesion
 
   @ViewChild('passwordEyeRegister') passwordEye: any;

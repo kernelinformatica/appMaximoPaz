@@ -3,21 +3,22 @@
     <ion-tab-bar slot="button">
       <ion-tab-button tab="ordenar">
         <ion-icon name="reader-outline" aria-hidden="true"></ion-icon>
-       <label>Emitir</label>
+       <label>Emitir Orden de Venta</label>
       </ion-tab-button>
       <ion-tab-button tab="mis-ordenes">
         <ion-icon name="layers-outline" aria-hidden="true"></ion-icon>
         <ion-badge *ngIf="cantidadPendiente > 0" color="success">{{cantidadPendiente}}</ion-badge>
       <label> Mis ordenes</label>
       </ion-tab-button>
-      <ion-tab-button tab="historial">
+     <!-- <ion-tab-button tab="historial">
         <ion-icon name="reload-outline" aria-hidden="true"></ion-icon>
        <label>Historial</label>
       </ion-tab-button>
-
+-->
     </ion-tab-bar>
   </ion-tabs>
 </ion-content>
+
 
 
 

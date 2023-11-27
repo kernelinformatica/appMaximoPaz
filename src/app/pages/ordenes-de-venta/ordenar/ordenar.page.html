@@ -106,14 +106,14 @@
       <ion-datetime-button  datetime="datetime" ></ion-datetime-button >
        <ion-modal [keepContentsMounted]="true">
          <ng-template>
-          <ion-datetime  style="background-color: #5e5839;  color:white" locale="es-ES"
+          <ion-datetime
+            style="background-color: #5e5839;  color:white" locale="es-ES"
             id="datetime"
             name="datetime"
             presentation="date"
             min="today"
 
-            [(ngModel)]="fechaSeleccionada"
-
+             [(ngModel)]="fechaSeleccionada"
              (ngModelChange)="asignarFecha()" [showDefaultButtons]="true"
              [showDefaultButtons]="true" doneText="Aceptar" cancelText="Cancelar">
 

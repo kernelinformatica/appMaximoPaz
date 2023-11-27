@@ -12,11 +12,11 @@
 
 
 
-
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div *ngIf="cantidadRegistros > 0" >
     <ng-container  *ngFor="let f of fondos_m">
-
-
       <ion-accordion-group expand="inset">
         <ion-accordion value="first"   >
           <ion-item class="texto_acordion" slot="header" color="{{colorSt(f.idEstado.idEstado)}}">

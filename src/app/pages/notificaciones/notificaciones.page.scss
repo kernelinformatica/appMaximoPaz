@@ -1,14 +1,9 @@
 ion-content {
 
 
-  background: rgba(22,45,27,1);
-  background: -moz-linear-gradient(top, rgba(22,45,27,1) 0%, rgba(236,206,65,1) 100%);
-  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(22,45,27,1)), color-stop(100%, rgba(236,206,65,1)));
-  background: -webkit-linear-gradient(top, rgba(22,45,27,1) 0%, rgba(236,206,65,1) 100%);
-  background: -o-linear-gradient(top, rgba(22,45,27,1) 0%, rgba(236,206,65,1) 100%);
-  background: -ms-linear-gradient(top, rgba(22,45,27,1) 0%, rgba(236,206,65,1) 100%);
-  background: linear-gradient(to bottom, rgba(22,45,27,1) 0%, rgba(236,206,65,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#162d1b', endColorstr='#ecce41', GradientType=0 );
+  //background-image: url('../../../assets/images/fondo2.fw.png');
+ // background-repeat: repeat-x;
+  background-color:#162D1B;
 
   }
 

@@ -17,7 +17,9 @@
     <ion-back-button defaultHref="/resumen"></ion-back-button>
   </ion-buttons>
   </ion-header>
-
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div *ngIf="cantidadRegistros > 0" >
     <ng-container  *ngFor="let o of ordenes">
 
@@ -33,7 +35,7 @@
           </ion-col>
 
             <ion-col >
-              <div style="text-align: right;">{{o.toneladas}} TN</div>
+              <div style="text-align: right;">{{o.toneladas}} KG</div>
             </ion-col>
             <ion-col >
               <div style="text-align: right;">{{o.idEstado.nombre}}</div>
@@ -64,7 +66,7 @@
                 </div>
               </div>
               <div class="element-extra">
-                <div class="title-extra">Toneladas:</div>
+                <div class="title-extra">Kilos:</div>
                 <div class="content-extra">
                  {{o.toneladas}}
                 </div>

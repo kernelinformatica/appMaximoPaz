@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 
@@ -42,6 +43,7 @@ export class PedirDineroPage implements OnInit {
   public fechaMinimaPermitida: any
   public fechaCobroSeleccionada: Date = new Date();
   public now!: Date;
+  public fecha:any;
   public minDate!: number;
   public maxDate!: string ;
   public usuarioActual: any;
@@ -55,6 +57,13 @@ export class PedirDineroPage implements OnInit {
   public urlVer: any;
   fechaCobro!: Date;
   fechaHoy!: Date;
+   isTransaccionValid = false;
+   isCbuValid = false;
+    isImporteValid = false;
+    isChequeraValid = false;
+    isSucursalValid = false;
+    isFechaCobroValid = false;
+    isValidoRangoFecha = false;
   constructor(
      public uiService: UiService,
      public chequerasService: ChequerasService,
@@ -75,10 +84,7 @@ export class PedirDineroPage implements OnInit {
         this.fechaCobro = new Date(this.fechaHoy.getUTCFullYear(), this.fechaHoy.getUTCMonth(), this.fechaHoy.getUTCDate() + 10);
         this.now = new Date();
         this.minDate = this.now.getFullYear();
-        this.maxDate = new Date(this.now.getFullYear() + 2, 11, 31).toISOString();
-        this.fechaSeleccionada = new Date(this.now.getFullYear() ,this.fechaHoy.getUTCMonth(), this.fechaHoy.getUTCDate() + 10).toISOString();
 
-        this.fechaMinimaPermitida = this.now;
         this.inicializar()
       }else{
 
@@ -100,21 +106,7 @@ export class PedirDineroPage implements OnInit {
      }
 
 
-     public verificoFechas(){
 
-      let fecha1 =new Date(this.fechaMinimaPermitida)
-      let fecha2 = new Date(this.fechaSeleccionada)
-      this.debugger
-      if (new Date(fecha1).getTime() >= new Date(fecha2).getTime()){
-        return false;
-      }else{
-        return true;
-
-
-      }
-
-
-    }
 
      async  cargarCbuSocios(){
       this.cbuPadronService.loadCbus().then(async(cbus) => {
@@ -125,60 +117,51 @@ export class PedirDineroPage implements OnInit {
 
 
 
-  public logForm() {
+  logForm() {
    // this.uiService.presentLoading("Solicitando $"+this.aSolicitar.importe+" pesos...")
+   //this.fechaSeleccionada = new Date();
+   this.fechaCobroSeleccionada = new Date();
+   this.uiService.dissmisLoading();
+   this.solicitudFondosService.crearSolicitud(this.aSolicitar)
+   this.aSolicitar = new SolicitudFondos(null);
 
-    this.solicitudFondosService.crearSolicitud(this.aSolicitar);
-
-    this.aSolicitar = new SolicitudFondos(null);
-    this.fechaSeleccionada = new Date().toString();
-    this.fechaCobroSeleccionada = new Date();
-    this.uiService.dissmisLoading();
 
   }
 
 
   public checkDisable() : boolean {
 
-    let isTransaccionValid = false;
-    let isCbuValid = false;
-    let isImporteValid = false;
-    let isChequeraValid = false;
-    let isSucursalValid = false;
-    let isFechaCobroValid = false;
-    let isValidoRangoFecha = false;
+
 
     if(this.aSolicitar.tipoTransaccion && this.aSolicitar.tipoTransaccion.idTransaccion && this.aSolicitar.tipoTransaccion.idTransaccion.idTransaccion == 6) {
 
-      isTransaccionValid = true;
-      isCbuValid = (this.aSolicitar.destinoCbuPadron && this.aSolicitar.destinoCbuPadron.cbu) ? true : false;
-      isImporteValid = (this.aSolicitar.importe && this.aSolicitar.importe > 0) ? true : false;
-      isFechaCobroValid = (this.aSolicitar.fechaCobro && this.aSolicitar.fechaCobro >= new Date(this.now.getUTCFullYear(), this.now.getUTCMonth(), this.now.getUTCDate())) ? true : false;
-      this.debugger = isTransaccionValid+" - "+isCbuValid+" - "+isImporteValid+" - "+isFechaCobroValid
-
-      return !(isTransaccionValid && isCbuValid && isImporteValid && !isFechaCobroValid );
+      this.isTransaccionValid = true;
+      this.isCbuValid = (this.aSolicitar.destinoCbuPadron && this.aSolicitar.destinoCbuPadron.cbu) ? true : false;
+      this.isImporteValid = (this.aSolicitar.importe && this.aSolicitar.importe > 0) ? true : false;
+      this.isValidoRangoFecha = this.verificoFechas() ? true: false;
+      return !( this.isTransaccionValid &&  this.isCbuValid &&  this.isImporteValid && this.isValidoRangoFecha );
 
     }
     if(this.aSolicitar.tipoTransaccion && this.aSolicitar.tipoTransaccion.idTransaccion && this.aSolicitar.tipoTransaccion.idTransaccion.idTransaccion == 7) {
-      isTransaccionValid = true;
-      isChequeraValid = (this.aSolicitar.idChequera && this.aSolicitar.idChequera.idChequera) ? true : false;
-      isSucursalValid = (this.aSolicitar.sucursal && this.aSolicitar.sucursal.idSucursal) ? true : false;
-      isImporteValid = (this.aSolicitar.importe && this.aSolicitar.importe > 0) ? true : false;
-      isFechaCobroValid = (this.aSolicitar.fechaCobro && this.aSolicitar.fechaCobro >= new Date(this.now.getUTCFullYear(), this.now.getUTCMonth(), this.now.getUTCDate())) ? true : false;
-      //isValidoRangoFecha = this.verificoFechas();
-      // this.debugger = isTransaccionValid+" - "+isCbuValid+" - "+isImporteValid+" - "+isFechaCobroValid
-      return !(isTransaccionValid && isChequeraValid && isSucursalValid && isImporteValid && !isFechaCobroValid);
+      this.isTransaccionValid = true;
+      this.isChequeraValid = (this.aSolicitar.idChequera && this.aSolicitar.idChequera.idChequera) ? true : false;
+      this.isSucursalValid = (this.aSolicitar.sucursal && this.aSolicitar.sucursal.idSucursal) ? true : false;
+      this.isImporteValid = (this.aSolicitar.importe && this.aSolicitar.importe >= 1000) ? true : false;
+
+      this.isValidoRangoFecha =this.verificoFechas()  ? true: false;
+
+      return !(this.isTransaccionValid && this.isChequeraValid && this.isSucursalValid && this.isImporteValid && this.isValidoRangoFecha    );
     }
+
 
     return true;
   }
 
   public asignarFecha() {
-    this.fechaCobroSeleccionada = new Date(this.fechaSeleccionada);
 
-    this.aSolicitar.fechaCobro = this.fechaCobroSeleccionada;
-
-
+    let fechaParseadaTemp = this.fechaSeleccionada.split("T")
+    let fechaParseada= fechaParseadaTemp[0]
+    this.aSolicitar.fechaCobro = fechaParseada;
 
 
  }
@@ -194,6 +177,22 @@ export class PedirDineroPage implements OnInit {
 
   }
 
+
+  verificoFechas(){
+    const fechaSeleccionada = new Date(this.fechaSeleccionada);
+    const fechaHoy = new Date()
+
+    if (fechaSeleccionada.getTime() > fechaHoy.getTime()) {
+      return true
+    } else if (fechaSeleccionada.getTime() < fechaHoy.getTime()) {
+      return false
+    } else {
+     return false
+    }
+
+  }
+
+
   async cargarChequeras(){
      ////this.chequerasService.load();
      this.chequerasService.load().then(async(respuesta) => {
@@ -206,24 +205,20 @@ export class PedirDineroPage implements OnInit {
 
 
 
-  public inicializar() {
-
+ public inicializar() {
     this.cargarTiposDeTransacciones();
     this.cargarCbuSocios();
     this.cargarSucursales()
-   this.cargarChequeras();
-
+    this.cargarChequeras();
     this.estaTodoCargado = false
-
-
 }
 
 
   ngOnInit() {
     this.razon = Configuraciones.razonSocialCliente;
-
-    //this.solicitudFondosService.load();
-     //  await this.uiService.presentLoading("Aguarde...");
+    this.maxDate = new Date(this.now.getFullYear() + 2, 11, 31).toISOString();
+    this.fechaMinimaPermitida = this.uiService.parseFecha(new Date(this.now.getFullYear() ,this.fechaHoy.getUTCMonth(), this.fechaHoy.getUTCDate()).toISOString());
+    this.fecha = new Date(this.now.getFullYear() ,this.fechaHoy.getUTCMonth(), this.fechaHoy.getUTCDate()).toISOString();
 
   }
 

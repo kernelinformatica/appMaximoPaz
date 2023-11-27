@@ -108,19 +108,32 @@ export class MisPedidosPage implements OnInit {
       this.chequerasService.load();
   }
   async ngOnInit() {
+
+    this.traerPedidos();
+
+
+  }
+  handleRefresh(event: { target: any}) {
+    setTimeout(() => {
+      this.traerPedidos();
+      // Any calls to load data go here
+      event.target.complete();
+    }, 2000);
+
+  }
+  async traerPedidos(){
+
     await this.uiService.presentLoading("Cargando...")
-      this.solicitudFondosService.load().then(async (resp: any) => {
-      this.uiService.dissmisLoading();
-      this.fondos_m = resp.respuesta;
-      resp = "";
-      this.cantidadRegistros = this.fondos_m.length
+    this.solicitudFondosService.load().then(async (resp: any) => {
+    this.uiService.dissmisLoading();
+    this.fondos_m = resp.respuesta;
+   this.cantidadRegistros = this.fondos_m.length
 
-      }).catch(error => {
-        //this.uiService.dissmisLoading();
-        this.uiService.presentAlertInfo(error.error);
-        console.error(error);
-      });
-
+    }).catch(error => {
+      //this.uiService.dissmisLoading();
+      this.uiService.presentAlertInfo(error.error);
+      console.error(error);
+    });
   }
 
 }

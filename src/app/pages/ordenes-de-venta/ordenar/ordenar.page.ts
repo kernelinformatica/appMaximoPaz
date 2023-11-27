@@ -192,30 +192,31 @@ export class OrdenarPage implements OnInit {
 
 
   public asignarFecha() {
+
     let fechaParseadaTemp = this.fechaSeleccionada.split("T")
     let fechaParseada= fechaParseadaTemp[0]
-    this.orden.fechaCobro = fechaParseada;
 
+    this.orden.fechaCobro = fechaParseada;
+    this.fechaCobro = this.orden.fechaCobro
 
   }
 
-  public verificoFechas(){
+  verificoFechas(){
+    const fechaSeleccionada = new Date(this.fechaSeleccionada);
+    const fechaHoy = new Date()
 
-    let fecha1 =new Date(this.fechaMinimaPermitida)
-    let fecha2 = new Date(this.fechaSeleccionada)
-    if (new Date(fecha1).getTime() >= new Date(fecha2).getTime()){
-      return false;
-    }else{
-      return true;
-
-
+    if (fechaSeleccionada.getTime() > fechaHoy.getTime()) {
+      return true
+    } else if (fechaSeleccionada.getTime() < fechaHoy.getTime()) {
+      return false
+    } else {
+     return false
     }
-
 
   }
 
   public checkDisable() {
-    this.debug = this.uiService.parseFecha(this.fechaMinimaPermitida)+ " <---->   "+this.uiService.parseFecha(this.fechaSeleccionada)
+    //this.debug = this.uiService.parseFecha(this.fechaMinimaPermitida)+ " <---->   "+this.uiService.parseFecha(this.fechaSeleccionada)
 
     if(!this.orden.fechaCobro){
       this.asignarFecha()

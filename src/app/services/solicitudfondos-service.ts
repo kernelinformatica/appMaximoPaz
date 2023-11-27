@@ -213,13 +213,14 @@ export class SolicitudFondosService {
               let control : Control = response.control;
               if (control.codigo == "OK"){
                 this.loadingController.dismiss();
-                this.uiService.presentAlertInfo("Solicitud almacenada, Aguarde a que un operador apruebe su solicitud.")
-
+                this.uiService.presentAlertInfo("Solicitud almacenada con éxito. Aguarde a que un operador apruebe su solicitud.")
+                //this.router.navigateByUrl("/resumen");
 
 
                 }else{
                   this.loadingController.dismiss();
                   this.uiService.presentAlertInfo("Solicitud fallida: u solicitud no pudo ser procesada, inténtelo más tarde.")
+                  //this.router.navigateByUrl("/resumen");
                 }
 
             },

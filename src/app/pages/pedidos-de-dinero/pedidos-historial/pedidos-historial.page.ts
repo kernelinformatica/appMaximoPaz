@@ -32,10 +32,10 @@ export class PedidosHistorialPage implements OnInit {
   public minDate!: number;
   public maxDate!: string;
   public usuarioActual: any;
-  public fondos_h : any;
+  public fondos_histo : any;
   public colorEstado!: string;
   public respuesta: any = "";
-  public cantidadDePedidos: any = 0;
+  public cantidadHistorial: any = 0;
   constructor(public navCtrl: NavController,
     public resumenService:ResumenService,
     public uiService: UiService,
@@ -53,21 +53,16 @@ export class PedidosHistorialPage implements OnInit {
     }
 
   async ngOnInit() {
-    const usuarioActualStr = localStorage.getItem('usuarioActual');
+   const usuarioActualStr = localStorage.getItem('usuarioActual');
     if (usuarioActualStr) {
-      this.usuarioActual = JSON.parse(usuarioActualStr);
-      this.fechaSeleccionada = "";
-      this.now = new Date();
-     // this.minDate = this.now.getFullYear();
-     // this.maxDate = new Date(this.now.getFullYear() + 2, this.now.getMonth() + 1, this.now.getDate()).toISOString();
-      this.fechaSeleccionada = new Date().toISOString();
-     await this.uiService.presentLoading("Cargando...")
-       this.solicitudFondosService.traerHistorialFondos().then(async (resp:any) => {
-       this.fondos_h = resp.respuesta;
-       resp = "";
-      this.cantidadDePedidos = this.fondos_h.length;
-       this.uiService.dissmisLoading();
+     this.usuarioActual = JSON.parse(usuarioActualStr);
+       this.fechaSeleccionada = new Date().toISOString();
+       await this.uiService.presentLoading("Cargando...")
+       this.solicitudFondosService.traerHistorialFondos().then(async (resp_h:any) => {
+        this.fondos_histo = resp_h.respuesta;
+       this.cantidadHistorial = this.fondos_histo.length;
 
+        this.uiService.dissmisLoading();
      }).catch(async error => {
 
       this.uiService.dissmisLoading();

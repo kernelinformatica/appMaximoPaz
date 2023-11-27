@@ -48,7 +48,7 @@ public fechaCobro!:String;
         this.now = new Date();
         this.minDate = this.now.getFullYear();
         this.maxDate = new Date(this.now.getFullYear() + 2, this.now.getMonth() + 1, this.now.getDate()).toISOString();
-      this.fechaSeleccionada = new Date().toISOString();
+       this.fechaSeleccionada = new Date().toISOString();
 
     //  this.uiService.presentLoading("Por favor espere...")
       }else{
@@ -63,7 +63,14 @@ formatoFecha(fe:string){
   return this.uiService.parseFecha(fe);
 
 }
+handleRefresh(event: { target: any}) {
+  setTimeout(() => {
+    this.cargarOrdenesDeVenta();
+    // Any calls to load data go here
+    event.target.complete();
+  }, 2000);
 
+}
 colorSt(idEstado: number){
 
   if (idEstado == 1 ){

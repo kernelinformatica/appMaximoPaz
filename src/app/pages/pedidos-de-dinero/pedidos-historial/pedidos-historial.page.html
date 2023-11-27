@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Historial de solicitudes ({{cantidadDePedidos}})</ion-title>
+    <ion-title>Historial de solicitudes ({{cantidadHistorial}})</ion-title>
     <ion-buttons slot="end">
       <ion-back-button defaultHref="/resumen"></ion-back-button>
     </ion-buttons>
@@ -12,8 +12,8 @@
 <div>
 
 
-    <div *ngIf="cantidadDePedidos > 0">
-      <ng-container  *ngFor="let h of fondos_h">
+    <div *ngIf="cantidadHistorial > 0">
+      <ng-container  *ngFor="let h of fondos_histo">
         <ion-accordion-group expand="inset">
           <ion-accordion value="first"   >
             <ion-item class="texto_acordion" slot="header" color="{{colorSt(h.idEstado.idEstado)}}">
