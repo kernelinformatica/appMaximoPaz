@@ -14,11 +14,7 @@ import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 
 //------------ PIPES DE LA APLICACION ------------//
 import { PipesModule } from './pipes/pipes.module';
-
-
-
 @NgModule({
-
   declarations: [
     AppComponent
   ],
@@ -38,10 +34,6 @@ import { PipesModule } from './pipes/pipes.module';
       multi: true,
     },*/
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
-  bootstrap: [AppComponent],
-
-
-
-
+    bootstrap: [AppComponent],
 })
 export class AppModule { }

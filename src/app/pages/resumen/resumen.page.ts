@@ -35,6 +35,7 @@ export class ResumenPage implements OnInit {
   public mostrarDetalleCereales = false;
   public mostrarMercadoDisponible = false;  // Usado para ocultar el detalle disponible
   public mostrarMercadoFuturo = false;
+  public mostrarMercadoPizarra = false;
   public mostrarNoticias= false;
   public seccion!: string;
   public contieneRemitos: boolean | any;
@@ -53,12 +54,14 @@ export class ResumenPage implements OnInit {
   istodoCargado : any
   isMercadoDisponible: any;
   isMercadoFuturo:any;
+  isMercadoPizarra:any;
   isPizarra: any;
   isNoticias: any;
   public notificaciones: any;
   public ver: boolean = false;
   public numeroMensajes: any;
   public mercadoDisponible : any;
+  public mercadoPizarra: any;
   public mercadoFuturo: any;
   public noticias: any;
 
@@ -71,6 +74,7 @@ export class ResumenPage implements OnInit {
     public notificacionesService: NotificacionesService,
     public mercadoDisponibleService: MercadosService,
     public mercadoFuturosService: MercadosService,
+    public mercadosPizarraService: MercadosService,
 
     private menuCtrl : MenuController
   ) {}
@@ -84,6 +88,7 @@ export class ResumenPage implements OnInit {
     this.isMercadoDisponible = false;
     this.isMercadoFuturo = false;
     this.isPizarra = false;
+    this.isMercadoPizarra = false
     //this.navController.navigateRoot('/resumen', { animated: true });
     await this.uiService.presentLoading("Aguarde...");
 
@@ -212,9 +217,36 @@ export class ResumenPage implements OnInit {
         }
       });
 
+
+
+      this.mercadosPizarraService
+      .load(this.resumen.empresa.id, 'json', 'mercado-cereales', '3', this.resumen.empresa.coopeHash)
+      .then( (data: any) => {
+        if (data.control ==  1){
+          this.mercadoPizarra = data.mercadoCer
+          this.fechaCierre = this.mercadoPizarra[0].cierre
+          if (this.mercadoPizarra == "" || this.mercadoPizarra == null){
+            this.isMercadoPizarra = false
+          }else{
+            this.isMercadoPizarra = true
+
+          }
+        }else{
+            this.isMercadoPizarra = false
+
+
+        }
+
+
+
+      });
+
+
+
     this.tieneCombustibles();
     this.tieneRemitos();
     this.tieneMercadoCereales();
+    this.tienePizarra();
 
   }
 
@@ -285,6 +317,10 @@ export class ResumenPage implements OnInit {
   public toggleMercadoFuturo() {
     this.mostrarMercadoFuturo = !this.mostrarMercadoFuturo;
   }
+  public toggleMercadoPizarra() {
+
+    this.mostrarMercadoPizarra = !this.mostrarMercadoPizarra;
+  }
   /**
    * Este metodo se utiliza para mostrar/ocultar el detalle de las cta. cte.
    */
@@ -340,6 +376,17 @@ export class ResumenPage implements OnInit {
         this.contieneMercadoCereales = false;
       }*/
   }
+  public tienePizarra() {
+    /*let element = this.resumen.fichaRemito;
+    for (var i = 0, len = element.length; i < len; i++)
+      if (element[i].idRubroCtacte.idRubroCtacte == 3) {
+        this.contieneMercadoCereales = true;
+        break;
+      } else {
+        this.contieneMercadoCereales = false;
+      }*/
+  }
+
 
   public ctacteActualTapped(event: any, item: any) {
     if (this.tieneFuncion('detalleCtaCte')) {

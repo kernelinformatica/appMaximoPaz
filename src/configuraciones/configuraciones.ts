@@ -22,7 +22,7 @@ export class Configuraciones
    Desarrollo
 
    */
-   //public static urlBase : string = "http://localhost:8080/gestagroex-rest/ws";
+  // public static urlBase : string = "http://localhost:8080/gestagroex-rest/ws";
 
 
 

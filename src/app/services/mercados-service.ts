@@ -7,6 +7,7 @@ import { DetalleCtaCte } from '../modelo/detallectacte';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MercadoDisponible } from '../modelo/mercado-cereales/mercado-disponible';
 import { MercadoFuturos } from '../modelo/mercado-cereales/mercado-futuros';
+import { MercadoPizarra } from '../modelo/mercado-cereales/mercado-pizarra';
 import { ProductosDisponible } from '../modelo/mercado-cereales/productos-disponible';
 import { ProductosFuturos } from '../modelo/mercado-cereales/productos-futuros';
 import { DetalleCtaCteService } from './detallectacte.service';
@@ -29,6 +30,7 @@ import { DetalleCtaCteService } from './detallectacte.service';
   public mercadoFuturos : MercadoFuturos | undefined;
   public productosDisponible: ProductosDisponible | undefined;
   public productosFuturos: ProductosFuturos | undefined;
+  public mercadosPizarra: MercadoPizarra | undefined;
   public flag : boolean = false;
   //---------------------------------------------//
 
@@ -42,7 +44,7 @@ import { DetalleCtaCteService } from './detallectacte.service';
 
   // Este metodo invoca el servicio y parsea la respuesta
   public async load(coope? : string, formato?: string, action?: string, type?: string, hash?: string) {
-    
+
     const usuarioActualStr = localStorage.getItem('usuarioActual');
     if (usuarioActualStr) {
       this.usuarioActual = JSON.parse(usuarioActualStr);
@@ -62,7 +64,7 @@ import { DetalleCtaCteService } from './detallectacte.service';
         parametros.set("coope", coopeParm);
         parametros.set("format", formatoParm);
         parametros.set("action", actionParm);
-        parametros.set("hashId", hashId); 
+        parametros.set("hashId", hashId);
         parametros.set("type", typeParm);
 
 

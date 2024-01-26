@@ -126,7 +126,11 @@
           <ion-icon class="green-arrow icon-size" style="color:green" *ngIf="item.variacionDiaAnterior > 0" name="arrow-up-outline"></ion-icon>
           <ion-icon class="red-arrow icon-size" style="color:red" *ngIf="item.variacionDiaAnterior < 0" name="arrow-down-outline"></ion-icon>
           <ion-icon class="white-arrow icon-size" style="color:blue" *ngIf="item.variacionDiaAnterior === '0'" name="reorder-two-outline"></ion-icon>      </ion-col>
-
+          <ion-col  >
+            <div style="text-align: right">
+              {{ item.periodo }}
+            </div>
+          </ion-col>
          <ion-col  >
            <div style="text-align: right">
              {{ item.nombrePuerto }}
@@ -181,6 +185,52 @@
     </div>
   </ion-list>
 </ion-card>
+
+
+
+<ion-card *ngIf="isMercadoPizarra === true" color="light"  >
+  <ion-list >
+    <ion-list-header class="headerList" (click)="toggleMercadoPizarra()">
+      <ion-icon name="pulse"></ion-icon><ion-label style="margin-left: 5px;"> Pizarra</ion-label>
+
+      <ion-button>
+        <ion-icon
+          *ngIf="mostrarMercadoPizarra"
+          name="remove-circle-outline"
+          slot="end"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!mostrarMercadoPizarra"
+          name="add-circle-outline"
+          slot="end"
+        ></ion-icon>
+      </ion-button>
+    </ion-list-header>
+    <div *ngIf="mostrarMercadoPizarra">
+      <ion-item class="item item-block item-md par"> Cierre: {{  this.fechaCierre === null ?  "" :  this.fechaCierre }}</ion-item>
+      <ion-item
+        *ngFor="let item of mercadoPizarra; let i = index;"
+        class="item-stable {{ ( i % 2 === 0 ? 'item item-block item-md par' : 'item item-block item-md impar') }}">
+        <ion-label>
+         {{item.nombre}}
+        </ion-label>
+        {{item.monedaSimbolo}} {{item.precioTn}}
+        <ion-col>
+
+          <ion-icon class="green-arrow icon-size" style="color:green" *ngIf="item.variacionDiaAnterior > 0" name="arrow-up-outline"></ion-icon>
+          <ion-icon class="red-arrow icon-size" style="color:red" *ngIf="item.variacionDiaAnterior < 0" name="arrow-down-outline"></ion-icon>
+          <ion-icon class="white-arrow icon-size" style="color:blue" *ngIf="item.variacionDiaAnterior === '0'" name="reorder-two-outline"></ion-icon>      </ion-col>
+
+         <ion-col  >
+           <div style="text-align: right">
+             {{ item.nombrePuerto }}
+           </div>
+         </ion-col>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-card>
+
 
 <!--
 
