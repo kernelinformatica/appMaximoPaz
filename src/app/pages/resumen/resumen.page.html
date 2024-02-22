@@ -20,10 +20,12 @@
 
 <ion-content [fullscreen]="true" *ngIf="istodoCargado">
 
-  <ion-card color="light">
+  <ion-card color="light" >
     <ion-card-header>
-      <ion-card-title class="ion-card-title">{{ resumen?.cuenta.nombre ?? "" | uppercase }} / {{ resumen?.cuenta.id }}  </ion-card-title>
-     <ion-card-subtitle class="ion-card-sub-title">{{ resumen?.cuenta.email }}</ion-card-subtitle>
+  <ion-card-title class="ion-card-title">CUENTA CORRIENTE NRO: {{ resumen?.cuenta.id }} </ion-card-title>
+     <ion-card-title class="ion-card-title">SOCIO: {{ resumen?.cuenta.nombre ?? "" | uppercase }}   </ion-card-title>
+     <ion-card-subtitle class="ion-card-sub-title">Correo: {{ resumen?.cuenta.email }}</ion-card-subtitle>
+
     </ion-card-header>
 
     <ion-card-content  *ngIf="tieneFuncion('resumenCtaCte')">
@@ -92,6 +94,35 @@
     </div>
   </ion-list>
 </ion-card>
+
+
+
+<ion-card  color="light" *ngIf="isPedidosDeFondos"  >
+
+  <ion-list >
+    <ion-list-header class="headerList" (click)="irAPedidoDeDinero()">
+      <ion-icon name="cash-outline"></ion-icon> <ion-label style="margin-left: 5px;">PEDIR DINERO</ion-label>
+     </ion-list-header>
+
+  </ion-list>
+</ion-card>
+
+<ion-card  color="light" *ngIf="isOrdenesVentaCereal"  >
+
+  <ion-list >
+    <ion-list-header class="headerList" (click)="irAOrdenesDeVenta()">
+      <ion-icon name="document-outline"></ion-icon>
+      <ion-label style="margin-left: 5px;">ORDENES DE VENTA (CEREALES)</ion-label>
+
+     </ion-list-header>
+
+  </ion-list>
+</ion-card>
+
+
+
+
+
 
 <ion-card *ngIf="isMercadoDisponible === true" color="light"  >
 
@@ -240,7 +271,7 @@
 
 
 
-<ion-card color="light"  >
+<ion-card color="light" *ngIf="this.isNoticias"  >
 
   <ion-list >
     <ion-list-header class="headerList" (click)="toggleNoticias()">

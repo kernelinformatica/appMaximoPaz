@@ -9,6 +9,7 @@ import { FcmService } from './services/fcm/fcm.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
+
 export class AppComponent {
 
 
@@ -17,6 +18,8 @@ export class AppComponent {
     Este código elimina todas las entradas del caché de la aplicación cuando se carga la plataforma. De esta manera,
     se asegura de que la aplicación siempre esté utilizando los archivos más recientes y no los archivos almacenados en caché.
     */
+
+
     this.initializeApp();
     this.platform.ready().then(() => {
         this.fcm.initPush();
@@ -36,7 +39,6 @@ export class AppComponent {
 
   ];
   public temp = "";
-
   public labels = ["etiquetas 1", 'etiqueta 2'];
 
   public getLogoEmpresa() {
@@ -56,9 +58,7 @@ export class AppComponent {
     }
 
   }
-  public irAPedidoDeDinero(){
-   this.router.navigateByUrl('/pedidos-de-dinero/pedir-dinero')
-  }
+
   public irAlegales(){
     this.router.navigateByUrl('/legales')
 
@@ -68,6 +68,9 @@ export class AppComponent {
     this.router.navigateByUrl('/logout');
 
   }
+  public irAPedidoDeDinero(){
+    this.router.navigateByUrl('/pedidos-de-dinero/pedir-dinero')
+   }
   public irAOrdenesDeVenta(){
     this.router.navigateByUrl('/ordenes-de-venta/ordenar')
 
@@ -83,9 +86,9 @@ export class AppComponent {
     }
   }*/
 
-
   initializeApp(){
-    //alert("Inicializa app")
+
+
   }
 
 

@@ -1,3 +1,4 @@
+import { Mensajes } from 'src/app/modelo/mensajes';
 import { MiCuentaPage } from './../mi-cuenta/mi-cuenta.page';
 import { Component, OnInit, inject } from '@angular/core';
 import { ResumenService } from 'src/app/services/resumen.service';
@@ -19,6 +20,7 @@ import { UiService } from 'src/app/services/ui.service';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { Configuraciones } from 'src/configuraciones/configuraciones';
 import { MercadosService } from 'src/app/services/mercados-service';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-resumen',
@@ -44,19 +46,26 @@ export class ResumenPage implements OnInit {
   public saldoDeudorAcreedor: any | undefined;
   public importeEstadoSaldos: any | undefined;
   public fechaCierre : string | undefined;
+  mensajes: Mensajes[] = JSON.parse(localStorage.getItem('mensajes') || '[]');
+  public mensajeEnviadoSn : string | undefined;
 
   data: any;
   resumen: any;
   empresa: any;
-  logo: any;
+    logo: any;
   funciones: Funciones = new Funciones(['']);
+  funcionesCliente : any;
   private activatedRoute = inject(ActivatedRoute);
   istodoCargado : any
   isMercadoDisponible: any;
   isMercadoFuturo:any;
   isMercadoPizarra:any;
   isPizarra: any;
+  // verificar permisos
   isNoticias: any;
+  isOrdenesVentaCereal: any;
+  isPedidosDeFondos: any;
+
   public notificaciones: any;
   public ver: boolean = false;
   public numeroMensajes: any;
@@ -64,6 +73,7 @@ export class ResumenPage implements OnInit {
   public mercadoPizarra: any;
   public mercadoFuturo: any;
   public noticias: any;
+public intervalId : any;
 
   constructor(
     public resumenService: ResumenService,
@@ -88,20 +98,27 @@ export class ResumenPage implements OnInit {
     this.isMercadoDisponible = false;
     this.isMercadoFuturo = false;
     this.isPizarra = false;
-    this.isMercadoPizarra = false
-    //this.navController.navigateRoot('/resumen', { animated: true });
+    this.isMercadoPizarra = false;
+    this.mensajeEnviadoSn = "N";
+    this.isNoticias = false;
+
+    this.controlCarga();
     await this.uiService.presentLoading("Aguarde...");
 
     this.seccion = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.resumenService.load().then(async (resp) => {
+
       this.data = resp;
+
       this.resumen = this.data.resumen;
       this.empresa = this.data.resumen.empresa;
       this.istodoCargado = true
       this.funciones = new Funciones(this.data.funciones.listaFunciones);
-      this.cargarDatos();
-      await this.loadingController.dismiss();
+      this.funcionesCliente = this.data.funciones.listaFunciones
 
+     this.cargarDatos();
+     await this.loadingController.dismiss();
+     clearInterval(this.intervalId)
     });
     this.notificacionesService.ponerEnFalso();
     this.notificacionesService.checkPorVer().then(async (resp) => {
@@ -114,55 +131,25 @@ export class ResumenPage implements OnInit {
       this.numeroMensajes = this.data;
     });
 
-    // NOTIFICACIONES CAPACITOR
-    /*PushNotifications.requestPermissions().then(result => {
-      if (result.receive === 'granted') {
-        // Register with Apple / Google to receive push via APNS/FCM
-        PushNotifications.register();
-      } else {
-        // Show some error
+
+
+
+  }
+  controlCarga(){
+    let count = 0;
+    // Si tiro algún que ingreso al catch, hago un intervalo de 10 segundos,
+
+    this.intervalId = setInterval(() => {
+      count++;
+      if (count == 10){
+        clearInterval(this.intervalId)
+        this.loadingController.dismiss();
+
+
+        window.location.reload();
       }
-    });
-
-
-
-
-    // Request permission to use push notifications
-    // iOS will prompt user and return if they granted permission or not
-    // Android will just grant without prompting
-    PushNotifications.requestPermissions().then(result => {
-      if (result.receive === 'granted') {
-        // Register with Apple / Google to receive push via APNS/FCM
-        PushNotifications.register();
-      } else {
-        // Show some error
-      }
-    });
-
-    PushNotifications.addListener('registration', (token: Token) => {
-      alert('Push registration success, token: ' + token.value);
-    });
-
-    PushNotifications.addListener('registrationError', (error: any) => {
-      alert('Error on registration: ' + JSON.stringify(error));
-    });
-
-    PushNotifications.addListener(
-      'pushNotificationReceived',
-      (notification: PushNotificationSchema) => {
-        alert('Push received: ' + JSON.stringify(notification));
-      },
-    );
-
-    PushNotifications.addListener(
-      'pushNotificationActionPerformed',
-      (notification: ActionPerformed) => {
-        alert('Push action performed: ' + JSON.stringify(notification));
-      },
-    );
-*/
-
-
+       console.log("ControlCarga() esperando --> "+count);
+    }, 1000);
   }
   // End ngOnInit()
 
@@ -177,7 +164,38 @@ export class ResumenPage implements OnInit {
   /**
    * Esta funcion se usa para cargar los datos restantes
    */
+public graboMensajes(id: any, msg : any){
+
+  const nuevoMensaje: Mensajes = { id: id, contenido:msg };
+  this.mensajes.push(nuevoMensaje);
+  localStorage.setItem('mensajes', JSON.stringify(this.mensajes));
+
+}
+
+
+deleteStorage() {
+  localStorage.removeItem('mensajes');
+}
+
+public verificaMensajeEnviado (mensaje:any){
+  const mensajesAlmacenados: Mensajes[] = JSON.parse(localStorage.getItem('mensajes') || '[]');
+
+  for (var i = 0, len = mensajesAlmacenados.length; i < len; i++){
+    if (mensaje == mensajesAlmacenados[i].contenido){
+        this.mensajeEnviadoSn = "S";
+    }else{
+      this.mensajeEnviadoSn = "N";
+      }
+  }
+}
+
   public  cargarDatos() {
+
+
+//this.graboMensajes(1, "HOLA MUNDO");
+//this.graboMensajes("2", "Este es el segundo mensaje")
+
+
 
     // traigo las notificaciones
     this.notificacionesService.load().then((notificaciones) => {
@@ -224,7 +242,8 @@ export class ResumenPage implements OnInit {
       .then( (data: any) => {
         if (data.control ==  1){
           this.mercadoPizarra = data.mercadoCer
-          this.fechaCierre = this.mercadoPizarra[0].cierre
+          this.fechaCierre = this.mercadoPizarra[0].cierre ? this.mercadoPizarra[0].cierre  : new Date();
+         // let result = condition ? value1 : value2;
           if (this.mercadoPizarra == "" || this.mercadoPizarra == null){
             this.isMercadoPizarra = false
           }else{
@@ -247,6 +266,10 @@ export class ResumenPage implements OnInit {
     this.tieneRemitos();
     this.tieneMercadoCereales();
     this.tienePizarra();
+    this.tieneNoticias();
+    this.tieneOrdenesVenta();
+    this.tienePedidosDeFondos();
+
 
   }
 
@@ -355,6 +378,10 @@ export class ResumenPage implements OnInit {
       }
   }
 
+
+
+
+
   public tieneCombustibles() {
     let element = this.resumen.fichaRemito;
     for (var i = 0, len = element.length; i < len; i++)
@@ -386,7 +413,54 @@ export class ResumenPage implements OnInit {
         this.contieneMercadoCereales = false;
       }*/
   }
+  public tieneNoticias (){
+    let element = this.funcionesCliente;
 
+    for (var i = 0, len = element.length; i < len; i++){
+
+      if (this.funcionesCliente[i] == "noticias"){
+        this.isNoticias = true;
+      }
+    }
+
+  }
+
+
+  public irAPedidoDeDinero(){
+
+    this.navController.navigateRoot('/pedidos-de-dinero/pedir-dinero');
+   }
+  public irAOrdenesDeVenta(){
+
+    this.navController.navigateRoot('/ordenes-de-venta/ordenar');
+
+  }
+
+  public tieneOrdenesVenta (){
+    let element = this.funcionesCliente;
+
+    for (var i = 0, len = element.length; i < len; i++){
+
+      if (this.funcionesCliente[i] == "ordenesDeVentaDeCereal"){
+        this.isOrdenesVentaCereal = true;
+
+      }
+    }
+
+  }
+  public tienePedidosDeFondos (){
+    let element = this.funcionesCliente;
+
+    for (var i = 0, len = element.length; i < len; i++){
+
+      if (this.funcionesCliente[i] == "pedidoDeFondos"){
+        this.isPedidosDeFondos = true;
+
+
+      }
+    }
+
+  }
 
   public ctacteActualTapped(event: any, item: any) {
     if (this.tieneFuncion('detalleCtaCte')) {

@@ -9,9 +9,10 @@ export class Banco {
     public direccion: string;
     public telefono: string;
     public visible: boolean;
+    public abreviatura: string;
 
     //---------------------------------------------//
-  
+
     // Parseo el mensaje
     constructor( mov : Banco) {
       this.idBanco = mov.idBanco;
@@ -20,5 +21,6 @@ export class Banco {
       this.direccion = mov.direccion;
       this.telefono = mov.telefono;
       this.visible = mov.visible;
+      this.abreviatura = mov.abreviatura;
     }
   }

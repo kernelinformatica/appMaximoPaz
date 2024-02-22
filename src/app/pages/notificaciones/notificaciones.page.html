@@ -30,15 +30,15 @@
       <ion-card class= "{{muestraVistoSnColor(n)}}" *ngIf="n.visible"   color="{{muestraVistoSn(n)}}">
         <ion-card-header>
 
-          <ion-card-title><ion-icon  name="{{mostrarSobreLeidoNoLeido(n)}}"></ion-icon> {{n.titulo}}</ion-card-title>
+          <ion-card-title><div style={{colorNoti}}><ion-icon  name="{{mostrarSobreLeidoNoLeido(n)}}"></ion-icon> {{n.titulo}} {{colorNoti}}</div></ion-card-title>
           <ion-badge slot="start">{{estadoLeido}}</ion-badge>
-          <ion-card-subtitle>{{parseFecha(n.fechaEnvio)}}</ion-card-subtitle>
+          <ion-card-subtitle><div style={{colorNoti}}>{{parseFecha(n.fechaEnvio)}}</div></ion-card-subtitle>
         </ion-card-header>
 
         <ion-card-content>
           <ion-list class="justify transparent-bg smallest-list no-bottom-margin list-border" *ngIf="n.visible">
             <div class="inline-creator">
-              <div (click)="verNotificacion(n)" class="list-content reservas-display black taright shrink-capacity">{{n.mensaje}}</div>
+              <div (click)="verNotificacion(n)" style={{colorNoti}} class="list-content reservas-display black taright shrink-capacity">{{n.mensaje}}</div>
              <!-- <div class="new-icon"><ion-icon  *ngIf="!n.visto" class="information-circle" name="information-circle"></ion-icon> </div>-->
             </div>
 

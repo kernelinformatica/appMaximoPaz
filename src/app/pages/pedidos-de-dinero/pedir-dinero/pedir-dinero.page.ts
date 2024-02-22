@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-
+import * as moment from 'moment';
 
 import { Component, OnInit } from '@angular/core';
 import { SolicitudFondos } from 'src/app/modelo/pedidos-fondos/solicitud-fondos';
@@ -55,6 +55,12 @@ export class PedirDineroPage implements OnInit {
   public sucursales: Sucursal[] = [];
   public cbuSocios : any;
   public urlVer: any;
+  public msgErrorFechas: string | undefined;
+  fechaActual : any;
+  diasSumar: number | undefined  ;
+  // Agregar dos días
+  diasASumar = 2;
+
   fechaCobro!: Date;
   fechaHoy!: Date;
    isTransaccionValid = false;
@@ -118,8 +124,6 @@ export class PedirDineroPage implements OnInit {
 
 
   logForm() {
-   // this.uiService.presentLoading("Solicitando $"+this.aSolicitar.importe+" pesos...")
-   //this.fechaSeleccionada = new Date();
    this.fechaCobroSeleccionada = new Date();
    this.uiService.dissmisLoading();
    this.solicitudFondosService.crearSolicitud(this.aSolicitar)
@@ -158,12 +162,9 @@ export class PedirDineroPage implements OnInit {
   }
 
   public asignarFecha() {
-
-    let fechaParseadaTemp = this.fechaSeleccionada.split("T")
-    let fechaParseada= fechaParseadaTemp[0]
-    this.aSolicitar.fechaCobro = fechaParseada;
-
-
+   let fechaParseadaTemp = this.fechaSeleccionada.split("T")
+   let fechaParseada= fechaParseadaTemp[0]
+   this.aSolicitar.fechaCobro = fechaParseada;
  }
 
 
@@ -180,14 +181,22 @@ export class PedirDineroPage implements OnInit {
 
   verificoFechas(){
     const fechaSeleccionada = new Date(this.fechaSeleccionada);
-    const fechaHoy = new Date()
+    const fechaHoy = new Date(this.fechaActual)
 
-    if (fechaSeleccionada.getTime() > fechaHoy.getTime()) {
+    if (fechaSeleccionada.getDate() >= fechaHoy.getDate()  ) {
+      this.msgErrorFechas = "";
       return true
-    } else if (fechaSeleccionada.getTime() < fechaHoy.getTime()) {
+
+    } else if (fechaSeleccionada.getDate() <= fechaHoy.getDate()) {
+
+      this.msgErrorFechas = "La fecha de cobro seleccionada es inválida, recuerde que los pedidos de fondos deberán ser solicitados con 48 hs de anticipación. "
       return false
     } else {
+      this.msgErrorFechas = "";
+
      return false
+
+
     }
 
   }
@@ -206,11 +215,16 @@ export class PedirDineroPage implements OnInit {
 
 
  public inicializar() {
-    this.cargarTiposDeTransacciones();
-    this.cargarCbuSocios();
-    this.cargarSucursales()
-    this.cargarChequeras();
-    this.estaTodoCargado = false
+  this.fechaActual = new Date();
+  this.fechaActual.setDate(this.fechaActual.getDate() + this.diasASumar);
+  this.fechaSeleccionada = new Date(this.fechaActual.getFullYear() ,this.fechaActual.getUTCMonth(), this.fechaActual.getUTCDate()).toISOString();
+  this.cargarTiposDeTransacciones();
+  this.cargarCbuSocios();
+  this.cargarSucursales()
+  this.cargarChequeras();
+  this.estaTodoCargado = false
+
+
 }
 
 
@@ -223,3 +237,5 @@ export class PedirDineroPage implements OnInit {
   }
 
 }
+
+

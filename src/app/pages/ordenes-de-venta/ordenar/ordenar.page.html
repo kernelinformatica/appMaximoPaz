@@ -39,15 +39,22 @@
       </ion-item>
 
 
+
+
+
       <ion-item >
-        <ion-select  interface="popover" label="Cereales" label-placement="floating"
-        *ngIf="cerealesService.cereal"
-        [(ngModel)]="orden.codigoCereal"
-        (ngModelChange)="buscaCosechas()"
-        class="input-btn" name="cereal" placeholder="Cereales" >
-         <ion-select-option *ngFor="let c of cerealesService.cereal" [value]="c.codigoCereal"> {{c.nombre}}</ion-select-option>
-    </ion-select>
+        <ion-select  cancelText="Cancelar" okText="Aceptar" label="Cereales" label-placement="floating"
+          *ngIf="cerealesService.cereal"
+          [(ngModel)]="orden.codigoCereal"
+          (ngModelChange)="buscaCosechas()"
+          class="input-btn" name="cereal" placeholder="Cereales" >
+          <ion-select-option  *ngFor="let c of cerealesService.cereal" [value]="c.codigoCereal" > {{c.nombre}}</ion-select-option>
+        </ion-select>
     </ion-item>
+
+
+
+
 
     <ion-list class="addmargin" *ngIf="orden.mercado && orden.codigoCereal"   >
       <ion-item>

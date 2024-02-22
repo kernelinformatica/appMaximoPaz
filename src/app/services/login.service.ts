@@ -216,6 +216,7 @@ export class LoginService {
   deleteStorage() {
     localStorage.removeItem('control');
     localStorage.removeItem('usuarioActual');
+    localStorage.removeItem('mensajes');
     localStorage.clear();
   }
 

@@ -7,7 +7,12 @@
   </ion-toolbar>
 </ion-header>
    <ion-content *ngIf="!estaTodoCargado">
-
+    <ion-card>
+      <ion-card-header color='danger'>
+        <ion-card-title>Comunicado</ion-card-title>
+        <ion-card-subtitle>Los pedidos de fondos deberán ser solicitados con 48 hs de anticipación.</ion-card-subtitle>
+      </ion-card-header>
+     </ion-card>
 
     <ion-card  class="card" color="light">
       <ion-card-header>
@@ -15,10 +20,11 @@
        <ion-card-subtitle class="ion-card-sub-title">CUENTA: {{usuarioActual.cuenta.id}}</ion-card-subtitle>
     </ion-card-header>
    </ion-card>
+
     <ion-card color="light">
       <ion-card-header>
         <ion-card-title>Solicitud de Dinero </ion-card-title>
-        <ion-card-subtitle>Solicite dinero y aguarde que sea autorizado.</ion-card-subtitle>
+        <ion-card-subtitle>Solicite dinero a la Cooperativa y aguarde que sea autorizado.</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
@@ -46,7 +52,7 @@
       <ion-list *ngIf="(aSolicitar.tipoTransaccion && aSolicitar.tipoTransaccion.idTransaccion  && aSolicitar.tipoTransaccion.idTransaccion.idTransaccion === 7)" class="addmargin">
           <ion-item>
              <ion-select  interface="popover" *ngIf="chequerasService.chequeras" class="input-btn" [(ngModel)]="aSolicitar.idChequera" name="banco" placeholder="Medio de cobro">
-                  <ion-select-option *ngFor="let chequera of chequerasService.chequeras" [value]="chequera">{{chequera.idBanco.nombre}}</ion-select-option>
+                  <ion-select-option *ngFor="let chequera of chequerasService.chequeras" [value]="chequera">{{chequera.idBanco.abreviatura}}</ion-select-option>
               </ion-select>
           </ion-item>
         </ion-list>
@@ -85,9 +91,10 @@
              </ion-datetime>
             </ng-template>
           </ion-modal>
-      </ion-item>
 
-<div>{{debugger}}</div>
+      </ion-item>
+      <div style="text-align: left; color: red; padding: 5px;">{{msgErrorFechas}}</div>
+
       <ion-button  class="btns" [disabled]="checkDisable()" ion-button type="submit" expand="block">Solicitar</ion-button>
 
     </form>

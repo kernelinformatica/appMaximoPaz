@@ -14,6 +14,7 @@ export class NotificacionesPage implements OnInit {
   notificaciones: Notificacion[] = [];
   tieneNotificaciones = false;
   numeroMensajes: number = 0;
+  colorNoti: any;
 
   constructor(public notificacionesService: NotificacionesService,
               private uiService: UiService) { }
@@ -62,14 +63,40 @@ export class NotificacionesPage implements OnInit {
     }
   }
   public muestraVistoSn(item: any){
+
     if (item.visto === true){
-      return "light";
-      this.estadoLeido = "Leido"
+
+      if (item.titulo == "Su orden está rechazado/a"){
+        this.colorNoti = "color: white";
+        return "danger";
+      }else if (item.titulo == "Su orden está aprobado/a"){
+        this.colorNoti = "color: black";
+        return "success";
+
+      }else{
+        this.colorNoti = "color: white";
+        return "success";
+      }
+
 
     }else{
-      return "warning";
-      this.estadoLeido = ""
-    }
+
+      if (item.titulo == "Su orden está rechazado/a"){
+        this.colorNoti = "color: white";
+        return "danger";
+      }else if (item.titulo == "Su orden está aprobado/a"){
+        this.colorNoti = "color: black";
+        return "success";
+
+      }else{
+        this.colorNoti = "color: white";
+        return "success";
+      }
+
+
+     }
+
+
  }
  public muestraVistoSnColor(item: any){
   if (item.visto === true){
