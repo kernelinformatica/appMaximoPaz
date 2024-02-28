@@ -30,7 +30,7 @@
       <ion-card class= "{{muestraVistoSnColor(n)}}" *ngIf="n.visible"   color="{{muestraVistoSn(n)}}">
         <ion-card-header>
 
-          <ion-card-title><div style={{colorNoti}}><ion-icon  name="{{mostrarSobreLeidoNoLeido(n)}}"></ion-icon> {{n.titulo}} {{colorNoti}}</div></ion-card-title>
+          <ion-card-title><div style={{colorNoti}}><ion-icon  name="{{mostrarSobreLeidoNoLeido(n)}}"></ion-icon> {{n.titulo}}</div></ion-card-title>
           <ion-badge slot="start">{{estadoLeido}}</ion-badge>
           <ion-card-subtitle><div style={{colorNoti}}>{{parseFecha(n.fechaEnvio)}}</div></ion-card-subtitle>
         </ion-card-header>
