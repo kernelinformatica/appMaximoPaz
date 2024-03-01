@@ -54,4 +54,9 @@ export class Configuraciones
    //public static serviciosWebURL : string = `https://www.kernelinformatica.com.ar/app/webservices/public/servicios-web-rest.php`;
     public static version : string = "1.0";
     public static pathImagenesNoticias = "/i/news/";
+    public static intervaloDeAutoActualizacion =  20000;
+    // 10 segundos: 10000
+    // 30 segundos: 30000
+    // 5 minutos: 300000
+    // 15 minutos : 9000000
 }

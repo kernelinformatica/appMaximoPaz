@@ -20,7 +20,7 @@ import { UiService } from 'src/app/services/ui.service';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { Configuraciones } from 'src/configuraciones/configuraciones';
 import { MercadosService } from 'src/app/services/mercados-service';
-import { timer } from 'rxjs';
+import { Subscription, interval, timer } from 'rxjs';
 
 @Component({
   selector: 'app-resumen',
@@ -35,31 +35,32 @@ export class ResumenPage implements OnInit {
   public mostrarDetalleFichaRemitos = false;
   public mostrarDetalleFichaCombustibles = false; // Usado para ocultar el detalle de las cuentas
   public mostrarDetalleCereales = false;
-  public mostrarMercadoDisponible = false;  // Usado para ocultar el detalle disponible
+  public mostrarMercadoDisponible = false; // Usado para ocultar el detalle disponible
   public mostrarMercadoFuturo = false;
   public mostrarMercadoPizarra = false;
-  public mostrarNoticias= false;
+  public mostrarNoticias = false;
   public seccion!: string;
   public contieneRemitos: boolean | any;
   public contieneCombustibles: boolean | any;
   public contieneMercadoCereales: boolean | any;
   public saldoDeudorAcreedor: any | undefined;
   public importeEstadoSaldos: any | undefined;
-  public fechaCierre : string | undefined;
+  public fechaCierre: string | undefined;
   mensajes: Mensajes[] = JSON.parse(localStorage.getItem('mensajes') || '[]');
-  public mensajeEnviadoSn : string | undefined;
+  public mensajeEnviadoSn: string | undefined;
+  private apiCallSubscription: Subscription = new Subscription();
 
   data: any;
   resumen: any;
   empresa: any;
-    logo: any;
+  logo: any;
   funciones: Funciones = new Funciones(['']);
-  funcionesCliente : any;
+  funcionesCliente: any;
   private activatedRoute = inject(ActivatedRoute);
-  istodoCargado : any
+  istodoCargado: any;
   isMercadoDisponible: any;
-  isMercadoFuturo:any;
-  isMercadoPizarra:any;
+  isMercadoFuturo: any;
+  isMercadoPizarra: any;
   isPizarra: any;
   // verificar permisos
   isNoticias: any;
@@ -69,11 +70,11 @@ export class ResumenPage implements OnInit {
   public notificaciones: any;
   public ver: boolean = false;
   public numeroMensajes: any;
-  public mercadoDisponible : any;
+  public mercadoDisponible: any;
   public mercadoPizarra: any;
   public mercadoFuturo: any;
   public noticias: any;
-public intervalId : any;
+  public intervalId: any;
 
   constructor(
     public resumenService: ResumenService,
@@ -86,39 +87,36 @@ public intervalId : any;
     public mercadoFuturosService: MercadosService,
     public mercadosPizarraService: MercadosService,
 
-    private menuCtrl : MenuController
+    private menuCtrl: MenuController
   ) {}
 
   async ngOnInit() {
-
-
     // refresco la pagina por el cache
     this.menuCtrl.enable(true);
-    this.istodoCargado = false
+    this.istodoCargado = false;
     this.isMercadoDisponible = false;
     this.isMercadoFuturo = false;
     this.isPizarra = false;
     this.isMercadoPizarra = false;
-    this.mensajeEnviadoSn = "N";
+    this.mensajeEnviadoSn = 'N';
     this.isNoticias = false;
 
     this.controlCarga();
-    await this.uiService.presentLoading("Aguarde...");
+    await this.uiService.presentLoading('Aguarde...');
 
     this.seccion = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.resumenService.load().then(async (resp) => {
-
       this.data = resp;
 
       this.resumen = this.data.resumen;
       this.empresa = this.data.resumen.empresa;
-      this.istodoCargado = true
+      this.istodoCargado = true;
       this.funciones = new Funciones(this.data.funciones.listaFunciones);
-      this.funcionesCliente = this.data.funciones.listaFunciones
+      this.funcionesCliente = this.data.funciones.listaFunciones;
 
-     this.cargarDatos();
-     await this.loadingController.dismiss();
-     clearInterval(this.intervalId)
+      this.cargarDatos();
+      await this.loadingController.dismiss();
+      clearInterval(this.intervalId);
     });
     this.notificacionesService.ponerEnFalso();
     this.notificacionesService.checkPorVer().then(async (resp) => {
@@ -130,25 +128,20 @@ public intervalId : any;
       }
       this.numeroMensajes = this.data;
     });
-
-
-
-
   }
-  controlCarga(){
+  controlCarga() {
     let count = 0;
     // Si tiro algún que ingreso al catch, hago un intervalo de 10 segundos,
 
     this.intervalId = setInterval(() => {
       count++;
-      if (count == 10){
-        clearInterval(this.intervalId)
+      if (count == 10) {
+        clearInterval(this.intervalId);
         this.loadingController.dismiss();
-
 
         window.location.reload();
       }
-       console.log("ControlCarga() esperando --> "+count);
+      console.log('ControlCarga() esperando --> ' + count);
     }, 1000);
   }
   // End ngOnInit()
@@ -164,103 +157,141 @@ public intervalId : any;
   /**
    * Esta funcion se usa para cargar los datos restantes
    */
-public graboMensajes(id: any, msg : any){
-
-  const nuevoMensaje: Mensajes = { id: id, contenido:msg };
-  this.mensajes.push(nuevoMensaje);
-  localStorage.setItem('mensajes', JSON.stringify(this.mensajes));
-
-}
-
-
-deleteStorage() {
-  localStorage.removeItem('mensajes');
-}
-
-public verificaMensajeEnviado (mensaje:any){
-  const mensajesAlmacenados: Mensajes[] = JSON.parse(localStorage.getItem('mensajes') || '[]');
-
-  for (var i = 0, len = mensajesAlmacenados.length; i < len; i++){
-    if (mensaje == mensajesAlmacenados[i].contenido){
-        this.mensajeEnviadoSn = "S";
-    }else{
-      this.mensajeEnviadoSn = "N";
-      }
+  public graboMensajes(id: any, msg: any) {
+    const nuevoMensaje: Mensajes = { id: id, contenido: msg };
+    this.mensajes.push(nuevoMensaje);
+    localStorage.setItem('mensajes', JSON.stringify(this.mensajes));
   }
-}
 
-  public  cargarDatos() {
+  deleteStorage() {
+    localStorage.removeItem('mensajes');
+  }
 
+  public verificaMensajeEnviado(mensaje: any) {
+    const mensajesAlmacenados: Mensajes[] = JSON.parse(
+      localStorage.getItem('mensajes') || '[]'
+    );
 
-//this.graboMensajes(1, "HOLA MUNDO");
-//this.graboMensajes("2", "Este es el segundo mensaje")
+    for (var i = 0, len = mensajesAlmacenados.length; i < len; i++) {
+      if (mensaje == mensajesAlmacenados[i].contenido) {
+        this.mensajeEnviadoSn = 'S';
+      } else {
+        this.mensajeEnviadoSn = 'N';
+      }
+    }
+  }
+  public verificaSiHayNuevasNotificaciones() {
+    // traigo las notificaciones
 
+    this.notificacionesService.ponerEnFalso();
+    this.notificacionesService.checkPorVer().then(async (resp) => {
+      this.data = resp;
 
+      if (this.data > 0) {
+        this.ver = true;
+      } else {
+        this.ver = false;
+      }
 
+      if (this.data > this.numeroMensajes) {
+        let modalNotificaciones: HTMLElement = document.getElementById(
+          'open-custom-dialog'
+        ) as HTMLElement;
+        modalNotificaciones.click();
+      }
+      this.numeroMensajes = this.data;
+    });
+  }
+  ngOnDestroy(): void {
+    // Cuando el componente se destruye, desuscribirse
+    // alert("destruyo observable en modulo resumen !! MODULO PRINCIPAL")
+    this.apiCallSubscription.unsubscribe();
+  }
+  public cargarDatos() {
     // traigo las notificaciones
     this.notificacionesService.load().then((notificaciones) => {
       this.notificaciones = notificaciones;
+      if (this.notificaciones.length > this.numeroMensajes) {
+        let modalNotificaciones: HTMLElement = document.getElementById(
+          'open-custom-dialog'
+        ) as HTMLElement;
+        modalNotificaciones.click();
+      }
     });
+
+    /// observable que se ejecuta cada cierto tiempo para verificar si hay nuevas notificaciones
+
+    this.apiCallSubscription = interval(
+      Configuraciones.intervaloDeAutoActualizacion
+    ).subscribe(() => {
+      this.verificaSiHayNuevasNotificaciones();
+    });
+
     // traigo el mercado de cereales
-   // await this.uiService.presentLoading("Cargando mercados...");
+    // await this.uiService.presentLoading("Cargando mercados...");
     this.mercadoDisponibleService
-      .load(this.resumen.empresa.id, 'json', 'mercado-cereales', '1', this.resumen.empresa.coopeHash)
-      .then( (data: any) => {
-        if (data.control ==  1){
-          this.mercadoDisponible = data.mercadoCer
+      .load(
+        this.resumen.empresa.id,
+        'json',
+        'mercado-cereales',
+        '1',
+        this.resumen.empresa.coopeHash
+      )
+      .then((data: any) => {
+        if (data.control == 1) {
+          this.mercadoDisponible = data.mercadoCer;
 
-          this.fechaCierre = this.mercadoDisponible[0].cierre
-          if (this.mercadoDisponible == "" || this.mercadoDisponible == null){
-            this.isMercadoDisponible = false
-          }else{
-            this.isMercadoDisponible = true
-
+          this.fechaCierre = this.mercadoDisponible[0].cierre;
+          if (this.mercadoDisponible == '' || this.mercadoDisponible == null) {
+            this.isMercadoDisponible = false;
+          } else {
+            this.isMercadoDisponible = true;
           }
-        }else{
-            this.isMercadoDisponible = false
-            this.isMercadoFuturo = false;
+        } else {
+          this.isMercadoDisponible = false;
+
         }
-
-
-
       });
-   this.mercadoFuturosService
+    this.mercadoFuturosService
       .load(this.resumen.empresa.id, 'json', 'mercado-cereales', '2')
       .then(async (data: any) => {
-        this.mercadoFuturo = data.mercadoCer
-        if (this.mercadoFuturo.length > 0 ){
+        if (data.control == 1) {
+        this.mercadoFuturo = data.mercadoCer;
+        if (this.mercadoFuturo.length > 0) {
           this.isMercadoFuturo = true;
-        }else{
+        } else {
           this.isMercadoFuturo = false;
         }
+      }else{
+        this.isMercadoFuturo = false;
+
+      }
       });
 
-
-
-      this.mercadosPizarraService
-      .load(this.resumen.empresa.id, 'json', 'mercado-cereales', '3', this.resumen.empresa.coopeHash)
-      .then( (data: any) => {
-        if (data.control ==  1){
-          this.mercadoPizarra = data.mercadoCer
-          this.fechaCierre = this.mercadoPizarra[0].cierre ? this.mercadoPizarra[0].cierre  : new Date();
-         // let result = condition ? value1 : value2;
-          if (this.mercadoPizarra == "" || this.mercadoPizarra == null){
-            this.isMercadoPizarra = false
-          }else{
-            this.isMercadoPizarra = true
-
+    this.mercadosPizarraService
+      .load(
+        this.resumen.empresa.id,
+        'json',
+        'mercado-cereales',
+        '3',
+        this.resumen.empresa.coopeHash
+      )
+      .then((data: any) => {
+        if (data.control == 1) {
+          this.mercadoPizarra = data.mercadoCer;
+          this.fechaCierre = this.mercadoPizarra[0].cierre
+            ? this.mercadoPizarra[0].cierre
+            : new Date();
+          // let result = condition ? value1 : value2;
+          if (this.mercadoPizarra == '' || this.mercadoPizarra == null) {
+            this.isMercadoPizarra = false;
+          } else {
+            this.isMercadoPizarra = true;
           }
-        }else{
-            this.isMercadoPizarra = false
-
-
+        } else {
+          this.isMercadoPizarra = false;
         }
-
-
-
       });
-
-
 
     this.tieneCombustibles();
     this.tieneRemitos();
@@ -269,8 +300,6 @@ public verificaMensajeEnviado (mensaje:any){
     this.tieneNoticias();
     this.tieneOrdenesVenta();
     this.tienePedidosDeFondos();
-
-
   }
 
   ngAfterViewInit() {
@@ -317,31 +346,23 @@ public verificaMensajeEnviado (mensaje:any){
     }
   }
 
-
-
-
   /**
    * Este metodo se utiliza para mostrar/ocultar el detalle de cereales
    */
   public toggleDetalleCereales() {
-
     this.mostrarDetalleCereales = !this.mostrarDetalleCereales;
   }
   public toggleMercadoDisponible() {
-
     this.mostrarMercadoDisponible = !this.mostrarMercadoDisponible;
     //alert("ciick mercado disponible "+this.mostrarMercadoDisponible)
   }
   public toggleNoticias() {
-
     this.mostrarNoticias = !this.mostrarNoticias;
-
   }
   public toggleMercadoFuturo() {
     this.mostrarMercadoFuturo = !this.mostrarMercadoFuturo;
   }
   public toggleMercadoPizarra() {
-
     this.mostrarMercadoPizarra = !this.mostrarMercadoPizarra;
   }
   /**
@@ -378,10 +399,6 @@ public verificaMensajeEnviado (mensaje:any){
       }
   }
 
-
-
-
-
   public tieneCombustibles() {
     let element = this.resumen.fichaRemito;
     for (var i = 0, len = element.length; i < len; i++)
@@ -413,53 +430,45 @@ public verificaMensajeEnviado (mensaje:any){
         this.contieneMercadoCereales = false;
       }*/
   }
-  public tieneNoticias (){
+  public tieneNoticias() {
     let element = this.funcionesCliente;
 
-    for (var i = 0, len = element.length; i < len; i++){
-
-      if (this.funcionesCliente[i] == "noticias"){
+    for (var i = 0, len = element.length; i < len; i++) {
+      if (this.funcionesCliente[i] == 'noticias') {
         this.isNoticias = true;
       }
     }
-
   }
 
-
-  public irAPedidoDeDinero(){
-
+  public irANotificaciones() {
+    let dismm: HTMLElement = document.getElementById('bot') as HTMLElement;
+    dismm.click();
+    this.navController.navigateRoot('/notificaciones');
+  }
+  public irAPedidoDeDinero() {
     this.navController.navigateRoot('/pedidos-de-dinero/pedir-dinero');
-   }
-  public irAOrdenesDeVenta(){
-
+  }
+  public irAOrdenesDeVenta() {
     this.navController.navigateRoot('/ordenes-de-venta/ordenar');
-
   }
 
-  public tieneOrdenesVenta (){
+  public tieneOrdenesVenta() {
     let element = this.funcionesCliente;
 
-    for (var i = 0, len = element.length; i < len; i++){
-
-      if (this.funcionesCliente[i] == "ordenesDeVentaDeCereal"){
+    for (var i = 0, len = element.length; i < len; i++) {
+      if (this.funcionesCliente[i] == 'ordenesDeVentaDeCereal') {
         this.isOrdenesVentaCereal = true;
-
       }
     }
-
   }
-  public tienePedidosDeFondos (){
+  public tienePedidosDeFondos() {
     let element = this.funcionesCliente;
 
-    for (var i = 0, len = element.length; i < len; i++){
-
-      if (this.funcionesCliente[i] == "pedidoDeFondos"){
+    for (var i = 0, len = element.length; i < len; i++) {
+      if (this.funcionesCliente[i] == 'pedidoDeFondos') {
         this.isPedidosDeFondos = true;
-
-
       }
     }
-
   }
 
   public ctacteActualTapped(event: any, item: any) {
@@ -471,42 +480,38 @@ public verificaMensajeEnviado (mensaje:any){
   public linkMiCuenta() {
     this.navController.navigateRoot('/mi-cuenta');
   }
-  public linkMovCtaCte(){
+  public linkMovCtaCte() {
     this.navController.navigateRoot('/detalle-ctacte');
   }
   public getSaldoCtaCteActual(saldo: any) {
-
     if (saldo < 0) {
       // acreedor
       setTimeout(() => {
         this.saldoDeudorAcreedor = 'ACREEDOR';
         this.importeEstadoSaldos = 'headerImporteCtacteResaltadoNegativo';
       }, 1000);
-
     } else {
       setTimeout(() => {
-      // deudor
-      this.saldoDeudorAcreedor = 'DEUDOR';
-      this.importeEstadoSaldos = 'headerImporteCtacteResaltadoPositivo';
-    }, 1000);
+        // deudor
+        this.saldoDeudorAcreedor = 'DEUDOR';
+        this.importeEstadoSaldos = 'headerImporteCtacteResaltadoPositivo';
+      }, 1000);
     }
     return saldo;
   }
 
- public isMercadoCerealesCargado() : boolean {
+  public isMercadoCerealesCargado(): boolean {
     // Pregunto si ya se obtuvo una respuesta del serivicio
-    if (this.isMercadoDisponible == true){
+    if (this.isMercadoDisponible == true) {
       return true;
-    }else{
-      return false
+    } else {
+      return false;
     }
-
   }
 
-/*
+  /*
 notififaciones push
 
 
 */
-
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription, interval } from 'rxjs';
 import { Notificacion } from 'src/app/modelo/notificacion';
 import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { UiService } from 'src/app/services/ui.service';
+import { Configuraciones } from 'src/configuraciones/configuraciones';
 
 @Component({
   selector: 'app-notificaciones',
@@ -15,14 +17,23 @@ export class NotificacionesPage implements OnInit {
   tieneNotificaciones = false;
   numeroMensajes: number = 0;
   colorNoti: any;
-
+  apiCallSubscription: Subscription = new Subscription;
   constructor(public notificacionesService: NotificacionesService,
               private uiService: UiService) { }
 
   ngOnInit() {
     this.cargarNotificaciones();
-  }
 
+    this.apiCallSubscription = interval(Configuraciones.intervaloDeAutoActualizacion).subscribe(() => {
+      this.cargarNotificaciones();
+    });
+
+  }
+  ngOnDestroy(): void {
+
+    // Cuando el componente se destruye, desuscribirse
+    this.apiCallSubscription.unsubscribe();
+  }
   //spaghetti
   public borrarNotificacion(mensaje: Notificacion) {
 
@@ -69,12 +80,24 @@ export class NotificacionesPage implements OnInit {
       if (item.titulo == "Su orden está rechazado/a"){
         this.colorNoti = "color: white";
         return "danger";
+      }else if(item.titulo == "Su pedido está rechazado/a") {
+        this.colorNoti = "color: white";
+        return "danger";
       }else if (item.titulo == "Su orden está aprobado/a"){
         this.colorNoti = "color: black";
         return "success";
+      }else if (item.titulo == "Su pedido está aprobado/a"){
+        this.colorNoti = "color: black";
+        return "success";
+      }else if (item.titulo == "Su pedido está finalizado/a  por parte de la Administración"){
+        this.colorNoti = "color: #282828";
+        return "medium";
+      }else if (item.titulo == "Su orden está finalizado/a  por parte de la Administración"){
 
+        this.colorNoti = "color: #282828";
+        return "medium";
       }else{
-        this.colorNoti = "color: white";
+        this.colorNoti = "color: black";
         return "success";
       }
 
@@ -84,12 +107,23 @@ export class NotificacionesPage implements OnInit {
       if (item.titulo == "Su orden está rechazado/a"){
         this.colorNoti = "color: white";
         return "danger";
+      }else if(item.titulo == "Su pedido está rechazado/a") {
+        this.colorNoti = "color: white";
+        return "danger";
       }else if (item.titulo == "Su orden está aprobado/a"){
         this.colorNoti = "color: black";
         return "success";
-
+      }else if (item.titulo == "Su pedido está aprobado/a"){
+        this.colorNoti = "color: black";
+        return "success";
+      }else if (item.titulo == "Su pedido está finalizado/a  por parte de la Administración"){
+        this.colorNoti = "color: #282828";
+        return "medium";
+      }else if (item.titulo == "Su orden está finalizado/a  por parte de la Administración"){
+        this.colorNoti = "color: #282828";
+        return "medium";
       }else{
-        this.colorNoti = "color: white";
+        this.colorNoti = "color: black";
         return "success";
       }
 
@@ -130,6 +164,13 @@ export class NotificacionesPage implements OnInit {
         }
       }
     );
+
+/// observable que se ejecuta cada cierto tiempo para verificar si hay nuevas notificaciones
+
+
+
+
+
   }
 
   parseFecha(fecha: any) {
@@ -141,5 +182,9 @@ export class NotificacionesPage implements OnInit {
                             (fechaDate.getUTCFullYear().toString().substr(2, 2)) ;
     return fechaParseada;
   }
+
+
+
+
 
 }

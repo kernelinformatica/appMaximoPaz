@@ -4,7 +4,7 @@
 
     <ion-buttons slort="start">
       <ion-menu-button menu="menuPrincipal"></ion-menu-button>
-      <ion-title>Bienvenido !!!</ion-title>
+      <ion-title>BIENVENIDO !!! </ion-title>
 
       <app-header-component
         *ngIf="notificaciones"
@@ -19,6 +19,32 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="istodoCargado">
+  <ion-button id="open-custom-dialog" style="display: none;"   expand="block">Notificaciones nuevas</ion-button>
+
+  <ion-modal id="example-modal" #modal trigger="open-custom-dialog">
+    <ng-template>
+      <div class="wrapper">
+        <ion-list lines="none">
+          <ion-item button="true" detail="false" (click)="irANotificaciones()">
+
+
+            <ion-icon name="mail-unread-outline"></ion-icon>
+            <ion-label style="font-size: 13px;">Tienes notificaciones nuevas</ion-label>
+          </ion-item>
+          <ion-item id="bot" style="display:none" button="true" detail="false" (click)="modal.dismiss()"></ion-item>
+
+
+        </ion-list>
+      </div>
+    </ng-template>
+  </ion-modal>
+
+
+
+
+
+
+
 
   <ion-card color="light" >
     <ion-card-header>
